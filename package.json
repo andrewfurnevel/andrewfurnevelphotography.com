@@ -2,19 +2,21 @@
   "name": "development",
   "version": "1.0.0",
   "description": "Dev shite for Andrew Furnevel Photography",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "Nodemon": "nodemon server.js"
+    "Nodemon": "nodemon app.js"
   },
   "keywords": [],
   "author": "Andrew Furnevel",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.3",
     "lodash": "^4.17.21",
     "morgan": "^1.10.0",
+    "pg": "^8.7.3",
     "sequelize": "^6.17.0"
   },
   "devDependencies": {

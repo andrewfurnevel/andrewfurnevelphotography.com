@@ -1,3 +1,87 @@
-body {
-    background: #eee;
+/* Reset */
+* > *, ::before, ::after {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    box-sizing: border-box;  
 }
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/*  Variables */
+:root {
+    /*  Colors */
+    --primary-color: #555;
+    --primary-hover-color: #777;
+    /* Formatting */
+    --global-padding: 1.0rem;
+}
+
+/*  Utiliy Classes */
+.flex-column {
+    display: flex;
+    flex-direction: column;
+} 
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+/*  Typography */
+
+/* Global Styles */
+h1, h2, h3, h4 {
+   padding: 1.2rem; 
+   color: var(--primary-color);
+}
+
+.main-nav, .main-content, footer {
+    padding: var(--global-padding);
+}
+
+/*  Links */
+a {
+    color: var(--primary-color);
+}
+
+a:hover {
+    color: var(--primary-hover-color);
+}
+
+
+
+
+/* Content Specific Styles */
+main {
+    background: #ccc;
+    width: 100%;
+    min-height: 50vh;
+}
+
+/*  Navigation */
+.main-nav ul{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.main-nav li {
+    display: flex;
+    margin-left: 1rem;
+    justify-content: center;
+}
+
+.main-nav a {
+    font-size: .9rem;
+}
+
+.copyright {
+    font-size: .75rem;
+    color: #777;
+}
+
+/*  Media Queries */
