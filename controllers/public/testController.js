@@ -1,24 +1,43 @@
 'use strict';
 
 const express = require('express');
+const { getUser } = require('../../models/testModel');
 const config = require(`${process.env.PWD}/_config.js`);
-const DB = require(`${process.env.PWD}/classes/DB.js`);
-
-// This now works!
-console.log(`This is the pool from the DB class - ${DB.pool}`);
+const model = require(`${config.absPath.models}/testModelclass.js`);
 
 
 const test = (req, res) => {
-    const data = require(`${config.absPath.models}/testModel`);
 
+    let data = new model.Model();
+    // data.getUserById(2);
+    // data.retrieveData();
+    let result;
+    result = data.retrieveData().then(function(result){console.log(result.rows)
+    });
+    // (console.log(result));
+    // console.log(`sController: ${result}`);
+
+     // console.log(data.getUser());
+    // let title = data.getTitle();
+    // console.log(title);
+  
+
+    // let user = await data.getUser();
     
-    res.render('work', {title: 'Test Page'});
+
+    // console.log(`User Data: ${user}`);
+    
+    // console.log(data.testModel());
+    // console.log(`Data.getUser: ${data.getUser()}`);
+
+    // res.render('test', {title: `${data.getTitle()}`});
 
     // Get the page title from the model (database).
-    res.render('test', {title: `${data.getWorkTitle()}`});
+    // res.render('test', {title: `${data.getWorkTitle()}`});
+    res.render('test', {title: `Test Controller`});
 };
 
-const Pool = require('pg').Pool
+// const Pool = require('pg').Pool
 
 // Assign Environment Variables
 // const pool = new Pool({
@@ -29,22 +48,17 @@ const Pool = require('pg').Pool
 //     database: config.db.database
 // });
 
-DB.pool.query('SELECT * FROM users WHERE user_id = 2', (err, res) => {
-//   console.log(err, res)
-    if(err) {
-        throw err
-    }
-    let data = res.rows;
-    console.log(data);
+// DB.pool.query('SELECT * FROM users WHERE user_id = 2', (err, res) => {
+// //   console.log(err, res)
+//     if(err) {
+//         throw err
+//     }
+//     let data = res.rows;
+//     console.log(data);
 
-    DB.pool.end()
+//     DB.pool.end()
 
-})
+// })
 
 
 exports.test = test;
-
-
-
-// NOTE: This works! 
-// Need to now move the query to a testModel and return data back to controller then pass it to the view to display.

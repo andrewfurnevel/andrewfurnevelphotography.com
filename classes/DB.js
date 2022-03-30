@@ -5,10 +5,10 @@ const config = require(`${process.env.PWD}/_config.js`);
 class DB {
     constructor() {
         
-        const Pool2 = require('pg').Pool
+        const Pool = require('pg').Pool
 
         // Assign Environment Variables
-        const pool = new Pool2({
+        const pool = new Pool({
             host: config.db.host,
             port: config.db.port,
             user: config.db.username,
