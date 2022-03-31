@@ -11,25 +11,38 @@ class Model {
 
     }
 
-    async retrieveData() {
+    async getUserById(userId) {
+
+        try {
+            let result = await pool.query(`SELECT * FROM users WHERE user_id = ${userId}`);
+            // let result = await pool.query(`SELECT * FROM users WHERE user_id = 2`);
+            return result;
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+
+//     async getAllUsers() {
     
-        // try {
-            let queryRes = await pool.query(`SELECT * FROM users WHERE user_id = 2`);
+//         try {
+//             let result = await pool.query(`SELECT * FROM users`);
 
-            // console.log(
-            //     queryRes.rows[0].user_id,
-            //     queryRes.rows[0].user_name                 
-            // );
+//             // console.log(
+//             //     result.rows[0].user_id,
+//             //     result.rows[0].user_name                 
+//             // );
 
-            let result = queryRes.rows;
-            // console.log(result);
-            return queryRes;
+//             // console.log(result.rows);
+
+//             return result;
             
             
-        // } catch (error) {
-        //     console.error(error);
-        // }
-    } 
+//         } catch (error) {
+//             console.error(error);
+//         }
+//     } 
 
 }
 

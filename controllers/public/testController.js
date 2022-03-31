@@ -8,57 +8,65 @@ const model = require(`${config.absPath.models}/testModelclass.js`);
 
 const test = (req, res) => {
 
+    let resultsArr = {};
+    let userName = '';
+
     let data = new model.Model();
-    // data.getUserById(2);
-    // data.retrieveData();
-    let result;
-    result = data.retrieveData().then(function(result){console.log(result.rows)
-    });
-    // (console.log(result));
-    // console.log(`sController: ${result}`);
 
-     // console.log(data.getUser());
-    // let title = data.getTitle();
-    // console.log(title);
-  
+    // let result;
 
-    // let user = await data.getUser();
-    
+    let result = data.getUserById(2)
+        .then(function(result) {
+            console.log(result.rows);
+            res.render('test', {data: `${result.rows[0].user_name}`});
+        });
 
-    // console.log(`User Data: ${user}`);
-    
+    // result = data.getAllUsers() 
+    //     .then(function(result) {
+    //         console.log(result.rows);
+    //         // console.log(result.rows[0].user_name);
+
+    //         // res.render('test', {data: `${result.rows[0].user_name}`});
+    //         userName = result.rows[0].user_name;
+            
+    //         // This returns 9 when there are only eight keys. Now sure why?
+    //         let num = Object.keys(result).length;
+    //         console.log(num);
+    //         console.log(); // Spacer
+            
+    //         // resultsArr = result.rows[0];
+
+    //         // This returns the item for each row. 
+    //         result.rows.forEach(item => console.log(item.user_id));
+
+    //         // This returns the user_name for each row etc etc...
+    //         result.rows.forEach(item => console.log(item.user_name));
+           
+    //         // Not Working...
+    //         // for (const [key, value] of Object.entries(result.row)) {
+    //         //     console.log(`${key}: ${value}`);
+    //         // }
+
+    //         // Returns all columns (fields), both keys and values, from row [n]. What ever the row in [] is.
+    //         console.log(Object.entries(result.rows[2]));
+
+    //         // console.log(typeof(result.rows)); // returns object
+
+    //         // console.log(resultsArr[0].user_id)
+
+    //         res.render('test', {data: `${userName}`});            
+    //     });
+        
+        // console.log(`Username: ${userName}`);
+   
     // console.log(data.testModel());
     // console.log(`Data.getUser: ${data.getUser()}`);
 
-    // res.render('test', {title: `${data.getTitle()}`});
+   
 
     // Get the page title from the model (database).
     // res.render('test', {title: `${data.getWorkTitle()}`});
-    res.render('test', {title: `Test Controller`});
+    // res.render('test', {title: `${userName}`});
 };
-
-// const Pool = require('pg').Pool
-
-// Assign Environment Variables
-// const pool = new Pool({
-//     host: config.db.host,
-//     port: config.db.port,
-//     user: config.db.username,
-//     password: config.db.password,
-//     database: config.db.database
-// });
-
-// DB.pool.query('SELECT * FROM users WHERE user_id = 2', (err, res) => {
-// //   console.log(err, res)
-//     if(err) {
-//         throw err
-//     }
-//     let data = res.rows;
-//     console.log(data);
-
-//     DB.pool.end()
-
-// })
-
 
 exports.test = test;
