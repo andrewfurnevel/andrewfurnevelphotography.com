@@ -1,5 +1,6 @@
 'use strict';
 
+// Temp shortcut for console.log
 let cl = (arg) =>  {console.log(arg)};
 
 
@@ -9,7 +10,7 @@ const config = require(`${process.env.PWD}/_config.js`);
 
 const { pool } = require(`${process.env.PWD}/classes/database.js`);
 // cl(pool)
-class Model {
+class TestModel {
 
     constructor() {
 
@@ -32,7 +33,8 @@ class Model {
 
         try {
             let result = await pool.query(`SELECT * FROM users WHERE user_id = $1`, [userId])
-             return result;
+            console.log(result.rowCount); 
+            return result;
 
         } catch (error) {
             console.error(error);
@@ -50,14 +52,7 @@ class Model {
     
         try {
             let result = await pool.query(`SELECT * FROM users`);
-
-            // console.log(
-            //     result.rows[0].user_id,
-            //     result.rows[0].user_name                 
-            // );
-
-            // console.log(result.rows);
-
+            console.log(result.rowCount); 
             return result;
                        
         } catch (error) {
@@ -67,4 +62,6 @@ class Model {
 
 }
 
-exports.Model = Model;
+module.exports = {
+    TestModel
+}

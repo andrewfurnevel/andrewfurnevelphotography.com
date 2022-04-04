@@ -1,42 +1,58 @@
 'use strict';
 
-const express = require('express');
-// const router = express.Router();
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+// NOTE: Need to turn this into a class and the functions into class methods.
+// Put the database connection into the model contructor and into a parent moel class and 
+// create a child class that inherits from the parent class.
+// Could maybe do the same with the controllers classes. Child inherits Parent pattern.
+// Figure out a way to pass an error message back to the view if no users are found.
+// Change the result var to data and the data var to query
+// Change the function named 'test' to 'getUserById' or something more relevent.
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 const config = require(`${process.env.PWD}/_config.js`);
-const model = require(`${config.absPath.models}/testModelclass.js`);
+const TestModel = require(`${config.absPath.models}/testModelclass.js`);
 
 
 const test = async (req, res) => {
     const id = req.params.id;
     // const id = req.params.id;
  
-    console.log(id);
+    console.log(`ID: ${id}`);
 
-    
-    let data = new model.Model();
-
+    let data = new TestModel.TestModel();
     let result;
-
-
+    
     result = data.getUserById(id)
-        .then((result) => {
+    .then((result) => {
         console.log(result.rows);
         // res.render('test', {data: `${result.rows[0].user_name}`});
-                
+        
         res.render(`${config.absPath.views}/test`, {result});
-                
-        console.log('There seems to be a problem with your request!');
-                
+        
+        // console.log('There seems to be a problem with your getUserById request!');
+        
     });
+}  
+
+const getUsers = async (req, res) => {
     
-    // result = data.getAllUsers()
-    // .then((result) => {
-    //     try {
-    //         res.render(`${config.absPath.views}/test`, {result});
-    //     } catch {
-    //         console.log('There seems to be a problem with your request!');        
-    //     }
-    // });
+    let data = new TestModel.TestModel();
+    let result;
+    
+    console.log('getUsers was called!');
+    result = data.getAllUsers()
+    .then((result) => {
+        console.log(result.rows);
+        res.render(`${config.absPath.views}/get-users`, {result});
+ 
+        // console.log('There seems to be a problem with your request!');        
+
+    });
+}
+
 
     // There below work! Just uncomment!
     // Get Single User
@@ -80,5 +96,8 @@ const test = async (req, res) => {
     // Get the page title from the model (database).
     // res.render('test', {title: `${data.getWorkTitle()}`});
     // res.render('test', {title: `${userName}`});
-};
-module.exports = { test }
+
+module.exports = { 
+    test,
+    getUsers
+}

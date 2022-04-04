@@ -24,7 +24,7 @@ router.get('/', staticPageController.index);
 router.get('/home', staticPageController.index);
 
 // About Page
-router.get('/about', staticPageController.about)
+router.get('/about', staticPageController.about);
 
 // Work Page
 router.get('/work', workController.work);
@@ -32,7 +32,11 @@ router.get('/work', workController.work);
 // Contact page
 router.get('/contact', staticPageController.contact);
 
-// test Page with params
+// Get User By Id (:id)
 router.get('/test/:id', testController.test);
+
+// Get All Users - This does not work!!!
+router.get('/get-users', testController.getUsers);
+
 
 module.exports = router;
