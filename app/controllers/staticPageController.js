@@ -6,10 +6,8 @@ const config = require(`${process.env.PWD}/_config`);
 
 const index = (req, res) => {
     const data = require(`${config.absPath.models}/indexModel`);
-    // console.log(data.indexModel.title);
-    // console.log(data.getIndexTitle());
-    // console.log(getIndexTitle);
-     res.render('index', {title: `${data.getIndexTitle()}`});
+
+     res.render(`${config.absPath.views}/index`, {title: `${data.getIndexTitle()}`});
 };
 
 // const home = (req, res) => {
@@ -19,17 +17,17 @@ const index = (req, res) => {
 
 const about = (req, res) => {
     // console.log('Inside About');
-    res.render('about', {title: 'About Page'});
+    res.render(`${config.absPath.views}/about`, {title: 'About Page'});
 };
 
 const work = (req, res) => {
     // console.log('Inside Work');
-    res.render('work', {title: 'Work Page'});
+    res.render(`${config.absPath.views}/work`, {title: 'Work Page'});
 };
 
 const contact = (req, res) => {
     // console.log('Inside Contact');
-    res.render('contact', {title: 'Contact Page'});
+    res.render(`${config.absPath.views}/contact`, {title: 'Contact Page'});
 };
 
 

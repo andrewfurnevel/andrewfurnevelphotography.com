@@ -2,10 +2,12 @@
 
 const express = require('express');
 const router  = express.Router();
+const config = require(`${process.env.PWD}/_config.js`);
 
-const staticPageController = require('../controllers/public/staticPageController');
-const workController = require('../controllers/public/workController');
-const testController = require('../controllers/public/testController');
+const staticPageController = require(`${config.absPath.controllers}/staticPageController`);
+const workController = require(`${config.absPath.controllers}/workController`);
+const testController = require(`${config.absPath.controllers}/testController`);
+
 
 // router.use((req, res, next) => {
 //     console.log('New Request Made:');
@@ -30,12 +32,7 @@ router.get('/work', workController.work);
 // Contact page
 router.get('/contact', staticPageController.contact);
 
-// // Home Page - Default
-// router.get('/', (req, res) => {
-//     res.render('index', {title: 'Home'});
-// });
-
-
-router.get('/test', testController.test);
+// test Page with params
+router.get('/test/:id', testController.test);
 
 module.exports = router;

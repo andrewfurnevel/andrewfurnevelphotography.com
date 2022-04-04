@@ -1,0 +1,17 @@
+<%- include('./partials/head.ejs') %>
+
+<body>
+    <%- include('./partials/header.ejs') %>
+
+   <h1>Test Page</h1> 
+
+   <div><%= (result.rows[0].user_id) %></div>
+   <div><%= (result.rows[0].user_name) %></div>
+   <div><%= (result.rows[0].user_password) %></div>
+   <div><%= (result.rows[0].user_created) %></div>
+   <div><%= (result.rows[0].user_last_login) %></div>
+   <div><%= (result.rows[0].user_verified) %></div>
+   
+   <%- include('./partials/footer.ejs') %>
+</body>
+</html>

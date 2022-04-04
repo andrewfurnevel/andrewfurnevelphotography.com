@@ -1,27 +1,54 @@
 'use strict';
 
 const express = require('express');
-const { getUser } = require('../../models/testModel');
+// const router = express.Router();
 const config = require(`${process.env.PWD}/_config.js`);
 const model = require(`${config.absPath.models}/testModelclass.js`);
 
 
-const test = (req, res) => {
+const test = async (req, res) => {
+    const id = req.params.id;
+    // const id = req.params.id;
+ 
+    console.log(id);
 
-    let resultsArr = {};
-    let userName = '';
-
+    
     let data = new model.Model();
 
-    // let result;
+    let result;
 
-    let result = data.getUserById(2)
-        .then(function(result) {
-            console.log(result.rows);
-            res.render('test', {data: `${result.rows[0].user_name}`});
-        });
 
-    // result = data.getAllUsers() 
+    result = data.getUserById(id)
+        .then((result) => {
+        console.log(result.rows);
+        // res.render('test', {data: `${result.rows[0].user_name}`});
+                
+        res.render(`${config.absPath.views}/test`, {result});
+                
+        console.log('There seems to be a problem with your request!');
+                
+    });
+    
+    // result = data.getAllUsers()
+    // .then((result) => {
+    //     try {
+    //         res.render(`${config.absPath.views}/test`, {result});
+    //     } catch {
+    //         console.log('There seems to be a problem with your request!');        
+    //     }
+    // });
+
+    // There below work! Just uncomment!
+    // Get Single User
+    // let result = data.getUserById(2)
+    //     .then(function(result) {
+    //         console.log(result.rows);
+    //         res.render('test', {data: `${result.rows[0].user_name}`});
+    //     });
+
+    // This works - Just Uncomment   
+    // Get All Users
+    // let result = data.getAllUsers() 
     //     .then(function(result) {
     //         console.log(result.rows);
     //         // console.log(result.rows[0].user_name);
@@ -41,26 +68,12 @@ const test = (req, res) => {
 
     //         // This returns the user_name for each row etc etc...
     //         result.rows.forEach(item => console.log(item.user_name));
-           
-    //         // Not Working...
-    //         // for (const [key, value] of Object.entries(result.row)) {
-    //         //     console.log(`${key}: ${value}`);
-    //         // }
 
     //         // Returns all columns (fields), both keys and values, from row [n]. What ever the row in [] is.
     //         console.log(Object.entries(result.rows[2]));
 
-    //         // console.log(typeof(result.rows)); // returns object
-
-    //         // console.log(resultsArr[0].user_id)
-
     //         res.render('test', {data: `${userName}`});            
     //     });
-        
-        // console.log(`Username: ${userName}`);
-   
-    // console.log(data.testModel());
-    // console.log(`Data.getUser: ${data.getUser()}`);
 
    
 
@@ -68,5 +81,4 @@ const test = (req, res) => {
     // res.render('test', {title: `${data.getWorkTitle()}`});
     // res.render('test', {title: `${userName}`});
 };
-
-exports.test = test;
+module.exports = { test }

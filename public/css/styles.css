@@ -35,7 +35,7 @@ a {
 
 /* Global Styles */
 h1, h2, h3, h4 {
-   padding: 1.2rem; 
+   padding: 1.2rem 0; 
    color: var(--primary-color);
 }
 
@@ -46,20 +46,19 @@ h1, h2, h3, h4 {
 /*  Links */
 a {
     color: var(--primary-color);
+    transition: color .2s ease-in-out;
 }
 
 a:hover {
     color: var(--primary-hover-color);
 }
 
-
-
-
 /* Content Specific Styles */
 main {
     background: #ccc;
     width: 100%;
     min-height: 50vh;
+    padding: 1.2rem;
 }
 
 /*  Navigation */

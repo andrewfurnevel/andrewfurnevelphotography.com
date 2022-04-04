@@ -13,7 +13,7 @@ const work = (req, res) => {
     // Get the page title from the model (database).
 
     // console.log(data.getWorkTitle());
-    res.render('work', {title: `${data.getWorkTitle()}`});
+    res.render(`${config.absPath.views}/work`, {title: `${data.getWorkTitle()}`});
 };
 
 exports.work = work;

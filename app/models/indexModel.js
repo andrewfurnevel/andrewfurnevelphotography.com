@@ -14,7 +14,8 @@ function getIndexTitle() {
     return 'The title is Home Page!!!';
 }
 
-exports.getIndexTitle = getIndexTitle;
+module.exports = { getIndexTitle };
+// exports.getIndexTitle = getIndexTitle;
 
 
 
