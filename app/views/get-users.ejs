@@ -1,18 +1,20 @@
+
+
 <%- include('./partials/head.ejs') %>
 
 <body>
     <%- include('./partials/header.ejs') %>
 
-   <h1>Test Page</h1> 
+   <h1>Show All Users</h1> 
 
-    <% for(i=0; i < result.rowCount; i++ ) {%>
+    <% for(i=0; i < data.rowCount; i++ ) {%>
 
-   <div><%= (result.rows[i].user_id) %>         </div>
-   <div><%= (result.rows[i].user_name) %>       </div>
-   <div><%= (result.rows[i].user_password) %>   </div>
-   <div><%= (result.rows[i].user_created) %>    </div>
-   <div><%= (result.rows[i].user_last_login) %> </div>
-   <div><%= (result.rows[i].user_verified) %>   </div>
+   <div><%= (data.rows[i].user_id) %>         </div>
+   <div><%= (data.rows[i].user_name) %>       </div>
+   <div><%= (data.rows[i].user_password) %>   </div>
+   <div><%= (data.rows[i].user_created) %>    </div>
+   <div><%= (data.rows[i].user_last_login) %> </div>
+   <div><%= (data.rows[i].user_verified) %>   </div>
    <br>
    
    <% } %>

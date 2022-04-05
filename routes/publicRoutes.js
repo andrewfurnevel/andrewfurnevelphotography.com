@@ -33,7 +33,7 @@ router.get('/work', workController.work);
 router.get('/contact', staticPageController.contact);
 
 // Get User By Id (:id)
-router.get('/test/:id', testController.test);
+router.get('/get-user/:id', testController.getUserById);
 
 // Get All Users - This does not work!!!
 router.get('/get-users', testController.getUsers);
