@@ -11,6 +11,7 @@ const dbCredentials = {
     database: config.dbCredentials.database
 }
 class DB {
+    
     constructor() {
 
         this.Pool = require('pg').Pool;
@@ -27,6 +28,6 @@ class DB {
         return client; 
     }
 
-}
+} // End Class
 
 module.exports = { DB }

@@ -6,7 +6,7 @@ const config = require(`${process.env.PWD}/_config.js`);
 
 const staticPageController = require(`${config.absPath.controllers}/staticPageController`);
 const workController = require(`${config.absPath.controllers}/workController`);
-const testController = require(`${config.absPath.controllers}/testController`);
+const adminController = require(`${config.absPath.controllers}/adminController`);
 
 
 // router.use((req, res, next) => {
@@ -33,10 +33,10 @@ router.get('/work', workController.work);
 router.get('/contact', staticPageController.contact);
 
 // Get User By Id (:id)
-router.get('/get-user/:id', testController.getUserById);
+router.get('/get-user/:id', adminController.getUserById);
 
 // Get All Users - This does not work!!!
-router.get('/get-users', testController.getUsers);
+router.get('/get-users', adminController.getUsers);
 
 
 module.exports = router;

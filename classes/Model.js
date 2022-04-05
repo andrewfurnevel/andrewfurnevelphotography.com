@@ -1,8 +1,6 @@
 'use strict';
 
-
 // Imports
-
 const config = require(`${process.env.PWD}/_config.js`);
 const DB = require(`${process.env.PWD}/classes/DB.js`);
 
