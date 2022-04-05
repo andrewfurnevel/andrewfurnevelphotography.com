@@ -2,27 +2,31 @@
 
 const config = require(`${process.env.PWD}/_config.js`);
 
+// Needed to be efined outside of the class
+const dbCredentials = {
+    host: config.dbCredentials.host,
+    port: config.dbCredentials.port,
+    user: config.dbCredentials.username,
+    password: config.dbCredentials.password,
+    database: config.dbCredentials.database
+}
 class DB {
     constructor() {
-        
-        const {Pool, Client} = require('pg')
 
-        // Assign Environment Variables
-        const pool = new Pool({
-            host: config.db.host,
-            port: config.db.port,
-            user: config.db.username,
-            password: config.db.password,
-            database: config.db.database
-        });
+        this.Pool = require('pg').Pool;
+        this.Client = require('pg').Client;
+    }
 
+    pool() {
+        const pool = new this.Pool({ dbCredentials });     
         return pool;
     }
+
+    client() {
+        const client = new this.Client({ dbCredentials });       
+        return client; 
+    }
+
 }
 
-const db = new DB();
-
-module.exports = { 
-    pool,
-    client
-}
+module.exports = { DB }
