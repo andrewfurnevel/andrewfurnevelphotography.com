@@ -1,19 +1,28 @@
 // 'use strict';
 
 const express = require('express');
+const { About } = require('../app/controllers/aboutController');
+const { Contact } = require('../app/controllers/contactController');
 const { Home } = require('../app/controllers/homeController');
+const { Portfolio } = require('../app/controllers/portfolioController');
+
 const router  = express.Router();
 const config = require(`${process.env.PWD}/_config.js`);
 
-const staticPageController = require(`${config.absPath.controllers}/staticPageController`);
-const workController = require(`${config.absPath.controllers}/workController`);
+// const staticPageController = require(`${config.absPath.controllers}/staticPageController`);
+// const workController = require(`${config.absPath.controllers}/workController`);
 const adminController = require(`${config.absPath.controllers}/adminController`);
-const homeController = require(`${config.absPath.controllers}/homeController`);
 
-console.log(Home);
-home = new Home();
-console.log(home.index);
-// console.log(home.index());
+require(`${config.absPath.controllers}/homeController`);
+require(`${config.absPath.controllers}/aboutController`);
+require(`${config.absPath.controllers}/contactController`);
+require(`${config.absPath.controllers}/portfolioController`);
+
+const homeController = new Home();
+const aboutController = new About();
+const contactController = new Contact();
+const portfolioController = new Portfolio();
+
 
 // router.use((req, res, next) => {
 //     console.log('New Request Made:');
@@ -23,28 +32,32 @@ console.log(home.index);
 //     next();
 // });
 
-// Home Page - Default
-router.get('/', staticPageController.index);
 
-// Home Page - Home
-// router.get('/home', staticPageController.index);
+// PUBLIC ROUTES ------------------------------------------------------
+
+// Home '/', index, home - Default
+router.get('/', homeController.index);
+router.get('/index', homeController.index);
+router.get('/home', homeController.index);
 
 // About Page
-router.get('/about', staticPageController.about);
+router.get('/about', aboutController.index);
 
 // Work Page
-router.get('/work', workController.work);
+router.get('/work', portfolioController.index);
 
 // Contact page
-router.get('/contact', staticPageController.contact);
+router.get('/contact', contactController.index);
+
+
+// ADMIN ROUTES ------------------------------------------------------
 
 // Get User By Id (:id)
 router.get('/get-user/:id', adminController.getUserById);
 
-// Get All Users - This does not work!!!
+// Get All Users
 router.get('/get-users', adminController.getUsers);
 
-router.get('/home', home.index);
 
 
 module.exports = router;
