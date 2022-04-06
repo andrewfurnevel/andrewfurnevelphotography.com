@@ -3,7 +3,7 @@
 <body>
     <%- include('./partials/header.ejs') %>
 
-   <h1>Test Page</h1> 
+   <h1>Show User</h1> 
 
    <div><%= (data.rows[0].user_id) %></div>
    <div><%= (data.rows[0].user_name) %></div>
@@ -11,6 +11,8 @@
    <div><%= (data.rows[0].user_created) %></div>
    <div><%= (data.rows[0].user_last_login) %></div>
    <div><%= (data.rows[0].user_verified) %></div>
+
+   <div><%= (data2.Name) %></div>
    
    <%- include('./partials/footer.ejs') %>
 </body>

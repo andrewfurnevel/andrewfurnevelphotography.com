@@ -18,9 +18,13 @@ const getUserById = async (req, res) => {
     
     let data = userModel.getUserById(id)
     .then((data) => {
-        console.log(data.rows);
+        // console.log(data.rows);
+        // console.log(data);
+        // data.push = [("test" , "Blah")];
+        // data = Object.assign("test" , "Blah");
+        const data2 = {"Name" : "Andrew"};
         
-        res.render(`${config.absPath.views}/get-user`, {data});
+        res.render(`${config.absPath.views}/get-user`, {data, data2});
         
         // console.log('There seems to be a problem with your getUserById request!');
         
