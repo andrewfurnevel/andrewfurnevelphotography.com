@@ -1,27 +1,29 @@
 // 'use strict';
 
+// Imports
+const config = require(`${process.env.PWD}/_config.js`);
 const express = require('express');
+const router  = express.Router();
+
 const { About } = require('../app/controllers/aboutController');
 const { Contact } = require('../app/controllers/contactController');
 const { Home } = require('../app/controllers/homeController');
 const { Portfolio } = require('../app/controllers/portfolioController');
+const { Admin } = require('../app/controllers/adminController');
 
-const router  = express.Router();
-const config = require(`${process.env.PWD}/_config.js`);
+// const adminController = require(`${config.absPath.controllers}/adminController`);
 
-// const staticPageController = require(`${config.absPath.controllers}/staticPageController`);
-// const workController = require(`${config.absPath.controllers}/workController`);
-const adminController = require(`${config.absPath.controllers}/adminController`);
-
-require(`${config.absPath.controllers}/homeController`);
-require(`${config.absPath.controllers}/aboutController`);
-require(`${config.absPath.controllers}/contactController`);
-require(`${config.absPath.controllers}/portfolioController`);
+// require(`${config.absPath.controllers}/homeController`);
+// require(`${config.absPath.controllers}/aboutController`);
+// require(`${config.absPath.controllers}/contactController`);
+// require(`${config.absPath.controllers}/portfolioController`);
+// require(`${config.absPath.controllers}/adminController`);
 
 const homeController = new Home();
 const aboutController = new About();
 const contactController = new Contact();
 const portfolioController = new Portfolio();
+const adminController = new Admin();
 
 
 // router.use((req, res, next) => {
