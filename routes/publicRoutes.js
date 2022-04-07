@@ -9,21 +9,13 @@ const { About } = require('../app/controllers/aboutController');
 const { Contact } = require('../app/controllers/contactController');
 const { Home } = require('../app/controllers/homeController');
 const { Portfolio } = require('../app/controllers/portfolioController');
-const { Admin } = require('../app/controllers/adminController');
-
-// const adminController = require(`${config.absPath.controllers}/adminController`);
-
-// require(`${config.absPath.controllers}/homeController`);
-// require(`${config.absPath.controllers}/aboutController`);
-// require(`${config.absPath.controllers}/contactController`);
-// require(`${config.absPath.controllers}/portfolioController`);
-// require(`${config.absPath.controllers}/adminController`);
+// const { Admin } = require('../app/controllers/adminController');
 
 const homeController = new Home();
 const aboutController = new About();
 const contactController = new Contact();
 const portfolioController = new Portfolio();
-const adminController = new Admin();
+// const adminController = new Admin();
 
 
 // router.use((req, res, next) => {
@@ -52,13 +44,13 @@ router.get('/work', portfolioController.index);
 router.get('/contact', contactController.index);
 
 
-// ADMIN ROUTES ------------------------------------------------------
+// // ADMIN ROUTES ------------------------------------------------------
 
-// Get User By Id (:id)
-router.get('/get-user/:id', adminController.getUserById);
+// // Get User By Id (:id)
+// router.get('/get-user/:id', adminController.getUserById);
 
-// Get All Users
-router.get('/get-users', adminController.getUsers);
+// // Get All Users
+// router.get('/get-users', adminController.getUsers);
 
 
 
