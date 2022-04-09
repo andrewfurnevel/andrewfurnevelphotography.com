@@ -25,13 +25,18 @@ app.listen(3000, err => {
     console.log("Listening on port 3000");
 });
 
-// Used for POST and PUT requests    
-// app.use(express.urlencoded({extended: true}));
-
 // Static Files
 app.use(express.static('public'));
 
+
+
 // Routes
+
+// Handle Post Requests
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+
 app.use("/admin", adminRoutes);
 app.use("/", publicRoutes);
 

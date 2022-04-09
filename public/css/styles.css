@@ -1,5 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,500;1,300;1,400&family=Poppins:wght@100;400;700&display=swap');
+
 /* Reset */
 * > *, ::before, ::after {
+    font-family: Montserrat, Helvetica, sans-serif;
+    font-weight: 300;   
     margin: 0;
     padding: 0;
     list-style: none;
@@ -16,6 +20,7 @@ a {
     /*  Colors */
     --primary-color: #555;
     --primary-hover-color: #777;
+
     /* Formatting */
     --global-padding: 1.0rem;
 }
@@ -54,6 +59,8 @@ a:hover {
 }
 
 /* Content Specific Styles */
+
+
 main {
     background: #ccc;
     width: 100%;
@@ -61,7 +68,12 @@ main {
     padding: 1.2rem;
 }
 
-/*  Navigation */
+
+/*  Navigation */z
+.main-nav {
+    display: flex;
+}
+
 .main-nav ul{
     width: 100%;
     display: flex;
@@ -75,12 +87,67 @@ main {
 }
 
 .main-nav a {
-    font-size: .9rem;
+    font-size: .8rem;
 }
 
 .copyright {
-    font-size: .75rem;
+    font-size: .6rem;
     color: #777;
 }
 
-/*  Media Queries */
+/* Forms */
+.main-content {
+    height: 100%;
+    display: flex;
+    justify-items: center;
+    align-content: center;
+}
+
+form {
+    /* width: 300px; */
+    display: flex;
+    flex-direction: column;
+}
+
+legend {
+    margin-bottom: 20px;
+}
+
+label  {
+    font-size: .8rem;
+    margin-bottom: 8px;
+    color: var(--primary-color);
+}
+
+input {
+    margin-bottom: 15px;
+    padding: 0.4rem;
+    border: 0;
+    border-radius: 4px;
+}
+
+input[type=submit] {
+    color: #fff;
+    background-color: #777;
+    cursor: pointer;
+}
+
+input:nth-last-child(2) {
+    margin-bottom: 38px;
+}
+
+/*  Pages */
+
+/*  Register Page */
+
+.login-container {
+    width: 250px;
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 0.5rem;  
+}
+

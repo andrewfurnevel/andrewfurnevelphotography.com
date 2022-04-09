@@ -10,6 +10,18 @@ class Admin {
 
     }
 
+    login = async (req, res) => {
+
+        res.render(`${config.absPath.adminViews}/login`);
+
+    }    
+
+    register = async (req, res) => {
+
+        res.render(`${config.absPath.adminViews}/register`);
+
+    }
+
     getUserById = async (req, res) => {
         
         const id = req.params.id;

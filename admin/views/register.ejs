@@ -1,0 +1,38 @@
+
+<%- include('./partials/head.ejs') %>
+
+<body>
+    <%- include('./partials/header.ejs') %>
+    
+    <!-- <div class="main-content">  -->
+        
+        <!-- <h2>Login</h2> -->
+        <div class="login-container">
+
+            <form action="" method="POST">
+
+                <legend>Register</legend>
+
+                <label for="username" id="">Username</label>
+                <input type="text" name="username" id="username">
+                
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password">
+
+                <label for="password_confirm">Confirm Password</label>
+                <input type="password" name="password_confirm" id="password_confirm" class="last-input">
+                
+                <input type="submit" value="Register">
+                    
+            </form>
+
+            <div class="messages"><%= data[0] %></div>
+
+         </div>
+    <!-- </div> -->
+    
+        <%- include('./partials/footer.ejs') %>
+    
+    </body>
+
+    </html>
