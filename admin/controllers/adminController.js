@@ -18,7 +18,8 @@ class Admin {
 
     register = async (req, res) => {
 
-        res.render(`${config.absPath.adminViews}/register`);
+        let msg =[];
+        res.render(`${config.absPath.adminViews}/register`, {msg});
 
     }
 
@@ -31,7 +32,7 @@ class Admin {
             const data2 = {"Name" : "Andrew"};
 
             console.log(data.rows);
-            res.render(`${config.absPath.views}/get-user`, {data, data2});
+            res.render(`${config.absPath.adminViews}/get-user`, {data, data2});
             
         });
     }
@@ -42,7 +43,7 @@ class Admin {
         let data = userModel.getUsers()
         .then((data) => {
                 console.log(data.rows);
-                res.render(`${config.absPath.views}/get-users`, {data});
+                res.render(`${config.absPath.adminViews}/get-users`, {data});
     
             });
         }

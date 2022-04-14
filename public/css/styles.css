@@ -44,6 +44,11 @@ h1, h2, h3, h4 {
    color: var(--primary-color);
 }
 
+.messages-errors {
+    font-size: .8rem;;
+    color: red;
+}
+
 .main-nav, .main-content, footer {
     padding: var(--global-padding);
 }
@@ -96,12 +101,12 @@ main {
 }
 
 /* Forms */
-.main-content {
+/* .main-content {
     height: 100%;
     display: flex;
     justify-items: center;
     align-content: center;
-}
+} */
 
 form {
     /* width: 300px; */
@@ -146,8 +151,8 @@ input:nth-last-child(2) {
     display: flex;
     flex-direction: column;
     align-content: center;
-    justify-content: center;
+    /* justify-content: center; */
     margin: 0 auto;
-    padding: 0.5rem;  
+    padding: 2rem 0.5rem 0 0.5rem;    
 }
 
