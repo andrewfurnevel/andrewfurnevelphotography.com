@@ -1,0 +1,29 @@
+<%- include('./partials/head.ejs') %>
+
+<body>
+    <%- include('./partials/header.ejs') %>
+    
+    <!-- <div class="main-content">  -->
+        
+        <!-- <h2>Login</h2> -->
+        <div class="login-container">
+
+            <form action="" method="POST">
+                <legend>Login</legend>
+                <label for="username" id="">Username</label>
+                <input type="text" name="username" id="username">
+                
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" class="last-input">
+                
+                <input type="submit" value="Login">
+                    
+            </form>
+         </div>
+    <!-- </div> -->
+    
+        <%- include('./partials/footer.ejs') %>
+    
+    </body>
+
+    </html>

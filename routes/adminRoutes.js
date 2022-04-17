@@ -8,6 +8,10 @@ const { Authentication } = require('../admin/controllers/authenticationControlle
 const adminController = new Admin();
 const authenticationController = new Authentication();
 
+// Testing Purposes
+const { Test } = require('../admin/controllers/testController');
+const testController = new Test();
+
 
 // ADMIN ROUTES ------------------------------------------------------
 
@@ -15,11 +19,14 @@ router.post('/register', authenticationController.register);
 router.post('/login', authenticationController.checkLogin);
 router.post('/logout', authenticationController.logout);
 
+
 // Register Page
 router.get('/register', adminController.register);
 
-// Login Page
-router.get('/login', adminController.login);
+// Login Pagerouter.get('/login', adminController.login);
+
+
+router.get('/test', testController.test);
 
 // Logout Page
 // router.get('/logout', admimController.logout);

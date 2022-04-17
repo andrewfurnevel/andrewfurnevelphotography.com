@@ -16,7 +16,7 @@ class Authentication {
     register = async (req, res) => {
         const validation = new Validation();
 
-        const valRules = {"username" : "hasContent, minLength=8"};
+        const valRules = {"username" : "isEmpty, isMinLength=8"};
 
         validation.validate(req.body, valRules);
         // if (result.rowcount === 0) {

@@ -47,6 +47,19 @@ class Admin {
     
             });
         }
+
+
+    // This is a test to see if I can return the inserted ID to use in another query
+
+    test = async (req, res) => {
+        console.log('Hello from test method in Admin Contorller');
+        // let data = userModel.testReturnId()
+        // .then((data) => {
+        //         console.log(data.rows);
+        //     });
+    }    
+
+
     
     } // End Class
     
