@@ -41,6 +41,4 @@ router.get('/work', portfolioController.index);
 router.get('/contact', contactController.index);
 
 
-
-
 module.exports = router;

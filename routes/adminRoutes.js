@@ -11,13 +11,15 @@ const authenticationController = new Authentication();
 // Testing Purposes
 const { Test } = require('../admin/controllers/testController');
 const testController = new Test();
-
+// End Testing
 
 // ADMIN ROUTES ------------------------------------------------------
 
 router.post('/register', authenticationController.register);
 router.post('/login', authenticationController.checkLogin);
 router.post('/logout', authenticationController.logout);
+
+router.post('/test', testController.test);
 
 
 // Register Page
