@@ -11,9 +11,6 @@ class Validation {
         this.containsChars;
         this.validationErrors;
         this.rules = [];
-
-    
-
     }
 
     validate(formObj,valRules) {
@@ -36,12 +33,21 @@ class Validation {
         // console.table(this.rules);
     }
 
-
-
-
     run() {
         console.table(this.rules);
+        
+        console.log(this.rules[0][2][0]);
+        // let theString = 'testRun';
+        let theString = this.rules[0][2][0];
 
+        // console.log(theString);
+
+        // NOTE: I'm using eval() which is considered a bad idea and
+        // should be replaced with a safe alternative!!! But it works!!!!!
+        const validationMethod = String(theString);
+
+        eval(`this.${validationMethod}()`);
+ 
     }
 
     testRun() {
@@ -50,19 +56,19 @@ class Validation {
 
     required(val) {
         if (!val) {
-            errors.push = '(Required Entry';
-            console.log(errors);
+            validationErrors.push = '(Required Entry';
+            console.log(validationErrors);
         }
 
     }
     matches(val, match) {
         if (val_a !== val_b) {
-            error.push('Entries Do Not Match!')
+            validationErrors.push('Entries Do Not Match!')
         }
     }
     regex_match(val, match) {
         if (val) {
-            error.push();
+            validationErrors.push();
         }
     }
 
@@ -70,137 +76,137 @@ class Validation {
 
     is_unique(val) {
         if (!val) {
-            error.push();
+            validationErrors.push();
         }
     }
 
     minLength(val, min) {
         if (val.length < min) {
-            error.push(`Input Must be A Minimum of ${min} Characters`); 
+            validationErrors.push(`Input Must be A Minimum of ${min} Characters`); 
         }
     }
     maxLength(val, max) {
         if (val.length > max) {
-            error.push('Input Exceeds the Maximun Length!');
+            validationErrors.push('Input Exceeds the Maximun Length!');
         }
     }
 
     exact_length(val, len) {
         if (val.length !== len) {
-            error.push();
+            validationErrors.push();
         }
     }
 
     greater_than(val) {
         if (val) {
-            error.push();
+            validationErrors.push();
         }
     }
     great_than_equal_to(val) {
         if (val) {
-            error.push();
+            validationErrors.push();
         }
     }
 
     less_than(val) {
         if (val) {
-            error.push();
+            validationErrors.push();
         }
     }
 
     less_than_equal_to(val) {
         if (val) {
-            error.push();
+            validationErrors.push();
         }
     }
 
     in_list(val, arr){
         if (val) {
-            error.push();
+            validationErrors.push();
         }
     }
 
     alpha(val){
         if (val) {
-            error.push();
+            validationErrors.push();
         }
     }
 
     alpha_numeric(val){
         if (val) {
-            error.push();
+            validationErrors.push();
         }
     }
 
     alpha_numeric_spaces(val) {
         if (val) {
-            error.push();
+            validationErrors.push();
         }
     }
 
     alpha_dash(val){
         if (val) {
-            error.push();
+            validationErrors.push();
         }
     }
 
     numeric(val){
         if (val) {
-            error.push();
+            validationErrors.push();
         }
     }
 
     integer(val){
         if (val) {
-            error.push();
+            validationErrors.push();
         }
     }
 
     decimal(val){
         if (val) {
-            error.push();
+            validationErrors.push();
         }
     }
 
     is_natural(val){
         if (val) {
-            error.push();
+            validationErrors.push();
         }
     }
 
     is_natural_no_zero(val){
         if (val) {
-            error.push();
+            validationErrors.push();
         }
     }
 
     valid_url(val){
         if (val) {
-            error.push();
+            validationErrors.push();
         }
     }
 
     valid_email(val){
         if (val) {
-            error.push();
+            validationErrors.push();
         }
     }
 
     valid_emails(val){
         if (val) {
-            error.push();
+            validationErrors.push();
         }
     }
 
     valid_ip(val){
         if (val) {
-            error.push();
+            validationErrors.push();
         }
     }
 
     valid_base64(val){
         if (val) {
-            error.push();
+            validationErrors.push();
         }
     }
 
