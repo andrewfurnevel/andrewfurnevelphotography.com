@@ -24,10 +24,10 @@ class Test {
         // }
 
         // Set the Validation rules to the rules array in Validation Class
-        validation.setRules(['User Name', 'username',['testRun', 'minLength[5]', 'maxLength[25]']]);
-        validation.setRules(['Passsword', 'password',['required', 'minLength[8]']]);
-        validation.setRules(['Passsword Confermation', 'passwordConf',['required', 'matches[passoerd]']]);
-        validation.setRules(['Email', 'email',['required', 'isEmail']]);
+        validation.setRules(['User Name', 'username', req.body.username, ['required', 'minLength[5]', 'maxLength[25]']]);
+        validation.setRules(['Passsword', 'password', req.body.password, ['required', 'minLength[8]']]);
+        validation.setRules(['Confirm Password', 'passwordConf', req.body.password, ['required', 'matches[password]']]);
+        validation.setRules(['Email', 'email', req.body.password, ['required', 'isEmail']]);
 
         validation.run();
 
@@ -35,8 +35,15 @@ class Test {
         // Send the input request object to the Validation Class for processing
         // validation.validate(req.body, valRules);
 
-        console.log(req.body.username);
-        console.table(req.body);
+        // for (const key in req.body) {
+        //     console.log(`${key} : ${req.body[key]}`);
+        // }
+
+        const keys = Object.keys(req.body);
+        // console.log(keys);
+
+        // console.log(req.body.username);
+        // console.table(req.body);
 
         // console.losg(data.rows);
         // let data = testModel.validate()

@@ -24,6 +24,7 @@ class Validation {
 
     }
 
+
     setRules(rules) {
         this.rules.push(rules)
         // console.table(rules);
@@ -33,12 +34,60 @@ class Validation {
         // console.table(this.rules);
     }
 
+    checkForArgs(arg) {
+        var regex = /\[/g;
+        return regex.test(arg);
+    } 
+    
     run() {
-        console.table(this.rules);
+   
+        // try {
+        //     console.log(this.rules[3][2].length);
+        // }
+
+        // catch {
+        //     console.log('Wrong Number Of Parameters!');
+        //     console.log('Parameter Format Should Be: [label, name, req.body.name, [rules]]')
+        // }
+
+        // console.log(this.rules.length);
+        // console.log(this.rules)
+        // console.log(this.rules[0].length);
+        // console.log(this.rules[0][3].length);
+
+        for ( let i = 0; i < this.rules.length; i++) {
+            console.log(this.rules[i][2]);
+
+            for ( let j = 0; j < this.rules[i][3].length; j++) {
+                console.log(this.rules[i][3][j]);
+            }
+                
+                
+        } 
+
+        let currentRule = 'minLength[5]';
+
+        const containsArg = this.checkForArgs(currentRule);
+    
+        if (containsArg) {
+            console.log('Yes it has additional args!!!');
+            const newArr = currentRule.slice(0, -1).split('[');
+            console.table(newArr);
+        }    
+
+        // console.table(this.rules);
         
-        console.log(this.rules[0][2][0]);
-        // let theString = 'testRun';
-        let theString = this.rules[0][2][0];
+        // console.log(this.rules[0][3][0]);
+        // console.log(this.rules[3][2].length);
+
+    
+        // this.rules[0][3].forEach()
+
+
+
+
+
+        let theString = this.rules[0][3][0];
 
         // console.log(theString);
 
@@ -47,18 +96,23 @@ class Validation {
         const validationMethod = String(theString);
 
         eval(`this.${validationMethod}()`);
- 
+
+        // this.hasNumbers("kjhjl");
     }
+
+
 
     testRun() {
-        console.log('Test Run Ran!');
+        // console.log('Test Run Ran!');
     }
 
-    required(val) {
-        if (!val) {
-            validationErrors.push = '(Required Entry';
-            console.log(validationErrors);
-        }
+    required() {
+        // if (!val) {
+        //     validationErrors.push = '(Required Entry';
+        //     console.log(validationErrors);
+        // }
+
+        console.log('Required Method Called');
 
     }
     matches(val, match) {
