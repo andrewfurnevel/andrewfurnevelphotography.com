@@ -1,14 +1,8 @@
 'use strict';
 
 class Validation {
-    constructor(data) {
-        // console.log('Validation Class');
-        
-        // Validation Rules
-        // this.length;
-        // this.email;
-        // this.match;
-        // this.containsChars;
+    constructor(data) { 
+
         this.validationMethod;
         this.validationErrors;
 
@@ -54,19 +48,14 @@ class Validation {
         //     console.log('Parameter Format Should Be: [label, name, req.body.name, [rules]]')
         // }
 
-        // console.log(this.rules.length);
-        // console.log(this.rules)
-        // console.log(this.rules[0].length);
-        // console.log(this.rules[0][3].length);
+        console.table(this.rules);
 
-        for ( let i = 0; i < this.rules.length; i++) {
+        for ( let i = 0; i < this.rules.length; i++ ) {
 
             // Get User Input from form (req.body)
             this.input = this.rules[i][2];
-            // console.log(`User Input: ${this.input}`);
             
-            for ( let j = 0; j < this.rules[i][3].length; j++) { 
-                // console.log(`Current Rule: ${this.rules[i][3][j]}`);
+            for ( let j = 0; j < this.rules[i][3].length; j++ ) { 
 
                 // Set currentRule
                 this.currentRule = this.rules[i][3][j];
@@ -75,48 +64,46 @@ class Validation {
                 
                 // Rule contains additional arguments
                 if (containsArg) {
-                    console.log(); // Spacer
+
                     // Split string into method and arguments
-                    const argsArr = this.currentRule.slice(0, -1).split('[');
-                    // console.table(argsArr);
-                    // console.log(argsArr[0]);
-                    // console.log(argsArr[1]);
-                    console.log(); // Spacer
-                    // console.log(`Method: ${argsArr[0]} Args: ${argsArr[1]}`);
-                    eval(`this.${argsArr[0]}(${argsArr[1]}, '${this.input}' )`);
+                    const ruleWithArg = this.currentRule.slice(0, -1).split('[');
+
+                    // Method call with arguments (Example: minLength[5])
+                    eval(`this.${ruleWithArg[0]}
+                        (
+                            '${this.rules[i][0]}',
+                            '${this.rules[i][1]}',
+                            '${this.rules[i][2]}',
+                            '${ruleWithArg[1]}'
+                        )`);
                     
-                    // Rule has no additional arguments   
+                    console.log('');            
+                // Rule has no additional arguments   
                 }  else {
-                    console.log(); // Spacer
-                    // console.log(`Calling the ${this.currentRule} Method`);
-                    eval(`this.${this.currentRule}('${this.input}')`);
+                    
+                     // Method call with no arguments (Example: validEmail)
+                    eval(`this.${this.currentRule}
+                        (
+                            '${this.rules[i][0]}',
+                            '${this.rules[i][1]}',
+                            '${this.rules[i][2]}'
+                        )`);
                 }  
-            }             
+                console.log('');            
+            } 
         } 
-
-        // console.table(this.rules);
-        // console.log(this.rules[0][3][0]);
-        // console.log(this.rules[3][2].length);
-
-
-        // NOTE: I'm using eval() which is considered a bad idea and
-        // should be replaced with a safe alternative!!! But it works!!!!!
-        
-        
-        // let theString = this.rules[0][3][0];
-        // console.log(theString);
-        // const validationMethod = String(theString);
-        // eval(`this.${validationMethod}()`);
     }
 
+    // Validation Methods -------------------------------------------------------
 
-    required(input) {
+    required(legend, name, input) {
         // if (!val) {
         //     validationErrors.push = '(Required Entry';
         //     console.log(validationErrors);
         // }
 
-        console.log(`Required Method Called, Input: ${input}`);
+        console.log(`required Method Called`);
+        console.log(`Legend: ${legend}, Name: ${name}, Input: ${input}` )
 
     }
     matches(match, input) {
@@ -131,29 +118,41 @@ class Validation {
         console.log('regexMatch Method Called');
     }
 
-    minLength(min, input) {
+    minLength(legend, name, input, min) {
         // if (input.length < min) {
         //     validationErrors.push(`Input Must be A Minimum of ${min} Characters`); 
         // }
-        console.log(`minLength Method Called, Input: ${input}`);
-    }
-    maxLength(max, input) {
-        // if (input.length > max) {
-        //     validationErrors.push('Input Exceeds the Maximun Length!');
-        // }
-        console.log(`maxLength Method Called, Input: ${input}`);
+        console.log(`minLength Method Called`);
+        console.log(`Legend: ${legend}, Name: ${name}, Input: ${input}, Arg: ${min}` )
     }
 
+    maxLength(max, legend, name, input) {
+        // if (input.length > max) {
+            //     validationErrors.push('Input Exceeds the Maximun Length!');
+            // }
+            console.log(`maxLength Method Called`);
+            console.log(`Legend: ${legend}, Name: ${name}, Input: ${input}` )
+        }
+        
+    valid_email(legend, name, input){
+        if (input) {
+            //validationErrors.push();
+        }
+        console.log('validEmail Method Called');
+        console.log(`Legend: ${legend}, Name: ${name}, Input: ${input}` )
+    }
+    
+    alpha(legend, name, input){
+        if (input) {
+            // validationErrors.push();
+        }
+        console.log('alpha Method Called');
+        console.log(`Legend: ${legend}, Name: ${name}, Input: ${input}` )
+    }
     // ------------------------------------------------------------------------
     // Require, minLength & maxLength are receiving the right data. Error not yet set.
 
-    
-    valid_email(input){
-        if (input) {
-            validationErrors.push();
-        }
-        console.log('validEmail Method Called');
-    }
+
     
     valid_emails(inputArr){
         if (inputArr) {
@@ -167,12 +166,6 @@ class Validation {
 
     }
 
-    alpha(input){
-        if (input) {
-            validationErrors.push();
-        }
-        console.log('alpha Method Called');
-    }
 
     alpha_numeric(input){
         if (input) {

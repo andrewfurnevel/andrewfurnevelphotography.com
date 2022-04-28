@@ -5,7 +5,7 @@ const {ENVIRONMENT, HOST, PORT} = process.env;
 const BASEPATH =      process.env.PWD;
 
 const absPath = {
-    // BASEPATH:         BASEPATH,
+
     routes:           `${BASEPATH}/routes`,
     classes:          `${BASEPATH}/classes`,
 

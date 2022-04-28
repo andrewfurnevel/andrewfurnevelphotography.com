@@ -1,6 +1,7 @@
 'use strict';
 
-const config = require(`${process.env.PWD}/_config.js`);
+// const config = require(`${process.env.PWD}/_config.js`);
+const config = require(`../../_config.js`);
 const UserModel = require(`${config.absPath.models}/UserModel.js`);
 
 let userModel = new UserModel.UserModel();

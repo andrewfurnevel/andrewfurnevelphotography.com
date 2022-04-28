@@ -16,14 +16,11 @@ class Test {
 
         const setRules = [];
 
-        // const valRules = {
-        //     "username" : "required, minLength",
-        //     "password" : "required, matches"
-        // }
-
         // Set the Validation rules to the rules array in Validation Class
-        validation.setRules(['User Name', 'username', req.body.username, ['required', 'minLength[5]', 'maxLength[25]']]);
-        validation.setRules(['Passsword', 'password', req.body.password, ['required', 'minLength[8]']]);
+        validation.setRules(['User Name', 'username', req.body.username, ['required', 'valid_email', 'minLength[5]']]);
+        validation.setRules(['Passsword', 'password', req.body.password, ['required']]);
+        // validation.setRules(['User Name', 'username', req.body.username, ['required', 'minLength[5]', 'maxLength[25]']]);
+        // validation.setRules(['Passsword', 'password', req.body.password, ['required', 'minLength[8]']]);
         // validation.setRules(['Confirm Password', 'passwordConf', req.body.password, ['required', 'matches[password]']]);
         // validation.setRules(['Email', 'email', req.body.password, ['required', 'isEmail']]);
 
