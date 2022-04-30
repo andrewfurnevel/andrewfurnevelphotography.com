@@ -17,12 +17,11 @@ class Test {
         const setRules = [];
 
         // Set the Validation rules to the rules array in Validation Class
-        validation.setRules(['User Name', 'username', req.body.username, ['required', 'valid_email', 'minLength[5]']]);
+        validation.setRules(['User Name', 'username', req.body.username, ['required',  'alpha']]);
         validation.setRules(['Passsword', 'password', req.body.password, ['required']]);
-        // validation.setRules(['User Name', 'username', req.body.username, ['required', 'minLength[5]', 'maxLength[25]']]);
-        // validation.setRules(['Passsword', 'password', req.body.password, ['required', 'minLength[8]']]);
-        // validation.setRules(['Confirm Password', 'passwordConf', req.body.password, ['required', 'matches[password]']]);
-        // validation.setRules(['Email', 'email', req.body.password, ['required', 'isEmail']]);
+        validation.setRules(['Email', 'email', req.body.email, ['required', 'valid_email']]);
+        validation.setRules(['Telephone', 'telephone', req.body.telephone, ['required', 'numeric']]);
+        validation.setRules(['IP Address', 'ip_address', req.body.ip_address, ['required', 'valid_ip']]);
 
         validation.run();
 
