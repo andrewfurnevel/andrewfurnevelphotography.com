@@ -22,7 +22,7 @@ class Validation {
     // }
 
     // Change this to setRule
-    setRules(rules) {
+    setRule(rules) {
         this.rules.push(rules)
         // console.table(rules);
     }
@@ -92,260 +92,401 @@ class Validation {
                 console.log('');            
             } 
         } 
+        return this.validationErrors;
     }
 
     // Validation Methods -------------------------------------------------------
 
     required(legend, name, input) {
+
         if (input == undefined || input == "") {
             this.validationErrors.push(`${legend} Required`);
-            console.log(this.validationErrors);
-        }
 
-        console.log(`required Method Called`);
-        console.log(`Legend: ${legend}, Name: ${name}, Input: ${input}` )
-
-    }
-    matches(match, input) {
-        if (argA !== argB) {
-            this.validationErrors.push('Entries Do Not Match!')
+            return this.validationErrors;
         }
     }
+
+    // --------------------------------------------------------------------------
+    
+    matches(legend, name, input, arg) {
+
+        if (input !== arg) {
+            this.validationErrors.push(`${legend} Does Not Match ${arg}!`);
+
+            return this.validationErrors;
+        }
+        console.log(`matches Method Called`);
+    }
+    
+    // --------------------------------------------------------------------------
+    
     regex_match(regex, input) {
+        
         if (!regex.test(input)) {
             this.validationErrors.push(`${legend} is InValid`);
-            console.log(this.validationErrors);
+
+            return this.validationErrors;
         }
         console.log('regexMatch Method Called');
     }
+    
+    // --------------------------------------------------------------------------
 
     minLength(legend, name, input, minLength) {
+
         if (input.length < minLength) {
             this.validationErrors.push(`${legend} Must be at Least ${minLength} Characters`); 
-            console.log(this.validationErrors);
+
+            return this.validationErrors;      
         }
-        console.log(`minLength Method Called`);
-        console.log(`Legend: ${legend}, Name: ${name}, Input: ${input}, Arg: ${minLength}` )
     }
+
+    // --------------------------------------------------------------------------
+
 
     maxLength(legend, name, input, maxLength) {
+
         if (input.length > maxLength) {
             this.validationErrors.push(`${legend} Must be at Least ${maxLength} Characters`); 
-            console.log(this.validationErrors);
+
+            return this.validationErrors;
             }
-            console.log(`maxLength Method Called`);
-            console.log(`Legend: ${legend}, Name: ${name}, Input: ${input}` )
         }
+
         
-    valid_email(legend, name, input){
-        const regex = /[a-zA-Z0-9_+.-]+@{a-zA-z0-9-]+\.[a-zA-Z0-9-.]+/;
-        if (!regex.test(input)) {
-            this.validationErrors.push(`${legend} is Not a Valid Email Address!`); 
-            console.log(this.validationErrors);
-        }
-        console.log('validEmail Method Called');
-        console.log(`Legend: ${legend}, Name: ${name}, Input: ${input}` )
-    }
+    // --------------------------------------------------------------------------
     
     alpha(legend, name, input){
-        const regex = /[a-zA-Z]/;
+        
+        const regex = /^[a-zA-Z]+$/;
+        
         if (!regex.test(input)) {
             this.validationErrors.push(`${legend} Can Only Contain Alpha Characters`);
-            console.log(this.validationErrors);
+            
+            return this.validationErrors;
         }
-        console.log('alpha Method Called');
-        console.log(`Legend: ${legend}, Name: ${name}, Input: ${input}` )
     }
-
+    
+    // --------------------------------------------------------------------------
+    
     numeric(legend, name, input){
-        const regex =/[0-9]/;
+        
+        const regex =/^[0-9]+$/;
+        
         if (!regex.test(input)) {
             this.validationErrors.push(`${legend} Can Only Contain Numeric Characters`);
-            console.log(this.validationErrors);
+            
+            return this.validationErrors;
         }
-        console.log('numeric Method Called');
-        console.log(`Legend: ${legend}, Name: ${name}, Input: ${input}` )
     }
-    // ------------------------------------------------------------------------
-
     
+    // --------------------------------------------------------------------------
+    
+    valid_email(legend, name, input){
+
+        const regex = /[a-zA-Z0-9_+.-]+@[a-zA-z0-9-]+\.[a-zA-Z0-9-.]+/;
+
+        if (!regex.test(input)) {
+            this.validationErrors.push(`${legend} is Not a Valid Email Address!`); 
+
+            return this.validationErrors;
+        }
+    }
+    
+    // ------------------------------------------------------------------------ 
+    // Still to do!!!    
     valid_emails(inputArr){
         // Need to reate loop to loop through emails and validation each one.
         const regex = /[a-zA-Z0-9_+.-]+@{a-zA-z0-9-]+\.[a-zA-Z0-9-.]+/;
+        
         if (!regex.test(input)) {
             this.validationErrors.push(`${legend} is Not a Valid Email Address!`); 
-            console.log(this.validationErrors);
+            
+            return this.validationErrors;
         }
         console.log('validEmails Method Called');
+    } 
+
+    // --------------------------------------------------------------------------
+    // Invalid Regular Expression
+    allowable_chars(input, chars) {
+
+        const regex = /[a-zA-Z0-9.!@#$%^&*_-+=(){}]+/;
+
+        if (!regex.test(input)) {
+            this.validationErrors.push( );
+
+            return this.validationErrors;
+        }
+        console.log('allowable_chars Method Called');
+    }
+
+    // --------------------------------------------------------------------------
+    // Invalid Regular Expression
+    custom_chars(input, chars) {
+
+        const regex = /^[a-zA-Z0-9.!@#$%^&*(){}\[\]]+$/;
+
+        if (!regex.test(input)) {
+            this.validationErrors.push( );
+
+            return this.validationErrors;
+        }
+        console.log('custom_chars Method Called');
     }
     
-    allowableChars(input, chars) {
-        const regex = /[a-zA-Z0-9.!@#$%^&*(){}\[\]]+/;
-        if (!regex,test(input)) {
-            this.validationErrors.push( );
-        }
-        console.log('allowableChars Method Called');
-
-    }
-
-
-    alpha_numeric(input){
+    // --------------------------------------------------------------------------
+    
+    alpha_numeric(legend, name, input){
+        
         const regex = /\w/;
+
         if (!regex.test(input)) {
             this.validationErrors.push(`${legend} Can Only Contain Alpha Numeric Characters`);
-        }   console.log(this.validationErrors);
-        console.log('alphaNumeric Method Called');
+
+            return this.validationErrors;
+        }   
     }
 
-    alpha_numeric_spaces(input) {
+    // --------------------------------------------------------------------------
+
+    alpha_numeric_spaces(legend, name, input) {
+
         const regex = /[a-zA-A0-9\s]+/;
+
         if (!regex.test(input)) {
             this.validationErrors.push(`${legend}: Only Alph Numberic Characters and Spaces are Allowed`);
-            console.log(validationErrors);
+
+            return this.validationErrors;
         }
-        console.log('alphaNUmericSpaces Method Called');
     }
+
+    // --------------------------------------------------------------------------
     
-    alpha_dash(input){
+    alpha_dashes(legend, name, input){
+
         const regex = /[a-zA-Z0-9-]+/;
+
         if (!regex.test(input)) {
             this.validationErrors.push(`${Legend}: Only Alpha Numeric Characters and Dashes Are Allowed`);
-            console.log(validationErrors);
+
+            return this.validationErrors;
         }
-        console.log('alphaDash Method Called');
     }
-    
-    
-    alpha_numeric_dashes_underscores(input) {
+
+    // --------------------------------------------------------------------------
+    // Invalid Regular Expression
+    alpha_numeric_dashes_underscores(legend, name, input) {
+
         const regex = /[z-aA-Z0-9-_]+/;
+
         if (!regex,test(input)) {
             this.validationErrors.push();
-            console.log(validationErrors);
-        }
 
+            return this.validationErrors;
+        }
+        console.log('alpha_numeric_dashes_underscores Method Called');
     }
 
-    integer(input){
-        const regex = /[0-9.]+/;
+    // --------------------------------------------------------------------------
+    
+    integer(legend, name, input){
+
+        const regex = /^[0-9]+$/;
+
         if (!regex.test(input)) {
             this.validationErrors.push(`${legend} Must Be An Integer`);
-            console.log(validationErrors);
+
+            return this.validationErrors;
         }
-        console.log('integer Method Called');
     }
-    
-    decimal(input){
-        const regex = /[0-9.]/;
-        if (input) {
-            this.validationErrors.push();
+
+    // --------------------------------------------------------------------------
+    // Wrong Regex
+    decimal(legend, name, input){
+
+        const regex = /^.[0-9]+$/;
+
+        if (!regex.test(input)) {
+            this.validationErrors.push(`${legend} Must Be A Decimal Number`);
+
+            return this.validationErrors;
         }
         console.log('decimal Method Called');
     }
+
+    // --------------------------------------------------------------------------
     
-    is_natural(input){
-        const regex = / /;
-        if (input) {
-            this.validationErrors.push();
+    is_natural(legend, name, input){
+
+        const regex = /^[0-9]+$/;
+        
+        if (!regex.test(input)) {
+            this.validationErrors.push(`${legend} Must Be A Natural Number`);
+
+            return this.validationErrors;
         }
-        console.log('isNatural Method Called');
     }
 
-    is_natural_no_zero(input){
-        const regex = / /;
-        if (input) {
-            this.validationErrors.push();
+    // --------------------------------------------------------------------------
+    // Wrong Regex
+    is_natural_no_zero(legend, name, input){
+
+        const regex = /[1-9]+/;
+
+        if (!regex.test(input)) {
+            this.validationErrors.push(`${legend} Must Be A Natural Number With No Zeros`);
+            
+            return this.validationErrors;
         }
-        console.log('isNaturalNoZero Method Called');
     }
-    
-    valid_url(input){ 
-        const regex = / /;
-        if (input) {
-            this.validationErrors.push();
+
+    // --------------------------------------------------------------------------
+    // Wrong Regex
+    valid_url(legend, name, input){ 
+
+        const regex = /((http|https):\/\/)(www.)? /;
+
+        if (!regex.test(input)) {
+            this.validationErrors.push(`${legend} Is Not A Valid URL`);
+            
+            return this.validationErrors;
         }
         console.log('validURL Method Called');
     }
+    
+    // --------------------------------------------------------------------------
+    // Still To Do
+    differs(legend, name, input, arg) {
 
-    differs(input, match) {
-        const regex = / /;
-    }
+        if (input !== arg) {
+            this.validationErrors.push(`${legend} Differs From ${arg}`);
 
-    unique(input) { 
-        if (!input) {
-            this.validationErrors.push();
+            return this.validationErrors;
         }
-        console.log('isUnique Method Called');
+        console.log('unique Method Called');   
     }
 
+    // --------------------------------------------------------------------------
+    // Still To Do
+    unique(legend, name, input) { 
 
-    exact_length(input, len) {
+        // Need to add a ccallback to check input against database entries.
+        if (!input) {
+            this.validationErrors.push(`${legend} Has Already Been Taken. Please Choose Another ${legend}`);
+
+            return this.validationErrors;
+        }
+        console.log('unique Method Called');
+    }
+
+    // --------------------------------------------------------------------------
+
+    exact_length(legend, name, input, arg) {
+
         if (input.length !== len) {
-            this.validationErrors.push();
-            console.log(validationErrors);
+            this.validationErrors.push(`${legend} Must Be Of Length ${arg}`);
+
+            return this.validationErrors;
         }
         console.log('exactLength Method Called');
     }
 
-    greater_than(input, arg) {
+    // --------------------------------------------------------------------------
+
+    greater_than(legend, name, input, arg) {
+
         const regex = / /;
-        if (input) {
-            this.validationErrors.push();
-            console.log(validationErrors);
+
+        if (input < arg ) {
+            this.validationErrors.push(`${legend} Must Be Great Than ${arg}`);
+            
+            return this.validationErrors;
         }
         console.log('greaterThan Method Called');
     }
 
-    great_than_equal_to(input, arg) {
-        const regex = / /;
-        if (input) {
-            this.validationErrors.push();
+    // --------------------------------------------------------------------------
+
+    great_than_equal_to(legend, name, input, arg) {
+
+        if (input <= arg ) {
+            this.validationErrors.push(`${legend} Must Be Great Than Or Equal To ${arg}`);
+            
+            return this.validationErrors;
         }
         console.log('greaThanEqualTo Method Called');
     }
 
-    less_than(input, arg) {
-        const regex = / /;
-        if (input) {
-            this.validationErrors.push();
+    // --------------------------------------------------------------------------
+
+    less_than(legend, name, input, arg) {
+
+        if (input > arg ) {
+            this.validationErrors.push(`${legend} Must Be Less Than ${arg}`);
+            
+            return this.validationErrors;
         }
         console.log('lessThan Method Called');
     }
 
-    less_than_equal_to(input, arg) {
-        const regex = / /;
-        if (input) {
-            this.validationErrors.push();
+    // --------------------------------------------------------------------------
+
+    less_than_equal_to(legend, name, input, arg) {
+
+        if (input >= arg ) {
+            this.validationErrors.push(`${legend} Must Be Less Than Or Equal To ${arg}`);
+            
+            return this.validationErrors;
         }
         console.log('lessThanEqualTo Method Called');
     }
 
-    in_list(input, arr){
+    // --------------------------------------------------------------------------
+    // Requires Callback to Database
+    in_list(legend, name, input, arr){
+
         const regex = / /;
+
         if (input) {
-            this.validationErrors.push();
+            this.validationErrors.push(`${legend }Must Be In The List`);
+            
+            return this.validationErrors;
         }
         console.log('inList Method Called');
     }
 
+    // --------------------------------------------------------------------------
+
     valid_ip(legend, name, input){
+
         const regex = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+
         if (!regex.test(input)) {
-            this.validationErrors.push(`${legned} is Not a Valid IP Address`);
-            consoleloh(validationErrors);
+            this.validationErrors.push(`${legend} is Not a Valid IP Address`);
+           
+            return this.validationErrors;
         }
         console.log('valid_ip Method Called');
-        console.log(`Legend: ${legend}, Name: ${name}, Input: ${input}` )
     }
 
-    valid_base64(input){
+    // --------------------------------------------------------------------------
+
+    valid_base64(legend, name, input){
+
         const regex = /^([A-Za-z0-9+/]{4})*/;
+
         if (!regex.test(input)) {
             this.validationErrors.push(`${legend} is Not Valid Base 64`);
-            console.log(validationErrors);
+            
+            return this.validationErrors;
         }
         console.log('validBase64 Method Called');
     }
 
+    // --------------------------------------------------------------------------
+  
+   
 
 } // End Class
 
