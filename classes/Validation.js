@@ -11,15 +11,7 @@ class Validation {
         this.currentRule;
     }
 
-    // validate(formObj,valRules) {
-    //     console.log(formObj, valRules);
-    //     for (const input in formObj) {
-    //         console.log(`${input} : ${formObj[input]}`);
-    //         for (const rule in valRules) {
-    //             console.log(`${rule} : ${valRules[rule]}`)
-    //         }
-    //     }
-    // }
+
 
     // Change this to setRule
     setRule(rules) {
@@ -120,7 +112,7 @@ class Validation {
     
     // --------------------------------------------------------------------------
     
-    regex_match(regex, input) {
+    regex_match(legend, name, input, regex) {
         
         if (!regex.test(input)) {
             this.validationErrors.push(`${legend} is InValid`);
@@ -143,7 +135,6 @@ class Validation {
 
     // --------------------------------------------------------------------------
 
-
     maxLength(legend, name, input, maxLength) {
 
         if (input.length > maxLength) {
@@ -152,13 +143,12 @@ class Validation {
             return this.validationErrors;
             }
         }
-
-        
+   
     // --------------------------------------------------------------------------
     
     alpha(legend, name, input){
         
-        const regex = /^[a-zA-Z]+$/;
+        const regex = /^[a-z]+$/i;
         
         if (!regex.test(input)) {
             this.validationErrors.push(`${legend} Can Only Contain Alpha Characters`);
@@ -181,6 +171,110 @@ class Validation {
     }
     
     // --------------------------------------------------------------------------
+
+    alpha_numeric(legend, name, input){
+        
+        const regex = /^[a-z0-9]+$/i;
+
+        if (!regex.test(input)) {
+            this.validationErrors.push(`${legend} Can Only Contain Alpha Numeric Characters`);
+
+            return this.validationErrors;
+        }   
+    }
+
+    // --------------------------------------------------------------------------
+
+    alpha_numeric_spaces(legend, name, input) {
+
+        const regex = /^[a-z0-9\s]+$/i;
+
+        if (!regex.test(input)) {
+            this.validationErrors.push(`${legend}: Only Alph Numberic Characters and Spaces are Allowed`);
+
+            return this.validationErrors;
+        }
+    }
+    
+    // --------------------------------------------------------------------------
+    
+    alpha_numeric_dashes(legend, name, input){
+        
+        const regex = /^[a-zA-Z0-9-]+$/i;
+        
+        if (!regex.test(input)) {
+            this.validationErrors.push(`${legend}: Only Alpha Numeric Characters and Dashes are Allowed`);
+            
+            return this.validationErrors;
+        }
+    }
+    
+    // --------------------------------------------------------------------------
+    
+    alpha_numeric_dashes_underscores(legend, name, input) {
+        
+        const regex = /^[a-zA-Z0-9_-]+$/i;
+        
+        if (!regex.test(input)) {
+            this.validationErrors.push(`${legend}: Only Alpha Numeric Characters, Underscores and Dashes are Allowed`);
+            
+            return this.validationErrors;
+        }
+    }
+    
+    // --------------------------------------------------------------------------
+    
+    integer(legend, name, input){
+        
+        const regex = /^[0-9]+$/;
+        
+        if (!regex.test(input)) {
+            this.validationErrors.push(`${legend} Must Be An Integer`);
+            
+            return this.validationErrors;
+        }
+    }
+    
+    // --------------------------------------------------------------------------
+    
+    decimal(legend, name, input){
+        
+        const regex = /\d+\.?\d*/;
+        
+        if (!regex.test(input)) {
+            this.validationErrors.push(`${legend} Must Be A Decimal Number`);
+            
+            return this.validationErrors;
+        }
+    }
+    
+    // --------------------------------------------------------------------------
+    
+    is_natural(legend, name, input){
+        
+        const regex = /^[0-9]+$/;
+        
+        if (!regex.test(input)) {
+            this.validationErrors.push(`${legend} Must Be A Natural Number`);
+            
+            return this.validationErrors;
+        }
+    }
+    
+    // --------------------------------------------------------------------------
+   
+    is_natural_no_zero(legend, name, input){
+        
+        const regex = /^[1-9]+$/;
+        
+        if (!regex.test(input)) {
+            this.validationErrors.push(`${legend} Must Be A Natural Number With No Zeros`);
+            
+            return this.validationErrors;
+        }
+    }
+    
+    // --------------------------------------------------------------------------
     
     valid_email(legend, name, input){
 
@@ -192,7 +286,7 @@ class Validation {
             return this.validationErrors;
         }
     }
-    
+
     // ------------------------------------------------------------------------ 
     // Still to do!!!    
     valid_emails(inputArr){
@@ -208,135 +302,14 @@ class Validation {
     } 
 
     // --------------------------------------------------------------------------
-    // Invalid Regular Expression
-    allowable_chars(input, chars) {
 
-        const regex = /[a-zA-Z0-9.!@#$%^&*_-+=(){}]+/;
+    special_chars(legend, name, input) {
 
-        if (!regex.test(input)) {
-            this.validationErrors.push( );
-
-            return this.validationErrors;
-        }
-        console.log('allowable_chars Method Called');
-    }
-
-    // --------------------------------------------------------------------------
-    // Invalid Regular Expression
-    custom_chars(input, chars) {
-
-        const regex = /^[a-zA-Z0-9.!@#$%^&*(){}\[\]]+$/;
+        const regex = /[@!#$%^&*()_?{}\+-\w]/;
 
         if (!regex.test(input)) {
-            this.validationErrors.push( );
+            this.validationErrors.push(`${legend} Can Only Contain Alpha Numeric and @!#$%^&*()_?{}\+- Characters`);
 
-            return this.validationErrors;
-        }
-        console.log('custom_chars Method Called');
-    }
-    
-    // --------------------------------------------------------------------------
-    
-    alpha_numeric(legend, name, input){
-        
-        const regex = /\w/;
-
-        if (!regex.test(input)) {
-            this.validationErrors.push(`${legend} Can Only Contain Alpha Numeric Characters`);
-
-            return this.validationErrors;
-        }   
-    }
-
-    // --------------------------------------------------------------------------
-
-    alpha_numeric_spaces(legend, name, input) {
-
-        const regex = /[a-zA-A0-9\s]+/;
-
-        if (!regex.test(input)) {
-            this.validationErrors.push(`${legend}: Only Alph Numberic Characters and Spaces are Allowed`);
-
-            return this.validationErrors;
-        }
-    }
-
-    // --------------------------------------------------------------------------
-    
-    alpha_dashes(legend, name, input){
-
-        const regex = /[a-zA-Z0-9-]+/;
-
-        if (!regex.test(input)) {
-            this.validationErrors.push(`${Legend}: Only Alpha Numeric Characters and Dashes Are Allowed`);
-
-            return this.validationErrors;
-        }
-    }
-
-    // --------------------------------------------------------------------------
-    // Invalid Regular Expression
-    alpha_numeric_dashes_underscores(legend, name, input) {
-
-        const regex = /[z-aA-Z0-9-_]+/;
-
-        if (!regex,test(input)) {
-            this.validationErrors.push();
-
-            return this.validationErrors;
-        }
-        console.log('alpha_numeric_dashes_underscores Method Called');
-    }
-
-    // --------------------------------------------------------------------------
-    
-    integer(legend, name, input){
-
-        const regex = /^[0-9]+$/;
-
-        if (!regex.test(input)) {
-            this.validationErrors.push(`${legend} Must Be An Integer`);
-
-            return this.validationErrors;
-        }
-    }
-
-    // --------------------------------------------------------------------------
-    // Wrong Regex
-    decimal(legend, name, input){
-
-        const regex = /^.[0-9]+$/;
-
-        if (!regex.test(input)) {
-            this.validationErrors.push(`${legend} Must Be A Decimal Number`);
-
-            return this.validationErrors;
-        }
-        console.log('decimal Method Called');
-    }
-
-    // --------------------------------------------------------------------------
-    
-    is_natural(legend, name, input){
-
-        const regex = /^[0-9]+$/;
-        
-        if (!regex.test(input)) {
-            this.validationErrors.push(`${legend} Must Be A Natural Number`);
-
-            return this.validationErrors;
-        }
-    }
-
-    // --------------------------------------------------------------------------
-    // Wrong Regex
-    is_natural_no_zero(legend, name, input){
-
-        const regex = /[1-9]+/;
-
-        if (!regex.test(input)) {
-            this.validationErrors.push(`${legend} Must Be A Natural Number With No Zeros`);
-            
             return this.validationErrors;
         }
     }
@@ -344,9 +317,9 @@ class Validation {
     // --------------------------------------------------------------------------
     // Wrong Regex
     valid_url(legend, name, input){ 
-
+        
         const regex = /((http|https):\/\/)(www.)? /;
-
+        
         if (!regex.test(input)) {
             this.validationErrors.push(`${legend} Is Not A Valid URL`);
             
@@ -393,7 +366,7 @@ class Validation {
     }
 
     // --------------------------------------------------------------------------
-
+    // To Do
     greater_than(legend, name, input, arg) {
 
         const regex = / /;
@@ -407,7 +380,7 @@ class Validation {
     }
 
     // --------------------------------------------------------------------------
-
+    // To Do
     great_than_equal_to(legend, name, input, arg) {
 
         if (input <= arg ) {
@@ -419,7 +392,7 @@ class Validation {
     }
 
     // --------------------------------------------------------------------------
-
+   // To Do
     less_than(legend, name, input, arg) {
 
         if (input > arg ) {
@@ -431,7 +404,7 @@ class Validation {
     }
 
     // --------------------------------------------------------------------------
-
+   // To Do
     less_than_equal_to(legend, name, input, arg) {
 
         if (input >= arg ) {
@@ -467,7 +440,6 @@ class Validation {
            
             return this.validationErrors;
         }
-        console.log('valid_ip Method Called');
     }
 
     // --------------------------------------------------------------------------
@@ -481,7 +453,6 @@ class Validation {
             
             return this.validationErrors;
         }
-        console.log('validBase64 Method Called');
     }
 
     // --------------------------------------------------------------------------

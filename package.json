@@ -1,7 +1,7 @@
 {
   "name": "development",
   "version": "1.0.0",
-  "description": "Dev shite for Andrew Furnevel Photography",
+  "description": "Dev site for Andrew Furnevel Photography",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

@@ -18,42 +18,35 @@ class Test {
         // const setRule = [];
 
         // Set the Validation rules to the rules array in Validation Class
-        validation.setRule(['User Name', 'username', req.body.username, ['is_natural_no_zero']]);
+        validation.setRule(['User Name', 'username', req.body.username, ['special_chars']]);
         // validation.setRule(['Passsword', 'password', req.body.password, ['required']]);
         // validation.setRule(['Email', 'email', req.body.email, ['required', 'valid_email']]);
         // validation.setRule(['Telephone', 'telephone', req.body.telephone, ['required', 'numeric']]);
         // validation.setRule(['IP Address', 'ip_address', req.body.ip_address, ['required', 'valid_ip']]);
 
+        // This starts the validation process and returns an errors array if any are found.
         this.validationErrors = validation.run();
 
-        // Returned Errors
+        // Returned Errors. Send this to view to shows errors to user.
         console.log (this.validationErrors);
 
         // console.log(req.body);
         // Send the input request object to the Validation Class for processing
         // validation.validate(req.body, valRules);
 
-        // for (const key in req.body) {
-        //     console.log(`${key} : ${req.body[key]}`);
-        // }
-
-        // const keys = Object.keys(req.body);
-        // console.log(keys);
-
         // console.log(req.body.username);
         // console.table(req.body);
 
-        // console.losg(data.rows);
+        // console.log(data.rows);
         // let data = testModel.validate()
         // .then((data) => {
         //         console.log(data.rows);
         // });
 
-        res.render(`${config.absPath.adminViews}/test-form`);
+        res.render(`${config.absPath.adminViews}/test-form`, this.validationErrors);
     }
 
 }
-
 
 module.exports = { Test };
 
