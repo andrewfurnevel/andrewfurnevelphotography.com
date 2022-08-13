@@ -1,14 +1,17 @@
 // 'use strict';
 
 // Imports
-const config = require(`${process.env.PWD}/_config.js`);
+// require('dotenv').config();
+const config = require(`${process.env.APP_ROOT}/_config.js`);
+
 const express = require('express');
 const router  = express.Router();
 
-const { About } = require('../app/controllers/aboutController');
-const { Contact } = require('../app/controllers/contactController');
-const { Home } = require('../app/controllers/homeController');
-const { Portfolio } = require('../app/controllers/portfolioController');
+const { Home } = require(`${config.absPath.controllers}/homeController`);
+const { About } = require(`${config.absPath.controllers}/aboutController`);
+const { Contact } = require(`${config.absPath.controllers}/contactController`);
+const { Portfolio } = require(`${config.absPath.controllers}/portfolioController`);
+
 
 const homeController = new Home();
 const aboutController = new About();

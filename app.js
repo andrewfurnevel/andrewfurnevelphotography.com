@@ -1,13 +1,12 @@
 'use strict';
 
-
 require('dotenv').config();
-// const {ENVIRONMENT, HOST, PORT} = process.env;
-// global.basedir = __dirname;
-// console.log(__dirname);
+
+// console.log(process.env.APP_ROOT);
 
 // Import modules
 const config = require('./_config');
+
 const express = require('express');
 const app = express(); 
 
@@ -39,6 +38,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/admin", adminRoutes);
 app.use("/", publicRoutes);
+
+
 
 
 // 404 Page Not Found

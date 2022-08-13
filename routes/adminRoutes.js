@@ -1,4 +1,5 @@
-const config = require(`${process.env.PWD}/_config.js`);
+const config = require(`${process.env.APP_ROOT}/_config.js`);
+
 const express = require('express');
 const router  = express.Router();
 
