@@ -27,8 +27,6 @@ app.listen(3000, err => {
 // Static Files
 app.use(express.static('public'));
 
-
-
 // Routes
 
 // Handle Post Requests
@@ -38,9 +36,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/admin", adminRoutes);
 app.use("/", publicRoutes);
-
-
-
 
 // 404 Page Not Found
 app.use((req, res) => {
