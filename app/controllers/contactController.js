@@ -1,7 +1,6 @@
 'use Strict';
 
-const config = require(`${process.env.PWD}/_config.js`);
-
+const config = require(`${process.env.APP_ROOT}/_config.js`);
 
 class Contact {
 

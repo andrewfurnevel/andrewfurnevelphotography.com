@@ -1,8 +1,9 @@
 'use strict';
 
 // Imports
-const config = require(`${process.env.PWD}/_config.js`);
-const DB = require(`${process.env.PWD}/classes/DB.js`);
+const config = require(`${process.env.APP_ROOT}/_config.js`);
+
+const DB = require(`${process.env.APP_ROOT}/classes/DB.js`);
 
 class Model {
     

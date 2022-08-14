@@ -1,7 +1,8 @@
 'use strict';
 
-const config = require(`${process.env.PWD}/_config.js`);
-const Model = require(`${process.env.PWD}/classes/Model.js`);
+const config = require(`${process.env.APP_ROOT}/_config.js`);
+
+const Model = require(`${process.env.APP_ROOT}/classes/Model.js`);
 
 class UserModel extends Model {
 

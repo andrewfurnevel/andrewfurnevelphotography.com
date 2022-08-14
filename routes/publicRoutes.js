@@ -1,7 +1,7 @@
 // 'use strict';
 
 // Imports
-// require('dotenv').config();
+
 const config = require(`${process.env.APP_ROOT}/_config.js`);
 
 const express = require('express');

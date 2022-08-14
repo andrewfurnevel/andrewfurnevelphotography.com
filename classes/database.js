@@ -1,6 +1,6 @@
 'use strict';
 
-const config = require(`${process.env.PWD}/_config.js`);
+const config = require(`${process.env.APP_ROOT}/_config.js`);
 
 const { Pool, Client } = require("pg");
 

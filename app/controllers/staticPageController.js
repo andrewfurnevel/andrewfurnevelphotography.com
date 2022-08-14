@@ -1,7 +1,8 @@
 'use strict';
 
+const config = require(`${process.env.APP_ROOT}/_config.js`);
+
 const express = require('express');
-const config = require(`${process.env.PWD}/_config`);
 
 
 const index = (req, res) => {
