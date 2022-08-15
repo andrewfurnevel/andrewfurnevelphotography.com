@@ -2,8 +2,6 @@
 
 require('dotenv').config();
 
-// console.log(process.env.APP_ROOT);
-
 // Import modules
 const config = require('./_config');
 
@@ -16,12 +14,12 @@ const adminRoutes = require (`${config.absPath.routes}/adminRoutes.js`);
 // Register View Engine
 app.set('view engine', 'ejs');
 
-app.listen(3000, err => {
+app.listen(443, err => {
     if (err) {
         console.log("There was a problem", err);
         return;
     }
-    console.log("Listening on port 3000");
+    console.log("Listening on port 443");
 });
 
 // Static Files
@@ -34,7 +32,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-app.use("/admin", adminRoutes);
+// app.use("/admin", adminRoutes);
 app.use("/", publicRoutes);
 
 // 404 Page Not Found

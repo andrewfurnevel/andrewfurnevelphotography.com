@@ -3,7 +3,7 @@
 // Imports
 const express = require('express');
 const bcrypt = require('bcrypt');
-const config = require(`${process.env.PWD}/_config.js`);
+const config = require(`${process.env.APP_ROOT}/_config.js`);
 const UserModel = require(`${config.absPath.models}/UserModel.js`);
 const { Validation } = require(`${config.absPath.classes}/Validation.js`);
 
@@ -13,7 +13,7 @@ class Authentication {
     }
     
     
-    register = async (req, res) => {
+    async register(req, res) {
         const validation = new Validation();
 
         const valRules = {"username" : "isEmpty, isMinLength=8"};
@@ -43,7 +43,7 @@ class Authentication {
     }
             
 
-    checkLogin = async (req, res) => {
+    async checkLogin(req, res) {
         console.log(req.body.username);
         console.log(req.body.password);
         console.log(req.body);
@@ -60,7 +60,7 @@ class Authentication {
 
     }
     
-    logout = async (req, res) => {}
+    async logout(req, res) {}
 
 } // End Class
 

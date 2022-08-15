@@ -1,3 +1,8 @@
 node_modules
 .env
 .htaccess
+_config.js
+.ftpquota
+.well-known/
+stderr.log
+tmp/
