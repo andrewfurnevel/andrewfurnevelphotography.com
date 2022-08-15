@@ -11,7 +11,7 @@ class UserModel extends Model {
     }
     
     
-    getUserById = async (userId) => {
+    async getUserById (userId) {
 
         try {
             const sql = `SELECT * FROM users WHERE user_id = $1`;
@@ -30,7 +30,7 @@ class UserModel extends Model {
     }
 
 
-    getUsers = async () => {
+    async getUsers () {
     
         try {
             const sql = `SELECT * FROM users`;

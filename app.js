@@ -2,8 +2,6 @@
 
 require('dotenv').config();
 
-// console.log(process.env.APP_ROOT);
-
 // Import modules
 const config = require('./_config');
 
@@ -34,13 +32,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-app.use("/admin", adminRoutes);
+// app.use("/admin", adminRoutes);
 app.use("/", publicRoutes);
 
 // 404 Page Not Found
 app.use((req, res) => {
     res.status(404).render(`${config.absPath.views}/404`, {title: 'Page Not Found'});
 });
+
+
+
+
+
 
 
 

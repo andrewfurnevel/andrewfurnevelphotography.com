@@ -1,29 +1,36 @@
 'use strict';
 
-const {ENVIRONMENT, HOST, PORT} = process.env;
+// Envirnment Configeration ---------------------------------
 
-const BASEPATH =      process.env.PWD;
+const ENVIRONMENT = process.env.ENVIRONMENT;
+const HOST = process.env.HOST;
+const PORT = process.env.PORT;
+
+
+// Absolute Path Configeration ------------------------------
+
+const APP_ROOT =      process.env.APP_ROOT;
 
 const absPath = {
 
-    routes:           `${BASEPATH}/routes`,
-    classes:          `${BASEPATH}/classes`,
+    routes:           `${APP_ROOT}/routes`,
+    classes:          `${APP_ROOT}/classes`,
 
     // App
-    models:           `${BASEPATH}/app/models`,
-    views:            `${BASEPATH}/app/views`,
-    controllers:      `${BASEPATH}/app/controllers`,
+    models:           `${APP_ROOT}/app/models`,
+    views:            `${APP_ROOT}/app/views`,
+    controllers:      `${APP_ROOT}/app/controllers`,
 
     // Admin
-    adminViews:       `${BASEPATH}/admin/views`,
-    adminModels:      `${BASEPATH}/admin/models`,
-    adminControllers: `${BASEPATH}/admin/controllers`,
+    adminViews:       `${APP_ROOT}/admin/views`,
+    adminModels:      `${APP_ROOT}/admin/models`,
+    adminControllers: `${APP_ROOT}/admin/controllers`,
 
     // Public
-    css:              `${BASEPATH}/public/css`,
-    js:               `${BASEPATH}/public/js`,
-    images:           `${BASEPATH}/public/images`,
-    uploads:          `${BASEPATH}/public/uploads`
+    css:              `${APP_ROOT}/public/css`,
+    js:               `${APP_ROOT}/public/js`,
+    images:           `${APP_ROOT}/public/images`,
+    uploads:          `${APP_ROOT}/public/uploads`
 }
 
 // Database Configuration ------------------------------------

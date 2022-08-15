@@ -1,29 +1,29 @@
 'use strict';
 
-const config = require(`${process.env.PWD}/_config.js`);
-const UserModel = require(`${config.absPath.models}/UserModel.js`);
+const config = require(`${process.env.APP_ROOT}/_config.js`);
+// const UserModel = require(`${config.absPath.models}/UserModel.js`);
 
-let userModel = new UserModel.UserModel();
+// let userModel = new UserModel.UserModel();
 
 class Admin {
     constructor() {
 
     }
 
-    login = async (req, res) => {
+    async login(req, res) {
 
         res.render(`${config.absPath.adminViews}/login`);
 
     }    
 
-    register = async (req, res) => {
+    async register(req, res) {
 
         let msg =[];
         res.render(`${config.absPath.adminViews}/register`, {msg});
 
     }
 
-    getUserById = async (req, res) => {
+    async getUserById(req, res) {
         
         const id = req.params.id;
         
@@ -38,7 +38,7 @@ class Admin {
     }
 
 
-    getUsers = async (req, res) => {
+    async getUsers(req, res) {
 
         let data = userModel.getUsers()
         .then((data) => {
@@ -51,7 +51,7 @@ class Admin {
 
     // This is a test to see if I can return the inserted ID to use in another query
 
-    test = async (req, res) => {
+    async test(req, res) {
         console.log('Hello from test method in Admin Contorller');
         // let data = userModel.testReturnId()
         // .then((data) => {

@@ -1,6 +1,6 @@
 'use Strict';
 
-const config = require(`${process.env.PWD}/_config.js`);
+const config = require(`${process.env.APP_ROOT}/_config.js`);
 const TestModel = require(`${config.absPath.adminModels}/TestModel.js`);
 const { Validation } = require(`${config.absPath.classes}/Validation.js`);
 
@@ -11,7 +11,7 @@ class Test {
         this.validationErrors = [];
     }
 
-    test = async (req, res) => {
+    async test (req, res) {
 
         const validation = new Validation();
 
@@ -49,4 +49,5 @@ class Test {
 }
 
 module.exports = { Test };
+
 
