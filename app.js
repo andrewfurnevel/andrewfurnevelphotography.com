@@ -14,12 +14,12 @@ const adminRoutes = require (`${config.absPath.routes}/adminRoutes.js`);
 // Register View Engine
 app.set('view engine', 'ejs');
 
-app.listen(3000, err => {
+app.listen(443, err => {
     if (err) {
         console.log("There was a problem", err);
         return;
     }
-    console.log("Listening on port 3000");
+    console.log("Listening on port 443");
 });
 
 // Static Files
