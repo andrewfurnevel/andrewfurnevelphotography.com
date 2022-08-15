@@ -32,7 +32,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-// app.use("/admin", adminRoutes);
+app.use("/admin", adminRoutes);
 app.use("/", publicRoutes);
 
 // 404 Page Not Found
