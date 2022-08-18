@@ -6,5 +6,5 @@ _config.js
 .well-known/
 stderr.log
 tmp/
-header.ejs
+
 
