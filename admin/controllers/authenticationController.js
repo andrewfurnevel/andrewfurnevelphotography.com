@@ -5,7 +5,7 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const config = require(`${process.env.APP_ROOT}/_config.js`);
 const UserModel = require(`${config.absPath.models}/UserModel.js`);
-const { Validation } = require(`${config.absPath.classes}/Validation.js`);
+const { Validation } = require(`${config.absPath.system}/Validation.js`);
 
 class Authentication {
     constructor() { 

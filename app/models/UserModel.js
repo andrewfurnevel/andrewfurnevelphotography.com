@@ -2,7 +2,7 @@
 
 const config = require(`${process.env.APP_ROOT}/_config.js`);
 
-const Model = require(`${process.env.APP_ROOT}/classes/Model.js`);
+const Model = require(`${process.env.APP_ROOT}/system/Model.js`);
 
 class UserModel extends Model {
 

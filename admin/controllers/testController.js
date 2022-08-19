@@ -2,7 +2,7 @@
 
 const config = require(`${process.env.APP_ROOT}/_config.js`);
 const TestModel = require(`${config.absPath.adminModels}/TestModel.js`);
-const { Validation } = require(`${config.absPath.classes}/Validation.js`);
+const { Validation } = require(`${config.absPath.system}/Validation.js`);
 
 class Test { 
 

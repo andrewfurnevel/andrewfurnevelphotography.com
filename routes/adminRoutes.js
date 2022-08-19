@@ -31,7 +31,7 @@ router.get('/register', adminController.register);
 
 router.get('/test', testController.test);
 
-// Logout Page
+// Logout PageNeeded
 // router.get('/logout', admimController.logout);
 
 

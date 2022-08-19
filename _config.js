@@ -17,7 +17,7 @@ const absPath = {
 
     app_url:          `${APP_URL}`,
     routes:           `${APP_ROOT}/routes`,
-    classes:          `${APP_ROOT}/classes`,
+    system:          `${APP_ROOT}/system`,
 
     // App
     models:           `${APP_ROOT}/app/models`,

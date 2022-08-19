@@ -3,7 +3,7 @@
 // Imports
 const config = require(`${process.env.APP_ROOT}/_config.js`);
 
-const DB = require(`${process.env.APP_ROOT}/classes/DB.js`);
+const DB = require(`${process.env.APP_ROOT}/system/DB.js`);
 
 class Model {
     
