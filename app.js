@@ -3,13 +3,18 @@
 require('dotenv').config();
 
 // Import modules
-const config = require('./_config');
+// const config = require(`${process.env.APP_ROOT}/_config.js`);
+const config = require(`./_config.js`);
 
 const express = require('express');
+// const { path } = require('express/lib/application');
+
+// console.log(__dirname);
+
 const app = express(); 
 
-const publicRoutes =  require(`${config.absPath.routes}/publicRoutes.js`);
-const adminRoutes = require (`${config.absPath.routes}/adminRoutes.js`);
+const publicRoutes =  require(`${__dirname}/routes/publicRoutes.js`);
+const adminRoutes = require (`${__dirname}/routes/adminRoutes.js`);
 
 // Register View Engine
 app.set('view engine', 'ejs');

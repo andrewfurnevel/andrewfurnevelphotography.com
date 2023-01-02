@@ -17,7 +17,7 @@ const testController = new Test();
 // ADMIN ROUTES ------------------------------------------------------
 
 router.post('/register', authenticationController.register);
-router.post('/login', authenticationController.checkLogin);
+// router.post('/login', authenticationController.checkLogin);
 router.post('/logout', authenticationController.logout);
 
 router.post('/test', testController.test);
@@ -26,10 +26,13 @@ router.post('/test', testController.test);
 // Register Page
 router.get('/register', adminController.register);
 
-// Login Pagerouter.get('/login', adminController.login);
-
 
 router.get('/test', testController.test);
+
+
+
+// Login Pagerouter.get('/login', adminController.login);
+router.get('/login', adminController.login);
 
 // Logout PageNeeded
 // router.get('/logout', admimController.logout);

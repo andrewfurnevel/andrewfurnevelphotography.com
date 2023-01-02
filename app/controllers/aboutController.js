@@ -2,6 +2,7 @@
 
 const config = require(`${process.env.APP_ROOT}/_config.js`);
 
+// console.log(__dirname);
 
 class About {
 

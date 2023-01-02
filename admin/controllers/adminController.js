@@ -1,9 +1,11 @@
+// adminController.js
+
 'use strict';
 
 const config = require(`${process.env.APP_ROOT}/_config.js`);
-// const UserModel = require(`${config.absPath.models}/UserModel.js`);
+const UserModel = require(`${config.absPath.models}/UserModel.js`);
 
-// let userModel = new UserModel.UserModel();
+let userModel = new UserModel.UserModel();
 
 class Admin {
     constructor() {

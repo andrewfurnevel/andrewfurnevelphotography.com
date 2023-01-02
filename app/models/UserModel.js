@@ -35,6 +35,8 @@ class UserModel extends Model {
         try {
             const sql = `SELECT * FROM users`;
             const result = await this.pool.query(sql);
+            // console.log(result);
+
             return result;
                        
         } catch (error) {

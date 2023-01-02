@@ -1,3 +1,5 @@
+// Model.js
+
 'use strict';
 
 // Imports
@@ -11,6 +13,7 @@ class Model {
         this.db = new DB.DB();
 
         this.pool = this.db.pool();
+        
         // Client does not work in the model
         this.client = this.db.client();
     }
