@@ -17,7 +17,7 @@ const absPath = {
 
     app_url:          `${APP_URL}`,
     routes:           `${APP_ROOT}/routes`,
-    system:          `${APP_ROOT}/system`,
+    system:           `${APP_ROOT}/system`,
 
     // App
     models:           `${APP_ROOT}/app/models`,
@@ -46,7 +46,16 @@ const dbCredentials = {
     'database' : 'andrewfurnevel'
 }
 
+// const mySqlCredentials = {
+//     'host' : 'localhost',
+//     'port' : 8888,
+//     'username' : 'root',
+//     'password' : 'root',
+//     'database' : 'BookARoom'
+// }
+
 module.exports = {
     absPath,
     dbCredentials
+    // mySqlCredentials
 }

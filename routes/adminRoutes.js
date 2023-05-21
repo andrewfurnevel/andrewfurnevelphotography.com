@@ -18,7 +18,7 @@ const testController = new Test();
 
 router.post('/register', authenticationController.register);
 // router.post('/login', authenticationController.checkLogin);
-router.post('/logout', authenticationController.logout);
+// router.post('/logout', authenticationController.logout);
 
 router.post('/test', testController.test);
 

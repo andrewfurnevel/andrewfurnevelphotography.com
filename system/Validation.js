@@ -29,7 +29,8 @@ class Validation {
         return regex.test(arg);
     } 
     
-    run() {
+    // Run validaion on the entry
+    run() { 
    
         // try {
         //     console.log(this.rules[3][2].length);

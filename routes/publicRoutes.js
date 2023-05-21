@@ -11,12 +11,14 @@ const { Home } = require(`${config.absPath.controllers}/homeController`);
 const { About } = require(`${config.absPath.controllers}/aboutController`);
 const { Contact } = require(`${config.absPath.controllers}/contactController`);
 const { Portfolio } = require(`${config.absPath.controllers}/portfolioController`);
+const { Authentication } = require(`${config.absPath.controllers}/authenticationController`);
 
 
 const homeController = new Home();
 const aboutController = new About();
 const contactController = new Contact();
 const portfolioController = new Portfolio();
+const authenticationController = new Authentication();
 
 // router.use((req, res, next) => {
 //     console.log('New Request Made:');
@@ -40,8 +42,18 @@ router.get('/about', aboutController.index);
 // Work Page
 router.get('/work', portfolioController.index);
 
-// Contact page
+// Contact Page
 router.get('/contact', contactController.index);
+
+// Login Page
+router.get('/login', authenticationController.login);
+
+// Logout
+
+
+// Register Page
+router.get('/register', authenticationController.register);
+
 
 
 module.exports = router;

@@ -14,8 +14,12 @@ class DB {
     
     constructor() {
 
+        // Postgres Connection
         this.Pool = require('pg').Pool;
         this.Client = require('pg').Client;
+
+
+
     }
 
     pool() {

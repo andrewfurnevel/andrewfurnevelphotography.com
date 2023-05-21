@@ -44,8 +44,8 @@ class Admin {
 
         let data = userModel.getUsers()
         .then((data) => {
-                console.log(data.rows);
-                res.render(`${config.absPath.adminViews}/get-users`, {data});
+            console.log(data.rows);
+            res.render(`${config.absPath.adminViews}/get-users`, {data});
     
             });
         }

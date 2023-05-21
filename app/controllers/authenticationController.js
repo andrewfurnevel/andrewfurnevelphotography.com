@@ -13,14 +13,22 @@ class Authentication {
     }
     
     async login(req, res) {
-        console.log("Got here");
-    }
-    
-    
+
+        res.render(`${config.absPath.views}/login`);
+
+    }    
 
     async logout(req, res) {
 
     }
+
+    async register(req, res) {
+
+        let msg =[];
+        res.render(`${config.absPath.adminViews}/register`, {msg});
+    }
+    
+
 
 
     async register(req, res) {
