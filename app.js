@@ -9,7 +9,7 @@ const config = require(`./_config.js`);
 const express = require('express');
 // const { path } = require('express/lib/application');
 
-// console.log(__dirname);
+console.log(__dirname);
 
 const app = express(); 
 
