@@ -36,7 +36,6 @@ const absPath = {
     uploads:          `${APP_ROOT}/public/uploads`
 }
 
-
 module.exports = {
     absPath
 }
