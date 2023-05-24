@@ -4,11 +4,11 @@ const config = require(`${process.env.APP_ROOT}/_config.js`);
 
 // Needed to be efined outside of the class
 const dbCredentials = {
-    host: config.dbCredentials.host,
-    port: config.dbCredentials.port,
-    user: config.dbCredentials.username,
-    password: config.dbCredentials.password,
-    database: config.dbCredentials.database
+    host: process.env.POSTGRES_HOST,
+    port: process.env.POSTGRES_PORT,
+    username: process.env.POSTGRES_USER,
+    password: process.env.POSTGRES_PASSWORD,
+    database: process.env.POSTGRES_DATABASE
 }
 class DB {
     

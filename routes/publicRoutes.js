@@ -31,6 +31,11 @@ const authenticationController = new Authentication();
 
 
 
+
+
+
+
+
 // PUBLIC ROUTES ------------------------------------------------------
 
 // Home '/', index, home - Default

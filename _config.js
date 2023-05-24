@@ -36,26 +36,7 @@ const absPath = {
     uploads:          `${APP_ROOT}/public/uploads`
 }
 
-// Database Configuration ------------------------------------
-
-const dbCredentials = {
-    'host' : 'localhost',
-    'port' : 5432,
-    'username' : 'postgres',
-    'password' : '77123',
-    'database' : 'andrewfurnevel'
-}
-
-// const mySqlCredentials = {
-//     'host' : 'localhost',
-//     'port' : 8888,
-//     'username' : 'root',
-//     'password' : 'root',
-//     'database' : 'BookARoom'
-// }
 
 module.exports = {
-    absPath,
-    dbCredentials
-    // mySqlCredentials
+    absPath
 }
