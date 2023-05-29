@@ -1,8 +1,8 @@
 'use Strict';
 
-const config = require(`${process.env.APP_ROOT}/_config.js`);
+// const config = require(`${process.env.APP_ROOT}/_config.js`);
 
-class Contact {
+export default class Contact {
 
     constructor() {
 
@@ -17,4 +17,4 @@ class Contact {
 
 }
 
-module.exports = { Contact }
+// module.exports = { Contact }

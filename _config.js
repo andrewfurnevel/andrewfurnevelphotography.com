@@ -1,8 +1,14 @@
 'use strict';
 
+import dotenv from 'dotenv';
+dotenv.config();
+
+
 // Envirnment Configeration ---------------------------------
 
 const APP_URL = process.env.HOST;
+
+// console.log(APP_URL); // Works !!!
 
 const ENVIRONMENT = process.env.ENVIRONMENT;
 const HOST = process.env.HOST;
@@ -13,7 +19,7 @@ const PORT = process.env.PORT;
 
 const APP_ROOT =      process.env.APP_ROOT;
 
-const absPath = {
+export const absPath = {
 
     app_url:          `${APP_URL}`,
     routes:           `${APP_ROOT}/routes`,
@@ -35,7 +41,4 @@ const absPath = {
     images:           `${APP_ROOT}/public/images`,
     uploads:          `${APP_ROOT}/public/uploads`
 }
-
-module.exports = {
-    absPath
-}
+//  console.log(absPath); // Works !!!

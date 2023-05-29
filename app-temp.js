@@ -1,35 +1,26 @@
 'use strict';
 
-// import { someObject, someFunction } from './import-test.js';
-// console.log(someFunction());
-
-// console.log(someObject.name);
-// console.log(someObject.email);
-
 // require('dotenv').config();
-import dotenv from 'dotenv';
-dotenv.config();
+// import dotenv from 'dotenv';
+// dotenv.config();
 
-// console.log(dotenv.config);
-// console.log(__dirname);
-
-// console.log('Bob');
 // Import modules
 // const config = require(`${process.env.APP_ROOT}/_config.js`);
 // const config = require(`./_config.js`);
+import absPath from './_config.js';
+// console.log(absPath);
 
 // const express = require('express');
 import express from 'express';
-const app = express(); 
 // const { path } = require('express/lib/application');
 
-import { absPath } from './_config.js';
-// console.log(absPath.routes);
+// console.log(__dirname);
 
-import publicRoutes from './routes/publicRoutes.js';
-// console.log(publicRoutes);
-// import adminRoutes from './routes/adminRoutes.js';
+const app = express(); 
+
 // const publicRoutes =  require(`${__dirname}/routes/publicRoutes.js`);
+// const publicRoutes =  absPath.routes/publicRoutes.js;
+
 // const adminRoutes = require (`${__dirname}/routes/adminRoutes.js`);
 
 // Register View Engine
@@ -52,13 +43,18 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const adminRoutes = `${absPath.routes}/publicRoutes.js`;
+const publicRoutes = absPath.publicRoutes;
+console.log(adminRoutes);
+console.log(publicRoutes);
 
 // app.use("/admin", adminRoutes);
 app.use("/", publicRoutes);
 
+
 // 404 Page Not Found
 app.use((req, res) => {
-    res.status(404).render('./views/404', {title: 'Page Not Found'});
+    res.status(404).render(`${absPath.views}/404`, {title: 'Page Not Found'});
 });
 
 

@@ -1,9 +1,9 @@
 'use Strict';
 
 // Imports
-const config = require(`${process.env.APP_ROOT}/_config.js`);
+// const config = require(`${process.env.APP_ROOT}/_config.js`);
 
-class Portfolio {
+export default class Portfolio {
 
     constructor() {
 
@@ -13,9 +13,9 @@ class Portfolio {
 
         console.log("Portfolio page from the Home Class controller:");
 
-        res.render(`${config.absPath.views}/portfolio`);
+        // res.render(`${config.absPath.views}/portfolio`);
     }
 
 }
 
-module.exports = { Portfolio }
+// module.exports = { Portfolio }

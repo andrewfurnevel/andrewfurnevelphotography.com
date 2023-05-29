@@ -1,24 +1,43 @@
 // 'use strict';
 
 // Imports
+import dotenv from 'dotenv';
+dotenv.config();
 
-const config = require(`${process.env.APP_ROOT}/_config.js`);
+import { absPath } from '../_config.js';
 
-const express = require('express');
+// const express = require('express');
+import express from 'express'; 
+
+// console.log(absPath.controllers);
+
+// const { Home } = require(`${config.absPath.controllers}/homeController`);
+// import Home from absPath.controllers + '/homeController.js';
+// const { About } = require(`${config.absPath.controllers}/aboutController`);
+// const { Contact } = require(`${config.absPath.controllers}/contactController`);
+// const { Portfolio } = require(`${config.absPath.controllers}/portfolioController`);
+// const { Authentication } = require(`${config.absPath.controllers}/authenticationController`);
+
+// const Home = await import(`${absPath.controllers}/homeController.js`);
+import Home from '../app/controllers/homeController.js';
+import About from '../app/controllers/aboutController.js';
+import Contact from '../app/controllers/contactController.js';
+import Portfolio from '../app/controllers/portfolioController.js';
+// import Authentication from '../app/controllers/authrnticationController.js';
+
+const publicRoutes = () => {
+    // console.log(Home);
 const router  = express.Router();
+console.log(router);
+module.exports = {router};
 
-const { Home } = require(`${config.absPath.controllers}/homeController`);
-const { About } = require(`${config.absPath.controllers}/aboutController`);
-const { Contact } = require(`${config.absPath.controllers}/contactController`);
-const { Portfolio } = require(`${config.absPath.controllers}/portfolioController`);
-const { Authentication } = require(`${config.absPath.controllers}/authenticationController`);
+const homeController = new Home;
+// console.log(homeController.index);
 
-
-const homeController = new Home();
 const aboutController = new About();
 const contactController = new Contact();
 const portfolioController = new Portfolio();
-const authenticationController = new Authentication();
+// const authenticationController = new Authentication();
 
 // router.use((req, res, next) => {
 //     console.log('New Request Made:');
@@ -27,15 +46,10 @@ const authenticationController = new Authentication();
 //     console.log('Method:', req.method);
 //     next();
 // });
+// console.log(homeController.index);
 
-
-
-
-
-
-
-
-
+// console.log('Inside publicRoutes'); // Works !!!
+    
 // PUBLIC ROUTES ------------------------------------------------------
 
 // Home '/', index, home - Default
@@ -53,14 +67,16 @@ router.get('/work', portfolioController.index);
 router.get('/contact', contactController.index);
 
 // Login Page
-router.get('/login', authenticationController.login);
+// router.get('/login', authenticationController.login);
 
 // Logout
 
 
 // Register Page
-router.get('/register', authenticationController.register);
+// router.get('/register', authenticationController.register);
 
 
+}
 
+export default publicRoutes;
 module.exports = router;

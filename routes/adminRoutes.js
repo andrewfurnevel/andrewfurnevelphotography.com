@@ -10,8 +10,8 @@ const adminController = new Admin();
 const authenticationController = new Authentication();
 
 // Testing Purposes
-const { Test } = require('../admin/controllers/testController');
-const testController = new Test();
+// const { Test } = require('../admin/controllers/testController');
+// const testController = new Test();
 // End Testing
 
 // ADMIN ROUTES ------------------------------------------------------

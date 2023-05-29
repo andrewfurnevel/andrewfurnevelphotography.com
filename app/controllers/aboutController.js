@@ -1,10 +1,10 @@
 'use Strict';
 
-const config = require(`${process.env.APP_ROOT}/_config.js`);
+// const config = require(`${process.env.APP_ROOT}/_config.js`);
 
 // console.log(__dirname);
 
-class About {
+export default class About {
 
     constructor() {
 
@@ -19,4 +19,4 @@ class About {
 
 }
 
-module.exports = { About }
+// module.exports = { About }
