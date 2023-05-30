@@ -25,6 +25,9 @@ const app = express();
 
 import { absPath } from './_config.js';
 // console.log(absPath.routes);
+import test from './test.js';
+import someFunction from './test.js';
+someFunction();
 
 import publicRoutes from './routes/publicRoutes.js';
 // console.log(publicRoutes);

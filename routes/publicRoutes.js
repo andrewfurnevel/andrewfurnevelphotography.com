@@ -24,15 +24,21 @@ import About from '../app/controllers/aboutController.js';
 import Contact from '../app/controllers/contactController.js';
 import Portfolio from '../app/controllers/portfolioController.js';
 // import Authentication from '../app/controllers/authrnticationController.js';
-
-const publicRoutes = () => {
-    // console.log(Home);
 const router  = express.Router();
-console.log(router);
-module.exports = {router};
+// console.log(router);
+// module.exports = router;
 
-const homeController = new Home;
+// const publicRoutes = () => {
+    // console.log(Home);
+// console.log(router);
+
+// const homeController = new Home;
 // console.log(homeController.index);
+
+const homeController = new Home();
+console.log(homeController);
+console.log(homeController.index);
+console.log(router);
 
 const aboutController = new About();
 const contactController = new Contact();
@@ -76,7 +82,7 @@ router.get('/contact', contactController.index);
 // router.get('/register', authenticationController.register);
 
 
-}
+// }
 
-export default publicRoutes;
-module.exports = router;
+// export default publicRoutes;
+export default router;

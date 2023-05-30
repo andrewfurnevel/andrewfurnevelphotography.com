@@ -15,7 +15,7 @@ export default class Home {
 
         console.log("Home page from the Home Class controller:");
 
-        res.render('../views/index');
+        res.render('../app/views/index');
         // res.render(`${config.absPath.views}/index`);
 
     }
