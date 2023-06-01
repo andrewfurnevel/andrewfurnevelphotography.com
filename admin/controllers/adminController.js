@@ -2,10 +2,14 @@
 
 'use strict';
 
-const config = require(`${process.env.APP_ROOT}/_config.js`);
-const UserModel = require(`${config.absPath.models}/UserModel.js`);
+// const config = require(`${process.env.APP_ROOT}/_config.js`);
+// const UserModel = require(`${config.absPath.models}/UserModel.js`);
 
-let userModel = new UserModel.UserModel();
+import absPath from '../../_config.js';
+console.log(absPath);
+import UserModel from '../../app/models/UserModel.js';
+
+let userModel = new UserModel();
 
 class Admin {
     constructor() {
@@ -14,14 +18,14 @@ class Admin {
 
     async login(req, res) {
 
-        res.render(`${config.absPath.adminViews}/login`);
+        res.render(`${absPath.views}/login`);
 
     }    
 
     async register(req, res) {
 
         let msg =[];
-        res.render(`${config.absPath.adminViews}/register`, {msg});
+        res.render(`${absPath.adminViews}/register`, {msg});
 
     }
 
@@ -34,7 +38,7 @@ class Admin {
             const data2 = {"Name" : "Andrew"};
 
             console.log(data.rows);
-            res.render(`${config.absPath.adminViews}/get-user`, {data, data2});
+            res.render(`${absPath.adminViews}/get-user`, {data, data2});
             
         });
     }
@@ -45,7 +49,7 @@ class Admin {
         let data = userModel.getUsers()
         .then((data) => {
             console.log(data.rows);
-            res.render(`${config.absPath.adminViews}/get-users`, {data});
+            res.render(`${absPath.adminViews}/get-users`, {data});
     
             });
         }
@@ -65,7 +69,7 @@ class Admin {
     
     } // End Class
     
-    module.exports = { Admin }
+    export default Admin
     
     
     

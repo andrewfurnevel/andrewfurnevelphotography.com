@@ -1,6 +1,7 @@
 'use Strict';
 
-// const config = require(`${process.env.APP_ROOT}/_config.js`);
+// Imports
+import absPath from '../../_config.js';
 
 export default class Contact {
 
@@ -12,9 +13,7 @@ export default class Contact {
 
         console.log("Contact page from the Home Class controller:");
 
-        res.render(`${config.absPath.views}/contact`);
+        res.render(`${absPath.views}/contact`);
     }
 
 }
-
-// module.exports = { Contact }

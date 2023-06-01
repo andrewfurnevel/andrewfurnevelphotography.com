@@ -462,4 +462,4 @@ class Validation {
 
 } // End Class
 
-module.exports = { Validation }
+export default Validation;

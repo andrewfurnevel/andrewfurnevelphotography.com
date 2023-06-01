@@ -1,8 +1,9 @@
 'use strict';
 
-const config = require(`${process.env.APP_ROOT}/_config.js`);
+// const config = require(`${process.env.APP_ROOT}/_config.js`);
 
-const Model = require(`${process.env.APP_ROOT}/system/Model.js`);
+// const Model = require(`${process.env.APP_ROOT}/system/Model.js`);
+import Model from '../../system/Model.js';
 
 class UserModel extends Model {
 
@@ -46,4 +47,4 @@ class UserModel extends Model {
 
 } // End Class
 
-module.exports = { UserModel }
+export default UserModel

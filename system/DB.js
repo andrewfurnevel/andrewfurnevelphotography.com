@@ -1,6 +1,11 @@
+// DB.js
+
 'use strict';
 
-const config = require(`${process.env.APP_ROOT}/_config.js`);
+// import config from '/_config.js';
+import pg from 'pg';
+
+const pool = new pg.Pool(); 
 
 // Needed to be efined outside of the class
 const dbCredentials = {
@@ -15,10 +20,8 @@ class DB {
     constructor() {
 
         // Postgres Connection
-        this.Pool = require('pg').Pool;
-        this.Client = require('pg').Client;
-
-
+        this.pool = new pg.Pool();
+        // this.Client = Client;
 
     }
 
@@ -34,4 +37,4 @@ class DB {
 
 } // End Class
 
-module.exports = { DB }
+export default DB;

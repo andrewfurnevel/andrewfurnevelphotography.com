@@ -1,7 +1,7 @@
 'use Strict';
 
 // Imports
-// const config = require(`${process.env.APP_ROOT}/_config.js`);
+import absPath from '../../_config.js';
 
 export default class Portfolio {
 
@@ -14,6 +14,7 @@ export default class Portfolio {
         console.log("Portfolio page from the Home Class controller:");
 
         // res.render(`${config.absPath.views}/portfolio`);
+        res.render(`${absPath.views}/portfolio`);
     }
 
 }

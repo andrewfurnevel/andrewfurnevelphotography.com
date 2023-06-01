@@ -1,6 +1,6 @@
 'use struct';
 
-class Authenticate {
+class Authentication {
     constructor() {}
 
 
@@ -19,4 +19,6 @@ oAuth() {
 session() {
 
 }
+
+export default Authentication;
 

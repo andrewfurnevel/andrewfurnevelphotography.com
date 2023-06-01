@@ -19,7 +19,7 @@ const PORT = process.env.PORT;
 
 const APP_ROOT =      process.env.APP_ROOT;
 
-export const absPath = {
+const absPath = {
 
     app_url:          `${APP_URL}`,
     routes:           `${APP_ROOT}/routes`,
@@ -42,3 +42,5 @@ export const absPath = {
     uploads:          `${APP_ROOT}/public/uploads`
 }
 //  console.log(absPath); // Works !!!
+
+export default absPath;

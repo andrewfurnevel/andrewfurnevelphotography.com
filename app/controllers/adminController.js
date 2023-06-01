@@ -1,14 +1,16 @@
-'use strict';
+// 'use strict';
 
-const config = require(`${process.env.APP_ROOT}/_config.js`);
+// const config = require(`${process.env.APP_ROOT}/_config.js`);
+// const UserModel = require(`${config.absPath.models}/UserModel.js`);
 
-const UserModel = require(`${config.absPath.models}/UserModel.js`);
+import config from '../../_config.js';
+import UserModel from '../models/UserModel.js';
 
-let userModel = new UserModel.UserModel();
+const userModel = new UserModel.UserModel();
 
 class Admin {
     constructor() {
-
+        
     }
 
     getUserById = async (req, res) => {
@@ -33,17 +35,14 @@ class Admin {
                 console.log(data.rows);
                 res.render(`${config.absPath.views}/get-users`, {data});
     
-            });
-        }
+        });
+    }
     
-    } // End Class
-    
-    module.exports = { Admin }
-    
-    
-    
-    
+} // End Class
 
+export default Admin;
+    
+    
 //  This returns the item for each row. 
 //  data.rows.forEach(item => console.log(item.user_id));
 

@@ -1,10 +1,13 @@
-const config = require(`${process.env.APP_ROOT}/_config.js`);
+// const config = require(`${process.env.APP_ROOT}/_config.js`);
 
-const express = require('express');
+import express from 'express'; 
 const router  = express.Router();
 
-const { Admin } = require('../admin/controllers/adminController');
-const { Authentication } = require('../admin/controllers/authenticationController');
+import Admin from '../admin/controllers/adminController.js';
+import Authentication from '../admin/controllers/authenticationController.js';
+
+// const { Admin } = require('../admin/controllers/adminController');
+// const { Authentication } = require('../admin/controllers/authenticationController');
 
 const adminController = new Admin();
 const authenticationController = new Authentication();
@@ -20,14 +23,14 @@ router.post('/register', authenticationController.register);
 // router.post('/login', authenticationController.checkLogin);
 // router.post('/logout', authenticationController.logout);
 
-router.post('/test', testController.test);
+// router.post('/test', testController.test);
 
 
 // Register Page
 router.get('/register', adminController.register);
 
 
-router.get('/test', testController.test);
+// router.get('/test', testController.test);
 
 
 
@@ -44,5 +47,4 @@ router.get('/get-user/:id', adminController.getUserById);
 // Get All Users
 router.get('/get-users', adminController.getUsers);
 
-
-module.exports = router;
+export default router;

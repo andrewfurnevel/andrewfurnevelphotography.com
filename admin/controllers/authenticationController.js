@@ -1,11 +1,11 @@
 'use strict';
 
 // Imports
-const express = require('express');
-// const bcrypt = require('bcrypt');
-const config = require(`${process.env.APP_ROOT}/_config.js`);
-const UserModel = require(`${config.absPath.models}/UserModel.js`);
-const { Validation } = require(`${config.absPath.system}/Validation.js`);
+import express from 'express';
+import bcrypt from 'bcrypt';
+import config from '../../_config.js';
+import UserModel from '../../app/models/UserModel.js';
+import Validation from '../../system/Validation.js';
 
 class Authentication {
     constructor() { 
@@ -74,4 +74,4 @@ class Authentication {
 
 } // End Class
 
-module.exports = { Authentication }
+export default Authentication;
