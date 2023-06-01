@@ -1,14 +1,15 @@
 'use strict';
 
 // const config = require(`${process.env.APP_ROOT}/_config.js`);
-
 // const Model = require(`${process.env.APP_ROOT}/system/Model.js`);
+
 import Model from '../../system/Model.js';
 
 class UserModel extends Model {
 
     constructor() {
         super();
+        // console.log(this.db);
     }
     
     

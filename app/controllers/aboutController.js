@@ -16,5 +16,3 @@ export default class About {
     }
 
 }
-
-// module.exports = { About }

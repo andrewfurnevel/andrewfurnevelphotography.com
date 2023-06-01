@@ -1,6 +1,7 @@
 'use Strict';
 
 // Imports
+
 import absPath from '../../_config.js';
 
 export default class Portfolio {
@@ -18,5 +19,3 @@ export default class Portfolio {
     }
 
 }
-
-// module.exports = { Portfolio }

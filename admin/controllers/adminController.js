@@ -2,11 +2,7 @@
 
 'use strict';
 
-// const config = require(`${process.env.APP_ROOT}/_config.js`);
-// const UserModel = require(`${config.absPath.models}/UserModel.js`);
-
 import absPath from '../../_config.js';
-console.log(absPath);
 import UserModel from '../../app/models/UserModel.js';
 
 let userModel = new UserModel();

@@ -1,18 +1,16 @@
-// 'use strict';
+// userRoutes.js
+// Handles routing of users requests (formerly app requests) to relevant controllers.
+
+'use strict';
 
 // Imports
-import dotenv from 'dotenv';
-dotenv.config();
-
-import absPath from '../_config.js';
-
 import express from 'express'; 
-
 import Home from '../app/controllers/homeController.js';
 import About from '../app/controllers/aboutController.js';
 import Contact from '../app/controllers/contactController.js';
 import Portfolio from '../app/controllers/portfolioController.js';
 // import Authentication from '../app/controllers/authrnticationController.js';
+
 const router  = express.Router();
 
 const homeController = new Home();
@@ -49,7 +47,7 @@ router.get('/contact', contactController.index);
 // router.get('/login', authenticationController.login);
 
 // Logout
-
+// router.get('/loggedOut', authenticationController.loggedOut);
 
 // Register Page
 // router.get('/register', authenticationController.register);

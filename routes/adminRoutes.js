@@ -1,13 +1,14 @@
-// const config = require(`${process.env.APP_ROOT}/_config.js`);
+// adminRoutes.js
+// Handles routing of admin requests to relevant controllers.
+
+'use strict';
+
 
 import express from 'express'; 
 const router  = express.Router();
 
 import Admin from '../admin/controllers/adminController.js';
 import Authentication from '../admin/controllers/authenticationController.js';
-
-// const { Admin } = require('../admin/controllers/adminController');
-// const { Authentication } = require('../admin/controllers/authenticationController');
 
 const adminController = new Admin();
 const authenticationController = new Authentication();

@@ -19,5 +19,3 @@ export default class Home {
     }
 
 }
-
-// module.exports = { Home }
