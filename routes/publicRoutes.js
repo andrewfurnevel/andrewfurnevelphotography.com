@@ -10,6 +10,7 @@ import About from '../app/controllers/aboutController.js';
 import Contact from '../app/controllers/contactController.js';
 import Portfolio from '../app/controllers/portfolioController.js';
 // import Authentication from '../app/controllers/authrnticationController.js';
+import Registration from '../app/controllers/registrationController.js';
 
 const router  = express.Router();
 
@@ -18,6 +19,7 @@ const aboutController = new About();
 const contactController = new Contact();
 const portfolioController = new Portfolio();
 // const authenticationController = new Authentication();
+const registrationController = new Registration();
 
 // router.use((req, res, next) => {
 //     console.log('New Request Made:');
@@ -52,7 +54,11 @@ router.get('/contact', contactController.index);
 // Register Page
 // router.get('/register', authenticationController.register);
 
+// Register Page
+router.get('/register', registrationController.register);
 
-// }
+
+
+// } 
 
 export default router;

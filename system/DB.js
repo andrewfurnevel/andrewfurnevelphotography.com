@@ -14,7 +14,7 @@ const dbCredentials = {
     database: process.env.POSTGRES_DATABASE
 }
 
-console.log(dbCredentials);
+// console.log(dbCredentials);
 class DB {
     
     constructor() {

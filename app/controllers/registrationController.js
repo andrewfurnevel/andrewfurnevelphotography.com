@@ -3,25 +3,13 @@
 // Imports
 import express from 'express';
 import bcrypt from 'bcrypt';
-import config from '../../_config.js';
-import UserModel from '../../app/models/UserModel.js';
+import absPath from '../../_config.js';
+import UserModel from '../models/UserModel.js';
 import Validation from '../../system/Validation.js';
 
-class Authentication {
-    constructor() { 
-        
-    }
-    
-    async login(req, res) {
-        console.log("Got here");
-    }
-    
-    
+class Registration {
 
-    async logout(req, res) {
-
-    }
-
+    constructor() {}
 
     async register(req, res) {
         const validation = new Validation();
@@ -49,34 +37,20 @@ class Authentication {
             // Create Validation Utility Class
             msg.push('The passwords did not match!');
 
-            console.log(msg);
-            res.render(`${config.absPath.adminViews}/register`, {msg})
+            // console.log(msg);
+            res.render(`${absPath.views}/register`, {msg})
 
         } else {
             
             // Send to the Login Model to be written to the database.
-            console.log("Entered in Database");
-            res.render(`${config.absPath.adminViews}/admin`)
+            // console.log("Entered in Database");
+            res.render(`${absPath.adminViews}/admin`)
         }
     }
-            
 
-    async checkLogin(req, res) {
-        console.log(req.body.username);
-        console.log(req.body.password);
-        console.log(req.body);
-
-        let data = [];
-
-        if (error) {
-
-        }
-
-    }  
-
-    // res.render(`${config.absPath.adminViews}/login`)
+    // res.render(`${absPath.adminViews}/login`)
 
 
 } // End Class
 
-export default Authentication;
+export default Registration;

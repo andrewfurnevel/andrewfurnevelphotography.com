@@ -28,7 +28,7 @@ router.post('/register', authenticationController.register);
 
 
 // Register Page
-router.get('/register', adminController.register);
+// router.get('/register', adminController.register);
 
 
 // router.get('/test', testController.test);
