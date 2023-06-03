@@ -1,48 +1,41 @@
 'use strict';
 
-const config = require(`${process.env.APP_ROOT}/_config.js`);
+// import config from '/_config.js';
+import pg from 'pg';
 
-const { Pool, Client } = require("pg");
+const pool = new pg.Pool(); 
 
+// Needed to be efined outside of the class
 const dbCredentials = {
-    host: config.dbCredentials.host,
-    port: config.dbCredentials.port,
-    user: config.dbCredentials.username,
-    password: config.dbCredentials.password,
-    database: config.dbCredentials.database
+    host: process.env.POSTGRES_HOST,
+    port: process.env.POSTGRES_PORT,
+    username: process.env.POSTGRES_USER,
+    password: process.env.POSTGRES_PASSWORD,
+    database: process.env.POSTGRES_DATABASE
 }
-const pool = new Pool({ dbCredentials });
 
-const client = new Client ({ dbCredentials });
+// console.log(dbCredentials); // Passed
 
-module.exports = { pool, client };
+class DB {
+    
+    constructor() {
 
+        // Postgres Connection
+        this.pool = new pg.Pool();
+        // this.Client = Client;
 
-// Below is code from the DB Class
+    }
 
-// const config = require(`${process.env.PWD}/_config.js`);
+    pool() {
+        const pool = new this.Pool({ dbCredentials });     
+        return pool;
+    }
 
-// class DB {
-//     constructor() {
-        
-//         const {Pool, Client} = require('pg')
+    client() {
+        const client = new this.Client({ dbCredentials });       
+        return client; 
+    }
 
-//         // Assign Environment Variables
-//         const pool = new Pool({
-//             host: config.db.host,
-//             port: config.db.port,
-//             user: config.db.username,
-//             password: config.db.password,
-//             database: config.db.database
-//         });
+} // End Class
 
-//         return pool;
-//     }
-// }
-
-// const db = new DB();
-
-// module.exports = { 
-//     pool,
-//     client
-// }
+export default DB;

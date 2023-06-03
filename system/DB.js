@@ -1,5 +1,3 @@
-// DB.js
-
 'use strict';
 
 // import config from '/_config.js';
@@ -15,6 +13,8 @@ const dbCredentials = {
     password: process.env.POSTGRES_PASSWORD,
     database: process.env.POSTGRES_DATABASE
 }
+
+console.log(dbCredentials);
 class DB {
     
     constructor() {
