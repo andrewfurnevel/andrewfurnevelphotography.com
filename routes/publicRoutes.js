@@ -51,12 +51,12 @@ router.get('/contact', contactController.index);
 // Logout
 // router.get('/loggedOut', authenticationController.loggedOut);
 
-// Register Page
-// router.get('/register', authenticationController.register);
 
 // Register Page
 router.get('/register', registrationController.register);
 
+// Register Form Submitted Page
+router.post('/register', registrationController.register);
 
 
 // } 
