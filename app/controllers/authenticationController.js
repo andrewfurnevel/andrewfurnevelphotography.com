@@ -1,11 +1,11 @@
 'use strict';
 
 // Imports
-const express = require('express');
-// const bcrypt = require('bcrypt');
-const config = require(`${process.env.APP_ROOT}/_config.js`);
-const UserModel = require(`${config.absPath.models}/UserModel.js`);
-const { Validation } = require(`${config.absPath.system}/Validation.js`);
+import express from 'express';
+import absPath from '../../_config.js';
+import bcrypt from 'bcrypt';
+import UserModel from '../models/UserModel.js';
+import Validation from '../../system/Validation.js';
 
 class Authentication {
     constructor() { 
@@ -14,7 +14,7 @@ class Authentication {
     
     async login(req, res) {
 
-        res.render(`${config.absPath.views}/login`);
+        res.render(`${absPath.views}/login`);
 
     }    
 
@@ -25,7 +25,7 @@ class Authentication {
     async register(req, res) {
 
         let msg =[];
-        res.render(`${config.absPath.adminViews}/register`, {msg});
+        res.render(`${absPath.adminViews}/register`, {msg});
     }
     
 
@@ -53,13 +53,13 @@ class Authentication {
             msg.push('The passwords did not match!');
 
             console.log(msg);
-            res.render(`${config.absPath.adminViews}/register`, {msg})
+            res.render(`${absPath.adminViews}/register`, {msg})
 
         } else {
             
             // Send to the Login Model to be written to the database.
             console.log("Entered in Database");
-            res.render(`${config.absPath.adminViews}/admin`)
+            res.render(`${absPath.adminViews}/admin`)
         }
     }
             
@@ -82,4 +82,4 @@ class Authentication {
 
 } // End Class
 
-module.exports = { Authentication }
+export default Authentication;

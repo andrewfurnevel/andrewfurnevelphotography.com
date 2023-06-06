@@ -9,7 +9,7 @@ import Home from '../app/controllers/homeController.js';
 import About from '../app/controllers/aboutController.js';
 import Contact from '../app/controllers/contactController.js';
 import Portfolio from '../app/controllers/portfolioController.js';
-// import Authentication from '../app/controllers/authrnticationController.js';
+import Authentication from '../app/controllers/authenticationController.js';
 import Registration from '../app/controllers/registrationController.js';
 
 const router  = express.Router();
@@ -18,7 +18,7 @@ const homeController = new Home();
 const aboutController = new About();
 const contactController = new Contact();
 const portfolioController = new Portfolio();
-// const authenticationController = new Authentication();
+const authenticationController = new Authentication();
 const registrationController = new Registration();
 
 // router.use((req, res, next) => {
@@ -46,7 +46,7 @@ router.get('/work', portfolioController.index);
 router.get('/contact', contactController.index);
 
 // Login Page
-// router.get('/login', authenticationController.login);
+router.get('/login', authenticationController.login);
 
 // Logout
 // router.get('/loggedOut', authenticationController.loggedOut);
