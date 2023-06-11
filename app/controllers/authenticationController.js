@@ -22,11 +22,11 @@ class Authentication {
 
     }
 
-    async register(req, res) {
+    // async register(req, res) {
 
-        let msg =[];
-        res.render(`${absPath.adminViews}/register`, {msg});
-    }
+    //     let msg =[];
+    //     res.render(`${absPath.adminViews}/register`, {msg});
+    // }
     
 
 
@@ -62,9 +62,18 @@ class Authentication {
             res.render(`${absPath.adminViews}/admin`)
         }
     }
-            
+    
+    async resetPassword() {
 
-    async checkLogin(req, res) {
+    }
+
+    async changePassword() {
+
+    }
+
+    async verifyAccount() {}
+
+    async test(req, res) {
         console.log(req.body.username);
         console.log(req.body.password);
         console.log(req.body);

@@ -11,6 +11,7 @@ import Contact from '../app/controllers/contactController.js';
 import Portfolio from '../app/controllers/portfolioController.js';
 import Authentication from '../app/controllers/authenticationController.js';
 import Registration from '../app/controllers/registrationController.js';
+// import Registration from '../app/controllers/authenticationController.js';
 
 const router  = express.Router();
 

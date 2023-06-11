@@ -37,7 +37,7 @@ class Admin {
             res.render(`${absPath.adminViews}/get-user`, {data, data2});
             
         });
-    }
+    } 
 
 
     async getUsers(req, res) {

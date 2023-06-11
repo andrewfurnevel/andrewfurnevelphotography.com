@@ -39,10 +39,16 @@ class Registration {
             msg = [];
             res.render(`${absPath.views}/register`, {msg});
         } else if(req.method === 'POST'){
+            console.log("Form Sent");
+            isUser();
             temp_form_validation();
         }
 
-        
+        function isUser() {
+            console.log("This User is Already Registered");
+        }
+
+
         function temp_form_validation(){
             // Temp validation
             if (!req.body.username) {
@@ -55,10 +61,13 @@ class Registration {
             //     console.log ('Validaiton Passed');
             //     console.log('The form has been submitted.');
             // }
-            // console.log(req.body.username);
-            // console.log(req.body.password);
-            // console.log(req.body.password_confirm);
-            console.log (msg);
+            console.log(req.body.username);
+            console.log(req.body.password);
+            console.log(req.body.password_confirm);
+            
+            if (msg.length > 0) {
+                console.log (msg);
+            }
         
 
         }

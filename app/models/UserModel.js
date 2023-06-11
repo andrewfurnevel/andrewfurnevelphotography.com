@@ -31,6 +31,17 @@ class UserModel extends Model {
         }
     }
 
+    async getUserByUserName (userName) {
+            try  {
+                const sql = `SELECT * FROM users WHERE user_name =$1`;
+                const result = await this.pool.query(sql, [userName]);
+                return result;
+
+            } catch (error) {
+                console.log(error);
+            }
+    }
+
 
     async getUsers () {
     
