@@ -1,7 +1,7 @@
 'use strict';
 
 // Imports
-import express from 'express';
+// import express from 'express';
 import bcrypt from 'bcrypt';
 import absPath from '../../_config.js';
 import UserModel from '../models/UserModel.js';
@@ -9,12 +9,24 @@ import Validation from '../../system/Validation.js';
 
 class Registration {
 
-    constructor() {}
+    constructor() {
 
-    async checkIfExists() {}
+
+    }
 
     async register(req, res) {
         
+        let msg = [];
+
+        if (req.method === 'GET') {
+            msg = [];
+            res.render(`${absPath.views}/register`, {msg});
+        } else if(req.method === 'POST'){
+            // console.log("Form Sent");
+            isUser(res, req);
+            // temp_form_validation();
+        }
+    }
         // const validation = new Validation();
 
         // const valRules = {"username" : "isEmpty, isMinLength=8"};
@@ -33,23 +45,23 @@ class Registration {
         // console.log(req.body.password);
         // console.log(req.body.password_confirm);
         // console.log(req.body);
-        let msg = [];
 
-        if (req.method === 'GET') {
-            msg = [];
-            res.render(`${absPath.views}/register`, {msg});
-        } else if(req.method === 'POST'){
-            console.log("Form Sent");
-            isUser();
-            temp_form_validation();
+        async isUser(res, req) {
+            // console.log("This User is Already Registered");
+            const userModel = new UserModel;
+            const data = userModel.getUserByUsername(req.body.username);
+            
+            
+            console.log(data);
+
+            if (result == req.body.username) {
+                // msg.push("That username already exists");
+                console.log("That user already exists");
+            }
         }
 
-        function isUser() {
-            console.log("This User is Already Registered");
-        }
 
-
-        function temp_form_validation(){
+        async temp_form_validation(){
             // Temp validation
             if (!req.body.username) {
                 msg.push('You must enter a Username!');
@@ -86,11 +98,11 @@ class Registration {
         //     // console.log("Entered in Database");
         //     res.render(`${absPath.adminViews}/admin`)
         // }
-    }
+}
 
     // res.render(`${absPath.adminViews}/login`)
 
 
-} // End Class
+// End Class
 
 export default Registration;

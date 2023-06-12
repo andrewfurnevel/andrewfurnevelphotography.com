@@ -31,10 +31,11 @@ class UserModel extends Model {
         }
     }
 
-    async getUserByUserName (userName) {
+    async getUserByUsername (username) {
+        console.log(username);
             try  {
-                const sql = `SELECT * FROM users WHERE user_name =$1`;
-                const result = await this.pool.query(sql, [userName]);
+                const sql = `SELECT * FROM users WHERE user_name = $1`;
+                const result = await this.pool.query(sql, [username]);
                 return result;
 
             } catch (error) {
