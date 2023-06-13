@@ -32,10 +32,11 @@ class UserModel extends Model {
     }
 
     async getUserByUsername (username) {
-        console.log(username);
             try  {
+                console.log(username);
                 const sql = `SELECT * FROM users WHERE user_name = $1`;
                 const result = await this.pool.query(sql, [username]);
+                console.log(result.row);
                 return result;
 
             } catch (error) {

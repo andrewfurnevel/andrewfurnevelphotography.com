@@ -26,13 +26,25 @@ class Authentication {
     async register(req, res) {
         const validation = new Validation();
 
-        const valRules = {"username" : "isEmpty, isMinLength=8"};
-        
-        validation.run(req.body, valRules);
+        // const valRules = {"username" : "isEmpty, isMinLength=8"};
 
-        console.log(req.body.username);
-        console.log(req.body.password);
-        console.log(req.body.password_confirm);
+        // Load New Form
+        if (this.register.method === 'GET') {
+            console.log('New Form');
+            msg = [];
+            res.render(`${absPath.views}/register`, {msg});
+
+        } else {
+            // Process Completed Form
+            console.log('Processed Form');
+
+        }
+        
+        // validation.run(req.body, valRules);
+
+        // console.log(req.body.username);
+        // console.log(req.body.password);
+        // console.log(req.body.password_confirm);
 
         // if (result.rowcount === 0) {
         
@@ -42,37 +54,36 @@ class Authentication {
         // console.log(req.body.password);
         // console.log(req.body.password_confirm);
         // console.log(req.body);
-        let msg = [];
+        // let msg = [];
 
-        if (req.body.password !== req.body.password_confirm) {
+        // if (req.body.password !== req.body.password_confirm) {
 
-            // Create Validation Utility Class
-            msg.push('The passwords did not match!');
+        //     // Create Validation Utility Class
+        //     msg.push('The passwords did not match!');
 
-            console.log(msg);
-            res.render(`${config.absPath.adminViews}/register`, {msg})
+        //     console.log(msg);
+        //     res.render(`${config.absPath.adminViews}/register`, {msg})
 
-        } else {
+        // } else {
             
-            // Send to the Login Model to be written to the database.
-            console.log("Entered in Database");
-            res.render(`${config.absPath.adminViews}/admin`)
-        }
+        //     // Send to the Login Model to be written to the database.
+        //     console.log("Entered in Database");
+        //     res.render(`${config.absPath.adminViews}/admin`)
+        // }
     }
             
 
-    async checkLogin(req, res) {
-        console.log(req.body.username);
-        console.log(req.body.password);
-        console.log(req.body);
+    // async checkLogin(req, res) {
+    //     console.log(req.body.username);
+    //     console.log(req.body.password);
+    //     console.log(req.body);
 
-        let data = [];
+    //     let data = [];
 
-        if (error) {
+    //     if (error) {
 
-        }
-
-    }  
+    //     }
+    // }  
 
     // res.render(`${config.absPath.adminViews}/login`)
 

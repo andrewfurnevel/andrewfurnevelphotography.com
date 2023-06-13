@@ -49,14 +49,14 @@ router.get('/contact', contactController.index);
 router.get('/login', authenticationController.login);
 
 // Logout
-// router.get('/loggedOut', authenticationController.loggedOut);
+// router.get('/loggedOut', authenticationController.logout);
 
 
 // Register Page
-router.get('/register', registerController.register);
+router.get('/register', authenticationController.register);
 
-// Register Form Submitted Page
-router.post('/register', registerController.register);
+// Register Page: Handle Submission
+router.post('/register', authenticationController.register);
 
 
 // } 

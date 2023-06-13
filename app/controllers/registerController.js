@@ -1,29 +1,40 @@
 'use strict';
 
 // Imports
-// import express from 'express';
-import bcrypt from 'bcrypt';
+import express from 'express';
 import absPath from '../../_config.js';
 import UserModel from '../models/UserModel.js';
 import Validation from '../../system/Validation.js';
+import Authentication from '../../system/Authentication.js';
 
 class Registration {
 
     constructor() {
-
-
+        // this.validation = new Validation();
+        // this.authentication = new Authentication();
+        // this.authentication = this.authentication.bind(this);
+        // this.userModel = new UserModel();
+        console.log("This Worked!!!");
+        this.someVar = "Helloooo!";
+        console.log(this.someVar);
     }
-
-    async register(req, res) {
-        
+    
+    register(req, res) {
         let msg = [];
 
         if (req.method === 'GET') {
             msg = [];
             res.render(`${absPath.views}/register`, {msg});
+            console.log(this.someVar);
+            
+            
         } else if(req.method === 'POST'){
             // console.log("Form Sent");
-            isUser(res, req);
+            // this.authentication.test();
+            const authentication = new Authentication();
+            authentication.test();
+
+            // isUser(res, req);
             // temp_form_validation();
         }
     }

@@ -9,7 +9,7 @@ import Validation from '../../system/Validation.js';
 
 class Authentication {
     constructor() { 
-        
+       
     }
     
     async login(req, res) {
@@ -22,45 +22,58 @@ class Authentication {
 
     }
 
-    // async register(req, res) {
-
-    //     let msg =[];
-    //     res.render(`${absPath.adminViews}/register`, {msg});
-    // }
-    
-
 
 
     async register(req, res) {
-        const validation = new Validation();
+
+        if (req.method == 'GET') {
+            console.log('New Form');
+            const msg = [];
+            await res.render(`${absPath.views}/register`, {msg});
+            
+        }  
+        
+        if (req.method == 'POST') {
+            const userModel = new UserModel();
+            let data = userModel.getUserByUsername(req.body.username);
+            console.log(data.rows);
+
+            const validation = new Validation();
+            const validationRules = {"username" : "isEmpty, isMinLength = 8"};
+            
+            const msg = [];
+            
+            console.log('Submitted Form');
+            await res.render(`${absPath.views}/register`, {msg});
+        }
 
         const valRules = {"username" : "isEmpty, isMinLength=8"};
         
-        validation.run(req.body, valRules);
-        // if (result.rowcount === 0) {
+        // validation.run(req.body, valRules);
+        // // if (result.rowcount === 0) {
         
-        //         // Hash & Salt
-        //         const hash = await bcrypt.has(req.body.password, 10)
-        // console.log(req.body.username);
-        // console.log(req.body.password);
-        // console.log(req.body.password_confirm);
-        // console.log(req.body);
-        let msg = [];
+        // //         // Hash & Salt
+        // //         const hash = await bcrypt.has(req.body.password, 10)
+        // // console.log(req.body.username);
+        // // console.log(req.body.password);
+        // // console.log(req.body.password_confirm);
+        // // console.log(req.body);
+        // let msg = [];
 
-        if (req.body.password !== req.body.password_confirm) {
+        // if (req.body.password !== req.body.password_confirm) {
 
-            // Create Validation Utility Class
-            msg.push('The passwords did not match!');
+        //     // Create Validation Utility Class
+        //     msg.push('The passwords did not match!');
 
-            console.log(msg);
-            res.render(`${absPath.adminViews}/register`, {msg})
+        //     console.log(msg);
+        //     res.render(`${absPath.adminViews}/register`, {msg})
 
-        } else {
+        // } else {
             
-            // Send to the Login Model to be written to the database.
-            console.log("Entered in Database");
-            res.render(`${absPath.adminViews}/admin`)
-        }
+        //     // Send to the Login Model to be written to the database.
+        //     console.log("Entered in Database");
+        //     res.render(`${absPath.adminViews}/admin`)
+        // }
     }
     
     async resetPassword() {
