@@ -1,7 +1,7 @@
 'use strict';
 
 // Imports
-import express from 'express';
+// import express from 'express';
 import absPath from '../../_config.js';
 import bcrypt from 'bcrypt';
 import UserModel from '../models/UserModel.js';
@@ -9,46 +9,70 @@ import Validation from '../../system/Validation.js';
 
 class Authentication {
     constructor() { 
-       
+       this.userModel = new UserModel();
+
+       this.messages = [];
+
+        // const myObject = new MyClass();
+        // const boundAsyncMethod = myObject.myAsyncMethod.bind(myObject);
+        // boundAsyncMethod();
     }
     
-    async login(req, res) {
+    login = (req, res) => {
 
         res.render(`${absPath.views}/login`);
 
     }    
 
-    async logout(req, res) {
+    logout = async (req, res) => {
 
     }
 
+    async getUsers(req, res) {
 
+        let data = userModel.getUsers()
+        .then((data) => {
+            console.log(data.rowCount);
+            console.log(data.rows);
+            res.render(`${absPath.adminViews}/get-users`, {data});
+    
+            });
+        }
 
-    async register(req, res) {
+    register = async (req, res) => {
+
 
         if (req.method == 'GET') {
             console.log('New Form');
+            // console.log(this.test);
             const msg = [];
-            await res.render(`${absPath.views}/register`, {msg});
+            res.render(`${absPath.views}/register`, {msg});
             
         }  
         
         if (req.method == 'POST') {
             const userModel = new UserModel();
-            let data = userModel.getUserByUsername(req.body.username);
-            console.log(data.rows);
+            let data = await this.userModel.getUserByUsername(req.body.username)
+            console.log(data.rowCount);
 
-            const validation = new Validation();
-            const validationRules = {"username" : "isEmpty, isMinLength = 8"};
+            if (data.rowCount != 0) {
+
+                console.log("This user is already registered");
+            }
+
+            // const validation = new Validation();
+            // const validationRules = {"username" : "isEmpty, isMinLength = 8"};
             
-            const msg = [];
+            // const msg = [];
             
-            console.log('Submitted Form');
-            await res.render(`${absPath.views}/register`, {msg});
+            // console.log('Submitted Form');
+            // res.render(`${absPath.views}/register`, {msg});
         }
 
-        const valRules = {"username" : "isEmpty, isMinLength=8"};
+        // const valRules = {"username" : "isEmpty, isMinLength=8"};
         
+
+
         // validation.run(req.body, valRules);
         // // if (result.rowcount === 0) {
         
@@ -76,17 +100,17 @@ class Authentication {
         // }
     }
     
-    async resetPassword() {
+    resetPassword = () => {
 
     }
 
-    async changePassword() {
+    changePassword = () => {
 
     }
 
-    async verifyAccount() {}
+    verifyAccount = () => {}
 
-    async test(req, res) {
+    test = (req, res) => {
         console.log(req.body.username);
         console.log(req.body.password);
         console.log(req.body);

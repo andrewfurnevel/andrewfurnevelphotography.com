@@ -18,28 +18,31 @@ class UserModel extends Model {
         try {
             const sql = `SELECT * FROM users WHERE user_id = $1`;
             const result = await this.pool.query(sql, [userId])
-            return result;
-
+            // .then (console.log(result.rowCount));
+            // return result;
+            
         } catch (error) {
             console.error(error);
         }
-
+        
         finally {
             // Close connection
             // await pool.end()
             // console.log('DB Disconnected');
         }
     }
-
+    
     async getUserByUsername (username) {
-            try  {
-                console.log(username);
-                const sql = `SELECT * FROM users WHERE user_name = $1`;
-                const result = await this.pool.query(sql, [username]);
-                console.log(result.row);
-                return result;
+        try  {
+            console.log("getUserByUsername");
+            // console.log(username);
+            const sql = `SELECT * FROM users WHERE user_name = $1`;
+            const result = await this.pool.query(sql, [username])
+            // console.log(result.rowCount); // This works
 
-            } catch (error) {
+            return result;
+            
+        } catch (error) {
                 console.log(error);
             }
     }

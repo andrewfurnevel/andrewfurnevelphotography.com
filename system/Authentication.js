@@ -17,10 +17,6 @@ class Authentication {
         // this.userModel = new UserModel();
     }
 
-    test() {
-        console.log("Testing Worked!!!");
-    }
-
     // async test() {
     //     then(console.log("Test Worked!"));
 

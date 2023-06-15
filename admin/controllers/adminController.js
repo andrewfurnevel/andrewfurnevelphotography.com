@@ -33,6 +33,7 @@ class Admin {
         .then((data) => {
             const data2 = {"Name" : "Andrew"};
 
+            console.log(data.rowCount);
             console.log(data.rows);
             res.render(`${absPath.adminViews}/get-user`, {data, data2});
             
@@ -44,6 +45,7 @@ class Admin {
 
         let data = userModel.getUsers()
         .then((data) => {
+            console.log(data.rowCount);
             console.log(data.rows);
             res.render(`${absPath.adminViews}/get-users`, {data});
     

@@ -14,9 +14,6 @@ class Registration {
         // this.authentication = new Authentication();
         // this.authentication = this.authentication.bind(this);
         // this.userModel = new UserModel();
-        console.log("This Worked!!!");
-        this.someVar = "Helloooo!";
-        console.log(this.someVar);
     }
     
     register(req, res) {
