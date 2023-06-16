@@ -9,6 +9,7 @@ class Validation {
         this.rules = [];
         this.imput;
         this.currentRule;
+        
     }
 
 
@@ -30,16 +31,22 @@ class Validation {
     } 
     
     // Run validaion on the entry
-    run() { 
-   
-        // try {
-        //     console.log(this.rules[3][2].length);
-        // }
+    run(input, rules) { 
+        console.log(input);
+        console.log(rules);
 
-        // catch {
-        //     console.log('Wrong Number Of Parameters!');
-        //     console.log('Parameter Format Should Be: [label, name, req.body.name, [rules]]')
-        // }
+        this.input = input;
+        this.rules = rules;
+
+   
+        try {
+            console.log(this.rules[3][2].length);
+        }
+
+        catch {
+            console.log('Wrong Number Of Parameters!');
+            console.log('Parameter Format Should Be: [label, name, req.body.name, [rules]]')
+        }
 
         console.table(this.rules);
 

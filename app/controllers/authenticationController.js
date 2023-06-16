@@ -55,8 +55,12 @@ class Authentication {
             } else {
                 
                 const validation  = new Validation();
+                // The rule format below is wrong. See the error message in the try catch block.
+                // See admin/controllers/testController.js for correct format.
+                
                 const validationRules = {"username" : "isEmpty, isMinLength = 8"};
                 validation.run(req.body, validationRules);
+                // console.log(req.body);
                 
             }
         }
