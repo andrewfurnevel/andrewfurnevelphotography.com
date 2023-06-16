@@ -9,13 +9,10 @@ import Validation from '../../system/Validation.js';
 
 class Authentication {
     constructor() { 
-       this.userModel = new UserModel();
+    this.userModel = new UserModel();
+    // this.test = "Testing"; // Works!!!
+    this.messages = [];
 
-       this.messages = [];
-
-        // const myObject = new MyClass();
-        // const boundAsyncMethod = myObject.myAsyncMethod.bind(myObject);
-        // boundAsyncMethod();
     }
     
     login = (req, res) => {
@@ -40,40 +37,39 @@ class Authentication {
         }
 
     register = async (req, res) => {
-
-
+        console.log(this.test);
         if (req.method == 'GET') {
-            console.log('New Form');
-            // console.log(this.test);
             const msg = [];
-            res.render(`${absPath.views}/register`, {msg});
-            
+            res.render(`${absPath.views}/register`, {msg});   
         }  
         
         if (req.method == 'POST') {
             const userModel = new UserModel();
-            let data = await this.userModel.getUserByUsername(req.body.username)
-            console.log(data.rowCount);
+            let data = await this.userModel.isRegistered(req.body.username)
+            console.log(data);
 
-            if (data.rowCount != 0) {
-
-                console.log("This user is already registered");
+            if (data > 0) {
+                this.messages.push("This Username is already registered");
+                console.log(this.messages);
+                
+            } else {
+                
+                const validation  = new Validation();
+                const validationRules = {"username" : "isEmpty, isMinLength = 8"};
+                validation.run(req.body, valRules);
+                
             }
-
-            // const validation = new Validation();
-            // const validationRules = {"username" : "isEmpty, isMinLength = 8"};
-            
-            // const msg = [];
-            
-            // console.log('Submitted Form');
-            // res.render(`${absPath.views}/register`, {msg});
         }
+    } // End register method
 
-        // const valRules = {"username" : "isEmpty, isMinLength=8"};
-        
+            
+            // // console.log(data.rowCount);
+
+            // if (data.rowCount != 0) {
+
+            //     console.log("This user is already registered");
 
 
-        // validation.run(req.body, valRules);
         // // if (result.rowcount === 0) {
         
         // //         // Hash & Salt
@@ -98,7 +94,6 @@ class Authentication {
         //     console.log("Entered in Database");
         //     res.render(`${absPath.adminViews}/admin`)
         // }
-    }
     
     resetPassword = () => {
 
