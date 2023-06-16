@@ -50,13 +50,13 @@ class Authentication {
 
             if (data > 0) {
                 this.messages.push("This Username is already registered");
-                console.log(this.messages);
+                // console.log(this.messages); // Works!!!
                 
             } else {
                 
                 const validation  = new Validation();
                 const validationRules = {"username" : "isEmpty, isMinLength = 8"};
-                validation.run(req.body, valRules);
+                validation.run(req.body, validationRules);
                 
             }
         }
