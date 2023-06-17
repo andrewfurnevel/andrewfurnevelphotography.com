@@ -15,7 +15,8 @@ const authenticationController = new Authentication();
 
 // Testing Purposes
 // const { Test } = require('../admin/controllers/testController');
-// const testController = new Test();
+import Test from '../admin/controllers/testController.js';
+const testController = new Test();
 // End Testing
 
 // ADMIN ROUTES ------------------------------------------------------
@@ -24,14 +25,14 @@ router.post('/register', authenticationController.register);
 // router.post('/login', authenticationController.checkLogin);
 // router.post('/logout', authenticationController.logout);
 
-// router.post('/test', testController.test);
+router.post('/test', testController.test);
 
 
 // Register Page
 // router.get('/register', adminController.register);
 
 
-// router.get('/test', testController.test);
+router.get('/test', testController.test);
 
 
 

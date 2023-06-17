@@ -1,8 +1,14 @@
 'use Strict';
 
-const config = require(`${process.env.APP_ROOT}/_config.js`);
-const TestModel = require(`${config.absPath.adminModels}/TestModel.js`);
-const { Validation } = require(`${config.absPath.system}/Validation.js`);
+// const config = require(`${process.env.APP_ROOT}/_config.js`);
+// const TestModel = require(`${config.absPath.adminModels}/TestModel.js`);
+// const { Validation } = require(`${config.absPath.system}/Validation.js`);
+
+import express from 'express';
+// import bcrypt from 'bcrypt';
+import config from '../../_config.js';
+// import TestModel from '../models/TestModel.js';
+import Validation from '../../system/Validation.js';
 
 class Test { 
 
@@ -48,6 +54,6 @@ class Test {
 
 }
 
-module.exports = { Test };
+export default Test;
 
 

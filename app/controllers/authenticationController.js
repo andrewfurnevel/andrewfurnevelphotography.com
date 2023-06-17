@@ -40,6 +40,7 @@ class Authentication {
         console.log(this.test);
         if (req.method == 'GET') {
             const msg = [];
+            this.validationErrors = [];
             res.render(`${absPath.views}/register`, {msg});   
         }  
         
@@ -55,12 +56,11 @@ class Authentication {
             } else {
                 
                 const validation  = new Validation();
-                // The rule format below is wrong. See the error message in the try catch block.
-                // See admin/controllers/testController.js for correct format.
-                
-                const validationRules = {"username" : "isEmpty, isMinLength = 8"};
-                validation.run(req.body, validationRules);
-                // console.log(req.body);
+                validation.setRule(['User Name', 'username', req.body.username, ['special_chars']]);
+                // const validationRules = {"username" : "isEmpty, isMinLength = 8"};
+                // validation.run(req.body, validationRules);
+                this.validationErrors = validation.run();
+                console.log (this.validationErrors);
                 
             }
         }
@@ -68,7 +68,7 @@ class Authentication {
 
             
             // // console.log(data.rowCount);
-
+ 
             // if (data.rowCount != 0) {
 
             //     console.log("This user is already registered");
