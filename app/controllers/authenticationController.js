@@ -11,6 +11,7 @@ class Authentication {
     constructor() { 
     this.userModel = new UserModel();
     // this.test = "Testing"; // Works!!!
+    this.rules = [];
     this.messages = [];
 
     }
@@ -36,12 +37,17 @@ class Authentication {
             });
         }
 
+    checkIfRegistered() {
+        
+    }    
+
     register = async (req, res) => {
         console.log(this.test);
         if (req.method == 'GET') {
             const msg = [];
             this.validationErrors = [];
-            res.render(`${absPath.views}/register`, {msg});   
+            res.render(`${absPath.views}/register`, {msg});
+            return;   
         }  
         
         if (req.method == 'POST') {
@@ -56,9 +62,13 @@ class Authentication {
             } else {
                 
                 const validation  = new Validation();
+
+                // Set the Rules for the Form Input
                 validation.setRule(['User Name', 'username', req.body.username, ['special_chars']]);
                 // const validationRules = {"username" : "isEmpty, isMinLength = 8"};
                 // validation.run(req.body, validationRules);
+
+                // Run the Input Validation
                 this.validationErrors = validation.run();
                 console.log (this.validationErrors);
                 

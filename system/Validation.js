@@ -17,8 +17,10 @@ class Validation {
     // Change this to setRule
     setRule(rules) {
         this.rules.push(rules)
-        // console.table(rules);
+        // console.table(this.rules);
     }
+
+
 
     showRules() {
         // console.table(this.rules);
@@ -32,9 +34,11 @@ class Validation {
     
     // Run validaion on the entry
     run(input, rules) { 
-        console.log(input);
-        console.log(rules);
+        // console.log(input);
+        // console.log(rules);
 
+        console.log(this.rules);
+        
         this.input = input;
         this.rules = rules;
 
