@@ -16,125 +16,133 @@ class Authentication {
 
     }
     
+    // Login Methods -------------------------------------------------------------------
+    
     login = (req, res) => {
-
+        
         res.render(`${absPath.views}/login`);
-
+        
     }    
-
+    
+    handleLogin = (req, res) => {
+        
+        
+    }
+    
+    
     logout = async (req, res) => {
-
+        res.render(`${absPath/views}/login`);
+   
     }
 
-    async getUsers(req, res) {
-
-        let data = userModel.getUsers()
-        .then((data) => {
-            console.log(data.rowCount);
-            console.log(data.rows);
-            res.render(`${absPath.adminViews}/get-users`, {data});
     
-            });
-        }
+    
+    // Registration Methods ------------------------------------==----------------------
 
-    checkIfRegistered() {
+    register = (req, res) => {
+        let msg = [];
+        res.render(`${absPath.views}/register`, {msg});
+    }
+    
+    
+    handleRegistration = async (req, res) => {
         
-    }    
-
-    register = async (req, res) => {
-        console.log(this.test);
-        if (req.method == 'GET') {
-            const msg = [];
-            this.validationErrors = [];
-            res.render(`${absPath.views}/register`, {msg});
-            return;   
-        }  
+        let data = await this.userModel.isRegistered(req.body.username)
+        console.log(data);
         
-        if (req.method == 'POST') {
-            const userModel = new UserModel();
-            let data = await this.userModel.isRegistered(req.body.username)
-            console.log(data);
-
-            if (data > 0) {
-                this.messages.push("This Username is already registered");
-                // console.log(this.messages); // Works!!!
-                
-            } else {
-                
-                const validation  = new Validation();
-
-                // Set the Rules for the Form Input
-                validation.setRule(['User Name', 'username', req.body.username, ['special_chars']]);
-                // const validationRules = {"username" : "isEmpty, isMinLength = 8"};
-                // validation.run(req.body, validationRules);
-
-                // Run the Input Validation
-                this.validationErrors = validation.run();
-                console.log (this.validationErrors);
-                
-            }
+        if (data > 0) {
+            this.messages.push("This Username is already registered");
+            console.log(this.messages); // Works!!!
+            
+        } else {
+            
+            const validation  = new Validation();
+            
+            // Set the Rules for the Form Input Here
+            validation.setRule(['User Name', 'username', req.body.username, ['required', 'minLength[8]', 'special_chars']]);
+            validation.setRule(['Passsword', 'password', req.body.password, ['required', 'minLength[8]', 'special_chars']]);
+            
+            // Run the Input Validation
+            this.validationErrors = validation.run();
+            console.log (this.validationErrors);
+            
         }
+      
     } // End register method
-
-            
-            // // console.log(data.rowCount);
- 
-            // if (data.rowCount != 0) {
-
-            //     console.log("This user is already registered");
-
-
-        // // if (result.rowcount === 0) {
-        
-        // //         // Hash & Salt
-        // //         const hash = await bcrypt.has(req.body.password, 10)
-        // // console.log(req.body.username);
-        // // console.log(req.body.password);
-        // // console.log(req.body.password_confirm);
-        // // console.log(req.body);
-        // let msg = [];
-
-        // if (req.body.password !== req.body.password_confirm) {
-
-        //     // Create Validation Utility Class
-        //     msg.push('The passwords did not match!');
-
-        //     console.log(msg);
-        //     res.render(`${absPath.adminViews}/register`, {msg})
-
-        // } else {
-            
-        //     // Send to the Login Model to be written to the database.
-        //     console.log("Entered in Database");
-        //     res.render(`${absPath.adminViews}/admin`)
-        // }
     
-    resetPassword = () => {
-
-    }
-
-    changePassword = () => {
-
-    }
-
     verifyAccount = () => {}
 
-    test = (req, res) => {
-        console.log(req.body.username);
-        console.log(req.body.password);
-        console.log(req.body);
-
-        let data = [];
-
-        if (error) {
-
-        }
-
-    }  
-
-    // res.render(`${config.absPath.adminViews}/login`)
 
 
-} // End Class
+    // Password Methods ---------------------------------------------------------------
+
+    resetPassword = () => {
+        
+    }
+    
+    changePassword = () => {
+        
+    }
+    
+    
+    // // console.log(data.rowCount);
+    
+    // if (data.rowCount != 0) {
+        
+        //     console.log("This user is already registered");
+        
+        
+        // // if (result.rowcount === 0) {
+            
+            // //         // Hash & Salt
+            // //         const hash = await bcrypt.has(req.body.password, 10)
+            // // console.log(req.body.username);
+            // // console.log(req.body.password);
+            // // console.log(req.body.password_confirm);
+            // // console.log(req.body);
+            // let msg = [];
+            
+        // if (req.body.password !== req.body.password_confirm) {
+            
+            //     // Create Validation Utility Class
+            //     msg.push('The passwords did not match!');
+            
+            //     console.log(msg);
+            //     res.render(`${absPath.adminViews}/register`, {msg})
+            
+            // } else {
+                
+                //     // Send to the Login Model to be written to the database.
+                //     console.log("Entered in Database");
+                //     res.render(`${absPath.adminViews}/admin`)
+                // }
+                
+                
+                // test = (req, res) => {
+                //     console.log(req.body.username);
+                //     console.log(req.body.password);
+                //     console.log(req.body);
+                    
+                //     let data = [];
+                    
+                //     if (error) {
+                        
+                //     }    
+                // }  
+                
+                // res.render(`${config.absPath.adminViews}/login`)
+                
+                // async getUsers(req, res) {
+            
+                //     let data = userModel.getUsers()
+                //     .then((data) => {
+                //         console.log(data.rowCount);
+                //         console.log(data.rows);
+                //         res.render(`${absPath.adminViews}/get-users`, {data});
+                
+                //         });
+                //     }
+                
+            } // End Class
 
 export default Authentication;

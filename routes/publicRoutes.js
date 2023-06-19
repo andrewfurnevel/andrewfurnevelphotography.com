@@ -48,15 +48,18 @@ router.get('/contact', contactController.index);
 // Login Page
 router.get('/login', authenticationController.login);
 
+// Login Page: Handle Login Form
+router.post('/login', authenticationController.handleLogin);
+
 // Logout
-// router.get('/loggedOut', authenticationController.logout);
+router.get('/loggedOut', authenticationController.logout);
 
 
 // Register Page
 router.get('/register', authenticationController.register);
 
-// Register Page: Handle Submission
-router.post('/register', authenticationController.register);
+// Register Page: Handle REgistration Form
+router.post('/register', authenticationController.handleRegistration);
 
 
 // } 

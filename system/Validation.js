@@ -26,25 +26,26 @@ class Validation {
         // console.table(this.rules);
     }
 
-    // Need to incorporate thid into the run() method.
+    // Need to incorporate this into the run() method.
     checkForArgs(arg) {
-        var regex = /\[/g;
+        let regex = /\[/g;
         return regex.test(arg);
     } 
     
     // Run validaion on the entry
-    run(input, rules) { 
+    run() { 
         // console.log(input);
         // console.log(rules);
 
-        console.log(this.rules);
+        console.log(`Length: ${this.rules.length}`);
         
-        this.input = input;
-        this.rules = rules;
+        // this.input = input;
+        // this.rules = rules;
 
    
         try {
-            console.log(this.rules[3][2].length);
+            // console.log("Inside try block");
+            // console.log(this.rules[3][2].length);
         }
 
         catch {
@@ -52,7 +53,7 @@ class Validation {
             console.log('Parameter Format Should Be: [label, name, req.body.name, [rules]]')
         }
 
-        console.table(this.rules);
+        // console.table(this.rules);
 
         for ( let i = 0; i < this.rules.length; i++ ) {
 
@@ -81,7 +82,7 @@ class Validation {
                             '${ruleWithArg[1]}'
                         )`);
                     
-                    console.log('');            
+                    // console.log('');            
                 // Rule has no additional arguments   
                 }  else {
                     
@@ -93,7 +94,7 @@ class Validation {
                             '${this.rules[i][2]}'
                         )`);
                 }  
-                console.log('');            
+                // console.log('');            
             } 
         } 
         return this.validationErrors;
