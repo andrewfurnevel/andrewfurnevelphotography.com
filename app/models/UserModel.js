@@ -12,7 +12,7 @@ class UserModel extends Model {
     
     isRegistered = async (username) => {
         try {
-            console.log(this.test);
+            // console.log(this.test);
             // console.log(constructorTest); Not Working!!!
             const sql = `SELECT * FROM users WHERE user_name = $1`;
             let result = await this.pool.query(sql, [username]);

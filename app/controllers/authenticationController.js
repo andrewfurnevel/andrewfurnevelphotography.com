@@ -3,14 +3,15 @@
 // Imports
 // import express from 'express';
 import absPath from '../../_config.js';
-import bcrypt from 'bcrypt';
-import UserModel from '../models/UserModel.js';
+// import UserModel from '../models/UserModel.js';
+import AuthenticationModel from '../models/AuthenticationModel.js';
 import Validation from '../../system/Validation.js';
 
 class Authentication {
     constructor() { 
-    this.userModel = new UserModel();
-    // this.test = "Testing"; // Works!!!
+    // this.userModel = new UserModel();
+    this.authenticationModel = new AuthenticationModel;
+
     this.rules = [];
     this.messages = [];
 
@@ -24,26 +25,27 @@ class Authentication {
         
     }    
     
-    handleLogin = (req, res) => {
-        
+    handleLogin = async (req, res) => {
+        let data = await this.authenticationModel.login(req.body);
+        console.log(data);
+
         
     }
     
     
-    logout = async (req, res) => {
+    logout = (req, res) => {
         res.render(`${absPath/views}/login`);
    
     }
 
     
     
-    // Registration Methods ------------------------------------==----------------------
+    // Registration Methods ------------------------------------------------------------
 
     register = (req, res) => {
         let msg = [];
         res.render(`${absPath.views}/register`, {msg});
     }
-    
     
     handleRegistration = async (req, res) => {
         
@@ -59,8 +61,8 @@ class Authentication {
             const validation  = new Validation();
             
             // Set the Rules for the Form Input Here
-            validation.setRule(['User Name', 'username', req.body.username, ['required', 'minLength[8]', 'special_chars']]);
-            validation.setRule(['Passsword', 'password', req.body.password, ['required', 'minLength[8]', 'special_chars']]);
+            validation.setRule(['User Name', 'username', req.body.username, ['special_chars','minLength[8]']]);
+            validation.setRule(['Passsword', 'password', req.body.password, ['natural_number_no_zeros']]);
             
             // Run the Input Validation
             this.validationErrors = validation.run();
@@ -70,17 +72,17 @@ class Authentication {
       
     } // End register method
     
-    verifyAccount = () => {}
+    verifyAccount = async () => {}
 
 
 
     // Password Methods ---------------------------------------------------------------
 
-    resetPassword = () => {
+    resetPassword = async () => {
         
     }
     
-    changePassword = () => {
+    changePassword = async () => {
         
     }
     
