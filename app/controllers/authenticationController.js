@@ -6,28 +6,45 @@ import absPath from '../../_config.js';
 // import UserModel from '../models/UserModel.js';
 import AuthenticationModel from '../models/AuthenticationModel.js';
 import Validation from '../../system/Validation.js';
+import Message from '../../system/Message.js';
 
 class Authentication {
     constructor() { 
     // this.userModel = new UserModel();
     this.authenticationModel = new AuthenticationModel;
+    this.message = new Message;
 
     this.rules = [];
-    this.messages = [];
+    this.data = [];
 
     }
     
     // Login Methods -------------------------------------------------------------------
     
     login = (req, res) => {
-        
-        res.render(`${absPath.views}/login`);
-        
+
+        let data = [];
+        res.render(`${absPath.views}/login`, data );    
     }    
     
     handleLogin = async (req, res) => {
-        let data = await this.authenticationModel.login(req.body);
-        console.log(data);
+        try {
+            const { username, password } = req.body;
+            let data = await this.authenticationModel.login(username, password);
+
+            console.log(data);
+            if (data === true ) {
+                console.log("Logged in");
+                // redirect to login area
+            } else {
+                console.log("Incorrect User Password Combination");
+                console.log(this.message.errors);
+                res.render(`${absPath.views}/login`, data);
+            }
+
+        } catch {
+
+        }
 
         
     }

@@ -1,33 +1,40 @@
 'use strict';
 
 import Model from '../../system/Model.js';
+import Message from '../../system/Message.js';
 import bcrypt from 'bcrypt';
 
-class AuthenticationModel extends Model{
+class AuthenticationModel extends Model {
 
     constructor() {
         super()
+        this.message = new Message;
     }
 
-    login = async (input) => {
-        try {
-        const sql = `SELECT user_name, user_password FROM users WHERE user_name = $1`;
-        let result = await this.pool.query (sql, [input.username]);
+    login = async (username, password) => {
 
-        // console.log(result.rows[0].user_name);
-        // console.log(result.rows[0].user_password);
-        console.log(result.rows[0].user_name, result.rows[0].user_password);
-        // const password = result.user_password;
-        // const hashedPwd = bcrypt.hash(input.password);
+        try {    
+            console.log(`Username: ${username}, Password: ${password}`);
+            const sql = `SELECT user_name, user_password FROM users WHERE user_name = $1`;
+            
+            let result = await this.pool.query (sql, [username]);
 
-        // console.log(input.username, input.password);
-        
-        if (result.rowCount > 0 ) {
-            result = true;
-        } else {
-            result = false;
-        }
-        return result
+            // console.log(result.rows[0].user_name);
+            // console.log(result.rows[0].user_password);
+            // console.log(result.rows[0].user_name, result.rows[0].user_password);
+            // const password = result.user_password;
+            // const hashedPwd = bcrypt.hash(input.password);
+
+            // console.log(input.username, input.password);
+            
+            if (result.rowCount > 0 ) {
+                return true;
+            } else {
+                this.message.errors('Incorrect Username / Password Combination');
+                // console.log(this.message.errors());
+                result = false;
+            }
+            return result;
         
         } catch (error) {
             // res.status(500);
