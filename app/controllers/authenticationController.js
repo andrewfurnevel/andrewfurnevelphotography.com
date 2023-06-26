@@ -12,7 +12,7 @@ class Authentication {
     constructor() { 
     // this.userModel = new UserModel();
     this.authenticationModel = new AuthenticationModel;
-    this.message = new Message;
+    // this.message = new Message;
 
     this.rules = [];
     this.data = [];
@@ -32,13 +32,17 @@ class Authentication {
             const { username, password } = req.body;
             let data = await this.authenticationModel.login(username, password);
 
-            console.log(data);
+            // console.log(data);
+
             if (data === true ) {
                 console.log("Logged in");
                 // redirect to login area
+
             } else {
-                console.log("Incorrect User Password Combination");
-                console.log(this.message.errors);
+                
+                const errors = Message.errors;
+                console.log(errors); // For Testing
+
                 res.render(`${absPath.views}/login`, data);
             }
 

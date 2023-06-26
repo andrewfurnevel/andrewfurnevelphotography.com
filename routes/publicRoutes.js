@@ -31,6 +31,9 @@ const registerController = new Registration();
     
 // PUBLIC ROUTES ------------------------------------------------------
 
+
+// Site Page Routes
+
 // Home '/', index, home - Default
 router.get('/', homeController.index);
 router.get('/index', homeController.index);
@@ -45,6 +48,10 @@ router.get('/work', portfolioController.index);
 // Contact Page
 router.get('/contact', contactController.index);
 
+
+
+// Authentication / Registration Routes
+
 // Login Page
 router.get('/login', authenticationController.login);
 
@@ -54,12 +61,13 @@ router.post('/login', authenticationController.handleLogin);
 // Logout
 router.get('/loggedOut', authenticationController.logout);
 
-
 // Register Page
 router.get('/register', authenticationController.register);
 
-// Register Page: Handle REgistration Form
+// Register Page: Handle Registration Form
 router.post('/register', authenticationController.handleRegistration);
+
+
 
 
 // } 

@@ -8,13 +8,14 @@ class AuthenticationModel extends Model {
 
     constructor() {
         super()
-        this.message = new Message;
+        // this.message = new Message;
     }
 
     login = async (username, password) => {
 
         try {    
             console.log(`Username: ${username}, Password: ${password}`);
+            
             const sql = `SELECT user_name, user_password FROM users WHERE user_name = $1`;
             
             let result = await this.pool.query (sql, [username]);
@@ -28,17 +29,20 @@ class AuthenticationModel extends Model {
             // console.log(input.username, input.password);
             
             if (result.rowCount > 0 ) {
+                
                 return true;
+            
             } else {
-                this.message.errors('Incorrect Username / Password Combination');
-                // console.log(this.message.errors());
+
+                Message.error = 'Incorrect Username / Password Combination';
+
                 result = false;
             }
             return result;
         
         } catch (error) {
             // res.status(500);
-            console.log(error);
+            // console.log(error);
         }
     }
 

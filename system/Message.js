@@ -1,17 +1,15 @@
 'use strict';
 
 class Message {
-    constructor() {
-        this.errorMessages = [];
-        this.system = [];    
+
+    static errorMsgs = [];
+
+    static set error(errorMsg) {
+        this.errorMsgs.push(errorMsg);
     }
-
-    errors = (error) => {
-
-        this.errorMessages.push(error);
-        console.log(this.errorMessages);
-
-        return this.errorMessages;
+    
+    static get errors() {
+        return this.errorMsgs;
     }
 }
 
