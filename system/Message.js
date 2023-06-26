@@ -11,6 +11,11 @@ class Message {
     static get errors() {
         return this.errorMsgs;
     }
+
+    static resetErrors() {
+        console.log("Resetting the Messages Array");
+        this.errorMsgs = [];
+    }
 }
 
 export default Message;

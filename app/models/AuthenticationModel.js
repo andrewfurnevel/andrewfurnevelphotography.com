@@ -14,7 +14,6 @@ class AuthenticationModel extends Model {
     login = async (username, password) => {
 
         try {    
-            console.log(`Username: ${username}, Password: ${password}`);
             
             const sql = `SELECT user_name, user_password FROM users WHERE user_name = $1`;
             
@@ -36,9 +35,9 @@ class AuthenticationModel extends Model {
 
                 Message.error = 'Incorrect Username / Password Combination';
 
-                result = false;
+                return result = {username: username, password: password};
             }
-            return result;
+            
         
         } catch (error) {
             // res.status(500);

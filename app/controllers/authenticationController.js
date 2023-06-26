@@ -24,7 +24,8 @@ class Authentication {
     login = (req, res) => {
 
         let data = [];
-        res.render(`${absPath.views}/login`, data );    
+
+        res.render(`${absPath.views}/login`, {data} );    
     }    
     
     handleLogin = async (req, res) => {
@@ -32,18 +33,19 @@ class Authentication {
             const { username, password } = req.body;
             let data = await this.authenticationModel.login(username, password);
 
-            // console.log(data);
-
             if (data === true ) {
                 console.log("Logged in");
-                // redirect to login area
+                // Create Session and JWT
+                res.render(`${absPath.views}/userArea`, {data})
 
             } else {
-                
-                const errors = Message.errors;
-                console.log(errors); // For Testing
+                const errors = Message.errors; // Gets the errors from the Message Class
+                // console.log(errors); // For Testing
+                data.errors = errors;
+                console.log(data); // The failed username and password combination.
 
-                res.render(`${absPath.views}/login`, data);
+                Message.errorMsgs = [];
+                res.render(`${absPath.views}/login`, {data});
             }
 
         } catch {
