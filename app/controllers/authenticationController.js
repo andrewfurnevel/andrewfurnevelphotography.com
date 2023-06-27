@@ -1,5 +1,7 @@
 'use strict';
 
+
+
 // Imports
 // import express from 'express';
 import absPath from '../../_config.js';
@@ -11,6 +13,7 @@ import Message from '../../system/Message.js';
 class Authentication extends Controller {
     constructor() { 
         super();
+
         this.authenticationModel = new AuthenticationModel;
         this.rules = [];
 
@@ -22,25 +25,25 @@ class Authentication extends Controller {
 
         let data = [];
 
-        res.render(`${absPath.views}/login`, {data} );    
+        res.render(`${absPath.views}/login`, { data } );    
     }    
     
     handleLogin = async (req, res) => {
         try {
-            const {username, password} = req.body;
+            const { username, password } = req.body;
             let data = await this.authenticationModel.login(username, password);
 
             if (data === true ) {
                 console.log("Logged in");
                 // Create Session and JWT
-                res.render(`${absPath.views}/userArea`, {data} )
+                res.render(`${absPath.views}/userArea`, { data } )
 
             } else {
                 const errors = Message.errors; // Gets the errors from the Message Class
                 data.errors = errors;
                 console.log(data); // The failed username and password combination.
 
-                res.render(`${absPath.views}/login`, {data} );
+                res.render(`${absPath.views}/login`, { data } );
             }
 
         } catch(error) {
@@ -62,7 +65,7 @@ class Authentication extends Controller {
 
     register = (req, res) => {
         let msg = [];
-        res.render(`${absPath.views}/register`, {msg});
+        res.render(`${absPath.views}/register`, { msg });
     }
     
     handleRegistration = async (req, res) => {
