@@ -9,12 +9,10 @@ class Message {
     }
     
     static get errors() {
-        return this.errorMsgs;
-    }
-
-    static resetErrors() {
-        console.log("Resetting the Messages Array");
+        const errors = this.errorMsgs;
         this.errorMsgs = [];
+        
+        return errors;
     }
 }
 

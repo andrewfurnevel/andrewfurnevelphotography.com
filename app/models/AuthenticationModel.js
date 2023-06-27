@@ -8,7 +8,6 @@ class AuthenticationModel extends Model {
 
     constructor() {
         super()
-        // this.message = new Message;
     }
 
     login = async (username, password) => {
@@ -40,8 +39,8 @@ class AuthenticationModel extends Model {
             
         
         } catch (error) {
-            // res.status(500);
-            // console.log(error);
+            console.log(error(error));
+            res.status(500).send('An error occured');
         }
     }
 
