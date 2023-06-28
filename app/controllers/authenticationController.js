@@ -9,13 +9,16 @@ import Controller from '../../system/Controller.js';
 import AuthenticationModel from '../models/AuthenticationModel.js';
 import Validation from '../../system/Validation.js';
 import Message from '../../system/Message.js';
+import UserModel from "../models/UserModel.js";
 
 class Authentication extends Controller {
     constructor() { 
         super();
 
         this.authenticationModel = new AuthenticationModel;
+        this.UserModel = new UserModel;
         this.rules = [];
+        this.messages = [];
 
     }
     
@@ -29,6 +32,7 @@ class Authentication extends Controller {
     }    
     
     handleLogin = async (req, res) => {
+
         try {
             const { username, password } = req.body;
             let data = await this.authenticationModel.login(username, password);
@@ -39,8 +43,7 @@ class Authentication extends Controller {
                 res.render(`${absPath.views}/userArea`, { data } )
 
             } else {
-                const errors = Message.errors; // Gets the errors from the Message Class
-                data.errors = errors;
+                data.errors = Message.errors;
                 console.log(data); // The failed username and password combination.
 
                 res.render(`${absPath.views}/login`, { data } );
@@ -64,18 +67,30 @@ class Authentication extends Controller {
     // Registration Methods ------------------------------------------------------------
 
     register = (req, res) => {
-        let msg = [];
-        res.render(`${absPath.views}/register`, { msg });
+        let data = [];
+        res.render(`${absPath.views}/register`, { data });
     }
     
     handleRegistration = async (req, res) => {
+
+        // try {
+
+        // } catch {
+        //     console.log(error(error());
+        //     res.status(500).send('An error occured');
+        // }
+
+        let data = await this.authenticationModel.isRegistered(req.body.username);
+        // console.log(data);
         
-        let data = await this.userModel.isRegistered(req.body.username)
-        console.log(data);
-        
-        if (data > 0) {
-            this.messages.push("This Username is already registered");
-            console.log(this.messages); // Works!!!
+        if (data === req.body.username) {
+            console.log("lskjdhflkjahsldkjfhla");
+            data.errors = Message.errors;
+            coneole.log(data.errors);
+            res.render(`${absPath.views}register`, { data });
+            
+            // this.messages.push("This Username is already registered");
+            // console.log(this.messages); // Works!!!
             
         } else {
             
@@ -87,13 +102,15 @@ class Authentication extends Controller {
             
             // Run the Input Validation
             this.validationErrors = validation.run();
-            console.log (this.validationErrors);
+            // console.log (this.validationErrors);
             
         }
       
     } // End register method
     
-    verifyAccount = async () => {}
+    verifyAccount = async () => {
+
+    }
 
 
 

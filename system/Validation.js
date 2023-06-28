@@ -1,5 +1,7 @@
 'use strict';
 
+import Message from './Message.js';
+
 class Validation {
     constructor(data) { 
 
