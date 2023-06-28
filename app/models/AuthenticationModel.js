@@ -23,18 +23,18 @@ class AuthenticationModel extends Model {
             // console.log(result.rows[0].user_name, result.rows[0].user_password);
             // const password = result.user_password;
             // const hashedPwd = bcrypt.hash(input.password);
-
+            
             // console.log(input.username, input.password);
             
             if (result.rowCount > 0 ) {
+                console.log(result.rows[0].user_name);
                 
                 return true;
             
             } else {
 
-                Message.error = 'Incorrect Username / Password Combination';
+                return false;
 
-                return result = {username: username, password: password};
             }
             
         

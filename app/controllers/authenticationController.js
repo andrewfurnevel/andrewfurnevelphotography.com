@@ -35,23 +35,30 @@ class Authentication extends Controller {
 
         try {
             const { username, password } = req.body;
-            let data = await this.authenticationModel.login(username, password);
+            let result = await this.authenticationModel.login(username, password);
+            
+            let data =[];
 
-            if (data === true ) {
-                console.log("Logged in");
+            if (result === true ) {
+
+                data = username;
+
                 // Create Session and JWT
                 res.render(`${absPath.views}/userArea`, { data } )
 
             } else {
-                data.errors = Message.errors;
+
+                data.username = username;
+                data.errors = 'Incorrect Username / Password Combination';
+
                 console.log(data); // The failed username and password combination.
 
                 res.render(`${absPath.views}/login`, { data } );
             }
 
         } catch(error) {
-            console.log(error(error));
-            res.status(500).send('An error occured');
+
+            res.status(500).send('Status 500: An error occured');
 
         }     
     }
@@ -84,7 +91,7 @@ class Authentication extends Controller {
         // console.log(data);
         
         if (data === req.body.username) {
-            console.log("lskjdhflkjahsldkjfhla");
+            console.log("lskjdhflkjahsldkjfhla"); 
             data.errors = Message.errors;
             coneole.log(data.errors);
             res.render(`${absPath.views}register`, { data });
