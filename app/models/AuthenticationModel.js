@@ -10,34 +10,68 @@ class AuthenticationModel extends Model {
         super()
     }
 
+    // The bcrypt code is to be abstracted to a helper function or class
+
+    hashPassword(password) {
+        const salt = bcrypt.genSaltSync(10);
+        const hashedPassword = bcrypt.hashSync(password, salt);
+        console.log(hashedPassword);
+        return hashedPassword;
+    }
+
+    compareHashedPassword(password, storedHashedPassword) {
+        const passwordsMatch = bcrypt.compareSync(password, storedHashedPassword);
+
+        if (passwordsMatch) {
+        //   res.send('Login successful!');
+          console.log('Login successful!');
+        } else {
+        //   res.send('Invalid credentials.');
+          console.log('Invalid credentials.');
+        }
+    }
+
+    // End Bcrypt Code --------------------------------
+
+
+
+
     login = async (username, password) => {
 
-        try {    
-            
-            const sql = `SELECT user_name, user_password FROM users WHERE user_name = $1`;
-            
-            let result = await this.pool.query (sql, [username]);
+        try {   
+             
+            this.test();
+            // this.hashPassword(password);
 
-            // console.log(result.rows[0].user_name);
-            // console.log(result.rows[0].user_password);
-            // console.log(result.rows[0].user_name, result.rows[0].user_password);
+            // Compare Password
+
+            const storedHashedPassword = '$2b$10$h0AJpgxrhhDu2w4x5GR.QO2suMsMdwVNNqCgAARAfqOo7P26xl.N6';
+
+            
+            
+            const sql = `SELECT user_name, user_password FROM users WHERE user_name = $1 AND user_password = $2`;
+            
+            
+            let result = await this.pool.query (sql, [ username, password ]);
+            
+            console.log(result.rows[0]);
+
+            this.compareHashedPassword(password, storedHashedPassword);
+
             // const password = result.user_password;
             // const hashedPwd = bcrypt.hash(input.password);
-            
-            // console.log(input.username, input.password);
-            
+                     
             if (result.rowCount > 0 ) {
-                console.log(result.rows[0].user_name);
                 
+                // console.log("true");
                 return true;
             
             } else {
-
+                // console.log("false");
                 return false;
 
             }
             
-        
         } catch (error) {
             console.log(error(error));
             res.status(500).send('An error occured');
