@@ -33,6 +33,10 @@ class Message {
         this.errorMsgs = [];
         return errors;
     }
+
+    static test() {
+        console.log("Test");
+    }
 }
 
 export default Message;

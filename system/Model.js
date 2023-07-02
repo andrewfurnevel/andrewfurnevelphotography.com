@@ -21,24 +21,24 @@ class Model {
         const test = "Hello";
     }
 
-    hashPassword(password) {
-        const salt = bcrypt.genSaltSync(10);
-        const hashedPassword = bcrypt.hashSync(password, salt);
-        console.log(hashedPassword);
-        return hashedPassword;
-    }
+    // hashPassword(password) {
+    //     const salt = bcrypt.genSaltSync(10);
+    //     const hashedPassword = bcrypt.hashSync(password, salt);
+    //     console.log(hashedPassword);
+    //     return hashedPassword;
+    // }
 
-    compareHashedPassword(password, storedHashedPassword) {
-        const passwordsMatch = bcrypt.compareSync(password, storedHashedPassword);
+    // compareHashedPassword(password, storedHashedPassword) {
+    //     const passwordsMatch = bcrypt.compareSync(password, storedHashedPassword);
 
-        if (passwordsMatch) {
-        //   res.send('Login successful!');
-          console.log('Login successful!');
-        } else {
-        //   res.send('Invalid credentials.');
-          console.log('Invalid credentials.');
-        }
-    }
+    //     if (passwordsMatch) {
+    //     //   res.send('Login successful!');
+    //       console.log('Login successful!');
+    //     } else {
+    //     //   res.send('Invalid credentials.');
+    //       console.log('Invalid credentials.');
+    //     }
+    // }
 
 } // End Class
 

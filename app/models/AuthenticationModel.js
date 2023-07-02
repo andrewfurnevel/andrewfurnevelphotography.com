@@ -3,6 +3,7 @@
 import Model from '../../system/Model.js';
 import Message from '../../system/Message.js';
 import bcrypt from 'bcrypt';
+import BcryptHelper from '../../system_helpers/BcryptHelper.js';
 
 class AuthenticationModel extends Model {
 
@@ -10,72 +11,56 @@ class AuthenticationModel extends Model {
         super()
     }
 
-    // The bcrypt code is to be abstracted to a helper function or class
+    
 
-    hashPassword(password) {
-        const salt = bcrypt.genSaltSync(10);
-        const hashedPassword = bcrypt.hashSync(password, salt);
-        console.log(hashedPassword);
-        return hashedPassword;
-    }
-
-    compareHashedPassword(password, storedHashedPassword) {
-        const passwordsMatch = bcrypt.compareSync(password, storedHashedPassword);
-
-        if (passwordsMatch) {
-        //   res.send('Login successful!');
-          console.log('Login successful!');
-        } else {
-        //   res.send('Invalid credentials.');
-          console.log('Invalid credentials.');
-        }
-    }
-
+ 
+    
+    
+    
     // End Bcrypt Code --------------------------------
-
-
-
-
+    
+    
+    
+    
     login = async (username, password) => {
+        
+        let authPassword = false;
 
         try {   
-             
-            this.test();
-            // this.hashPassword(password);
 
-            // Compare Password
-
-            const storedHashedPassword = '$2b$10$h0AJpgxrhhDu2w4x5GR.QO2suMsMdwVNNqCgAARAfqOo7P26xl.N6';
-
+            // BcryptHelper.test();
+            
+            // console.log(BcryptHelper.hashPassword(password));
             
             
-            const sql = `SELECT user_name, user_password FROM users WHERE user_name = $1 AND user_password = $2`;
+            // const hashedPassword = this.hashPassword(password);
+            // console.log(hashedPassword);
+            
+            // const sql = `SELECT user_name, user_password FROM users WHERE user_name = $1 AND user_password = $2`;
+            
+            console.log(username, password);
             
             
-            let result = await this.pool.query (sql, [ username, password ]);
+            const sql = `SELECT * FROM users WHERE user_name = $1`;
             
-            console.log(result.rows[0]);
-
-            this.compareHashedPassword(password, storedHashedPassword);
-
-            // const password = result.user_password;
-            // const hashedPwd = bcrypt.hash(input.password);
-                     
-            if (result.rowCount > 0 ) {
-                
-                // console.log("true");
-                return true;
+            let result = await this.pool.query (sql, [ username ]);
             
-            } else {
-                // console.log("false");
-                return false;
-
-            }
+            const hashedPass = result.rows[0].user_password;
+            // console.log(result);
+            
+            console.log(hashedPass);
+            
+            const authPassword = BcryptHelper.comparePassword(password, hashedPass);
+            
+            console.log(authPassword);
+            return authPassword;
             
         } catch (error) {
             console.log(error(error));
             res.status(500).send('An error occured');
         }
+        // console.log(authPassword);
+        // return true; 
     }
 
     isRegistered = async (username) => {

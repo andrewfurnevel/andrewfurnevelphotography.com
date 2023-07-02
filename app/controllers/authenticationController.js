@@ -37,6 +37,8 @@ class Authentication extends Controller {
             const { username, password } = req.body;
             let result = await this.authenticationModel.login(username, password);
             
+
+            // console.log(result);
             let data = [];
 
             if (result === true ) {
