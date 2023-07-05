@@ -35,6 +35,8 @@ class BcryptHelper {
         }
     }
 
+
+    
     static comparePassword(password, hashedPass) {
         
         bcrypt.compare(password, hashedPass, (err, result) => {
@@ -54,6 +56,21 @@ class BcryptHelper {
         console.log(answer);
     }
 
+    
 } // End class BcryptHelper
 
 export default BcryptHelper;
+
+// bcrypt.compare(password, hashedPass, (err, result) => {
+
+//     if (result) {
+//         // Passwords match
+//         // console.log(result); // result returns true or false.
+//         console.log("Passwords match");
+//         return result;
+//     } else {
+//         // Passwords do not match
+//         console.log("Passwords do not match");
+//         return result;
+//     }
+// });
