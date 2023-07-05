@@ -17,7 +17,8 @@ class BcryptHelper {
 
         const salt = bcrypt.genSaltSync(10);
         const hashedPassword = bcrypt.hashSync(password, salt);
-        // console.log(hashedPassword);
+        console.log(password);
+        console.log(hashedPassword);
         
         return hashedPassword;
     }
@@ -52,7 +53,9 @@ class BcryptHelper {
                 return result;
             }
         });
+        
         const answer = bcrypt.compare(password, hashedPass, (err, result));
+
         console.log(answer);
     }
 

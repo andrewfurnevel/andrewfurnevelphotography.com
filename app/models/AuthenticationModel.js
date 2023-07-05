@@ -16,6 +16,11 @@ class AuthenticationModel extends Model {
         
         let authPassword = false;
 
+        // console.log(username);
+        // console.log(password);
+
+        // BcryptHelper.hashPassword(password);
+
         try {   
 
             // console.log(BcryptHelper.hashPassword(password));
@@ -31,11 +36,19 @@ class AuthenticationModel extends Model {
             let result = await this.pool.query (sql, [ username ]);
             
             // Get stored hashed password
-            const hashedPass = result.rows[0].user_password;
+            let hashedPass = result.rows[0].user_password;
+
+            // console.log(hashedPass); // Works!!! 
             
             // console.log(hashedPass); // Works
             
             // Compare submitted and stored passwords
+            // Temp Values
+            // hashedPass = '$2b$10$W0qLTVx8HbeY9qxhojm/3.wx9GNwUFye.Rmw630ae5esyJaDPLr5i';
+
+            // console.log(password); // Works!!! Prints password from login form.
+            // console.log(hashedPass); // Works!!! Prints temp hashedPass, not retrieved from database.
+
             const authPassword = BcryptHelper.comparePassword(password, hashedPass);
             
             console.log(authPassword);
