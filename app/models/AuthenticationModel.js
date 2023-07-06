@@ -19,7 +19,8 @@ class AuthenticationModel extends Model {
         // console.log(username);
         // console.log(password);
 
-        // BcryptHelper.hashPassword(password);
+        const hashedPassword = BcryptHelper.hashPassword(password);
+        console.log(hashedPassword);
 
         try {   
 
