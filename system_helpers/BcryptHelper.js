@@ -23,57 +23,34 @@ class BcryptHelper {
         return hashedPassword;
     }
 
+    // Sync Method - Compare Stored Hashed Password against Login Form Entry -----------
+
     static compareSyncPassword(password, hashedPass) {
 
         const passwordsMatch = bcrypt.compareSync(password, storedHashedPassword);
         
         if (passwordsMatch) {
-            //   res.send('Login successful!');
             console.log('Login successful!');
         } else {
-            //   res.send('Invalid credentials.');
             console.log('Invalid credentials.');
         }
     }
 
+    // Async Method - Compare Stored Hashed Password against Login Form Entry ----------
 
-    
-    static comparePassword(password, hashedPass) {
+    static comparePasswords(password, hashedPass) {
         
-        bcrypt.compare(password, hashedPass, (err, result) => {
-
-            if (result) {
-                // Passwords match
-                // console.log(result); // result returns true or false.
-                console.log("Passwords match");
-                return result;
-            } else {
-                // Passwords do not match
-                console.log("Passwords do not match");
-                return result;
-            }
+        return new Promise((resolve, reject) => {
+            bcrypt.compare(password, hashedPass, (err, authenticatePassword) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(authenticatePassword);
+                }
+            });
         });
-        
-        const answer = bcrypt.compare(password, hashedPass, (err, result));
-
-        console.log(answer);
     }
-
     
 } // End class BcryptHelper
 
 export default BcryptHelper;
-
-// bcrypt.compare(password, hashedPass, (err, result) => {
-
-//     if (result) {
-//         // Passwords match
-//         // console.log(result); // result returns true or false.
-//         console.log("Passwords match");
-//         return result;
-//     } else {
-//         // Passwords do not match
-//         console.log("Passwords do not match");
-//         return result;
-//     }
-// });
