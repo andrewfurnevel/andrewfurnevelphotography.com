@@ -67,9 +67,6 @@ router.get('/register', authenticationController.register);
 // Register Page: Handle Registration Form
 router.post('/register', authenticationController.handleRegistration);
 
-
-
-
 // } 
 
 export default router;

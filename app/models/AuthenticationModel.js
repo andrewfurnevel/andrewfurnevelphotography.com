@@ -13,8 +13,8 @@ class AuthenticationModel extends Model {
 
     // Login  --------------------------------------------------------------------------
 
-    login = async (username, password) => {
-        
+    // login = async (username, password) => {
+    async login(username, password)  { 
         let authPassword = false;
 
         const hashedPassword = BcryptHelper.hashPassword(password);
@@ -45,27 +45,36 @@ class AuthenticationModel extends Model {
 
     // Check if User is Registered ------------------------------------------------------
 
-    isRegistered = async (username) => {
+    async test(username) {      
+        console.log(`Username: ${username}`);
 
-        try {
-            const sql = `SELECT * FROM users WHERE user_name = $1`;
-            let result = await this.pool.query(sql, [username]);
+    }
 
-            if (result.rows[0].username == username) { 
-                console.log("This user already exist");
-            }
+    async isRegistered(username) {
 
-            Message.error = 'This Username is Already Registered';
-            return result = { username };
+        console.log("Inside isRegistered");
+        console.log(username);
 
-        } catch (error) {
-            console.log(error);
-        }
+        // try {
+        //     const sql = `SELECT * FROM users WHERE user_name = $1`;
+        //     let result = await this.pool.query(sql, [username]);
+
+        //     // if (result.rows[0].username) { 
+        //     //     console.log("This user already exist");
+        //     //     return true;
+        //     // }
+
+        //     // Message.error = 'This Username is Already Registered';
+        //     // return result = { username };
+
+        // } catch (error) {
+        //     console.log(error);
+        // }
     }
 
     // Register New User ----------------------------------------------------------------
 
-    registerUser = (username, password) => {
+    async registerUser(username, password) {
 
         try {
             const sql = "INSERT INTO users (user_id, user_name, user_password, user_created, user_last_active, user_verified) VALUES ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 0";

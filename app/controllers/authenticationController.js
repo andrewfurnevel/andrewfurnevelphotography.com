@@ -20,6 +20,8 @@ class Authentication extends Controller {
         this.rules = [];
         this.messages = [];
 
+        this.handleRegistration = this.handleRegistration.bind(this);
+
     }
     
     // Login Methods -------------------------------------------------------------------
@@ -35,6 +37,7 @@ class Authentication extends Controller {
 
         try {
             const { username, password } = req.body;
+            
             let result = await this.authenticationModel.login(username, password);
             
 
@@ -61,59 +64,74 @@ class Authentication extends Controller {
         } catch(error) {
 
             res.status(500).send('Status 500: An error occured');
-
         }     
-    }
+    } // End handleLogin Method
     
     
     logout = (req, res) => {
         res.render(`${absPath/views}/login`);
    
-    }
+    } // End logout
 
     
     
     // Registration Methods ------------------------------------------------------------
 
-    register = (req, res) => {
+    async register(req, res) {
         let data = [];
         res.render(`${absPath.views}/register`, { data });
     }
     
-    handleRegistration = async (req, res) => {
+    // handleRegistration = async (req, res) => {
 
+    async handleRegistration(req, res) {
+
+        const { username, password, password_confirm} = req.body;
+
+        let result = await this.authenticationModel.isRegistered(username);
+
+        
         // try {
+        //     const { username, password, password_confirm} = req.body;
+        //     console.log(username);
+        //     // let result = await this.authenticationModel.isRegistered(username); 
 
+        //     let result = await this.authenticationModel.isRegistered(username);
+
+
+        //     if (result == true) {
+        //         console.log("This user already exists");
+        //     }
         // } catch {
-        //     console.log(error(error());
+        //     // console.log(error(error());
         //     res.status(500).send('An error occured');
         // }
 
-        let data = await this.authenticationModel.isRegistered(req.body.username);
-        // console.log(data);
+        // let data = await this.authenticationModel.isRegistered(req.body.username);
+        // // console.log(data);
         
-        if (data === req.body.username) {
-            console.log("lskjdhflkjahsldkjfhla"); 
-            data.errors = Message.errors;
-            coneole.log(data.errors);
-            res.render(`${absPath.views}register`, { data });
+        // if (data === req.body.username) {
+        //     console.log("lskjdhflkjahsldkjfhla"); 
+        //     data.errors = Message.errors;
+        //     coneole.log(data.errors);
+        //     res.render(`${absPath.views}register`, { data });
             
-            // this.messages.push("This Username is already registered");
-            // console.log(this.messages); // Works!!!
+        //     // this.messages.push("This Username is already registered");
+        //     // console.log(this.messages); // Works!!!
             
-        } else {
+        // } else {
             
-            const validation  = new Validation();
+        //     const validation  = new Validation();
             
-            // Set the Rules for the Form Input Here
-            validation.setRule(['User Name', 'username', req.body.username, ['special_chars','minLength[8]']]);
-            validation.setRule(['Passsword', 'password', req.body.password, ['natural_number_no_zeros']]);
+        //     // Set the Rules for the Form Input Here
+        //     validation.setRule(['User Name', 'username', req.body.username, ['special_chars','minLength[8]']]);
+        //     validation.setRule(['Passsword', 'password', req.body.password, ['natural_number_no_zeros']]);
             
-            // Run the Input Validation
-            this.validationErrors = validation.run();
+        //     // Run the Input Validation
+        //     this.validationErrors = validation.run();
             // console.log (this.validationErrors);
             
-        }
+        // }
       
     } // End register method
     
