@@ -108,7 +108,7 @@ class Authentication extends Controller {
                 
                 // Set the Rules for the Form Input Here
                 validation.setRule(['User Name', 'username', req.body.username, ['alpha_numeric','min_length[8]', 'max_length[20]' ]]);
-                validation.setRule(['Passsword', 'password', req.body.password, ['min_length[8]', 'special_chars']]);
+                validation.setRule(['Passsword', 'password', req.body.password, ['min_length[8]', 'require_special_chars']]);
                 validation.setRule(['Confirm Password', 'password_confirm', req.body.password_confirm, [`matches[${password}]`]]);
                 
                 // Run the Input Validation

@@ -277,22 +277,21 @@ class Validation {
 
         if (!regex.test(input)) {
             this.validationErrors.push(`${legend} Can Only Contain Alpha Numeric and @!#$%^&*()_?{}\+- Characters`);
-            
             return this.validationErrors;
         }
     }
     // --------------------------------------------------------------------------
     // Tested
-    // This might have a bug when used with rules with additional args[].
-    extended_chars(legend, name, input) {
-        
-        const regex = /[a-zA-Z0-9@!#$%^&*()_?{}\+-\w]/;
-
-        if (!regex.test(input)) {
-            this.validationErrors.push(`${legend} Can Only Contain Alpha Numeric and @!#$%^&*()_?{}\+- Characters`);
+    require_special_chars(legend, name, input) {
+        const alphanumericRegex = /[a-zA-Z0-9]/;
+        const specialCharRegex = /[@!#$%^&*()_?{}\+\-\w]/;
+        // const regex = /[a-zA-Z0-9@!#$%^&*()_?{}\+\-\w]/;
+        if (alphanumericRegex.test(input) && specialCharRegex.test(input) == true) {
+            this.validationErrors.push(`${legend} Must Contain At Least One of the Following: Upper Case and Lower Case Characters, Numbers and the Following Special Characters @!#$%^&*()_?{}\+-`);
             
             return this.validationErrors;
         }
+
     }
 
     // --------------------------------------------------------------------------
