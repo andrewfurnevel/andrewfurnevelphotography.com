@@ -17,10 +17,12 @@ class Authentication extends Controller {
 
         this.authenticationModel = new AuthenticationModel;
         this.UserModel = new UserModel;
+        // this.validation = new Validation;
+        // this.data = [];
         this.rules = [];
         this.messages = [];
 
-        this.handleRegistration = this.handleRegistration.bind(this);
+        // this.handleRegistration = this.handleRegistration.bind(this);
 
     }
     
@@ -56,7 +58,7 @@ class Authentication extends Controller {
                 data.username = username;
                 data.errors = 'Incorrect Username / Password Combination';
 
-                console.log(data); // The failed username and password combination.
+                // console.log(data); // The failed username and password combination.
 
                 res.render(`${absPath.views}/login`, { data } );
             }
@@ -77,18 +79,59 @@ class Authentication extends Controller {
     
     // Registration Methods ------------------------------------------------------------
 
-    async register(req, res) {
+    register = async (req, res) => {
         let data = [];
         res.render(`${absPath.views}/register`, { data });
     }
     
-    // handleRegistration = async (req, res) => {
+        handleRegistration = async (req, res) => {
+            
+        try {
+            
+            const { username, password, password_confirm } = req.body;
+            let result = await this.authenticationModel.isRegistered(username);
+            
+            // console.log(result);
+            let data = [];
+            
+            if (result === true) {
+                data.username = username;
+                data.errors = "This username already exists. Please choose another.";
+                
+                console.log(data.errors);
+                
+                res.render(`${absPath.views}/register`, { data });
 
-    async handleRegistration(req, res) {
+            } else {
 
-        const { username, password, password_confirm} = req.body;
+                const validation = new Validation();
+                
+                // Set the Rules for the Form Input Here
+                validation.setRule(['User Name', 'username', req.body.username, ['alpha_numeric','min_length[8]', 'max_length[20]' ]]);
+                validation.setRule(['Passsword', 'password', req.body.password, ['min_length[8]', 'special_chars']]);
+                validation.setRule(['Confirm Password', 'password_confirm', req.body.password_confirm, [`matches[${password}]`]]);
+                
+                // Run the Input Validation
+                this.validationErrors = validation.run();
+                console.log (this.validationErrors);
+                // console.log (this.validationErrors);
 
-        let result = await this.authenticationModel.isRegistered(username);
+                data.username = username;
+                data.errors = this.validationErrors;
+                res.render(`${absPath.views}/register`, { data });
+                
+                // result = await this.authenticationModel.registerUser(username, password);
+                
+                // Send new user to the login page.
+                // res.render(`${absPath.views}/login`, { data } );
+            }
+
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Status 500: An error occured [authenticaitonController]');
+        }
+        
+
 
         
         // try {
@@ -123,13 +166,7 @@ class Authentication extends Controller {
             
         //     const validation  = new Validation();
             
-        //     // Set the Rules for the Form Input Here
-        //     validation.setRule(['User Name', 'username', req.body.username, ['special_chars','minLength[8]']]);
-        //     validation.setRule(['Passsword', 'password', req.body.password, ['natural_number_no_zeros']]);
-            
-        //     // Run the Input Validation
-        //     this.validationErrors = validation.run();
-            // console.log (this.validationErrors);
+
             
         // }
       

@@ -3,13 +3,11 @@
 
 'use strict';
 
-
 import express from 'express'; 
-const router  = express.Router();
-
 import Admin from '../admin/controllers/adminController.js';
 import Authentication from '../admin/controllers/authenticationController.js';
 
+const router  = express.Router();
 const adminController = new Admin();
 const authenticationController = new Authentication();
 
@@ -21,6 +19,7 @@ const testController = new Test();
 
 // ADMIN ROUTES ------------------------------------------------------
 
+router.get('/register', adminController.register);
 router.post('/register', authenticationController.register);
 // router.post('/login', authenticationController.checkLogin);
 // router.post('/logout', authenticationController.logout);
@@ -29,20 +28,14 @@ router.post('/test', testController.test);
 
 
 // Register Page
-// router.get('/register', adminController.register);
-
 
 router.get('/test', testController.test);
-
-
-
 
 // Login Pagerouter.get('/login', adminController.login);
 router.get('/login', adminController.login);
 
 // Logout PageNeeded
 // router.get('/logout', admimController.logout);
-
 
 // Get User By Id (:id)
 router.get('/get-user/:id', adminController.getUserById);

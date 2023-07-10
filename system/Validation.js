@@ -103,7 +103,7 @@ class Validation {
     // --------------------------------------------------------------------------
     
     // Tested
-    minLength(legend, name, input, minLength) {
+    min_length(legend, name, input, minLength) {
         
         if (input.length < minLength) {
             this.validationErrors.push(`${legend} Must be at Least ${minLength} Characters`); 
@@ -114,7 +114,7 @@ class Validation {
     
     // --------------------------------------------------------------------------
     // Tested
-    maxLength(legend, name, input, maxLength) {
+    max_length(legend, name, input, maxLength) {
         
         if (input.length > maxLength) {
             this.validationErrors.push(`${legend} Cannot be more than ${maxLength} Characters`); 
@@ -166,7 +166,7 @@ class Validation {
     // Tested   
     alpha_numeric(legend, name, input){
         
-        const regex = /^[a-z0-9]+$/i;
+        const regex = /^[a-zA-Z0-9]+$/;
         
         if (!regex.test(input)) {
             this.validationErrors.push(`${legend} Can Only Contain Alpha Numeric Characters`);
@@ -179,7 +179,7 @@ class Validation {
     // Tested   
     alpha_numeric_spaces(legend, name, input) {
         
-        const regex = /^[a-z0-9\s]+$/i;
+        const regex = /^[a-zA-Z0-9\s]+$/;
         
         if (!regex.test(input)) {
             this.validationErrors.push(`${legend}: Only Alpha Numberic Characters and Spaces are Allowed`);
@@ -192,7 +192,7 @@ class Validation {
     // Tested
     alpha_numeric_dashes(legend, name, input){
         
-        const regex = /^[a-zA-Z0-9-]+$/i;
+        const regex = /^[a-zA-Z0-9-]+$/;
         
         if (!regex.test(input)) {
             this.validationErrors.push(`${legend}: Only Alpha Numeric Characters and Dashes are Allowed`);
@@ -205,7 +205,7 @@ class Validation {
     // Tested
     alpha_numeric_dashes_underscores(legend, name, input) {
         
-        const regex = /^[a-zA-Z0-9_-]+$/i;
+        const regex = /^[a-zA-Z0-9_-]+$/;
         
         if (!regex.test(input)) {
             this.validationErrors.push(`${legend}: Only Alpha Numeric Characters, Underscores and Dashes are Allowed`);
@@ -273,7 +273,7 @@ class Validation {
     // This might have a bug when used with rules with additional args[].
     special_chars(legend, name, input) {
         
-        const regex = /[@!#$%^&*()_?{}\+-\w]/;
+        const regex = /[a-zA-z0-9@!#$%^&*()_?{}\+-\w]/;
 
         if (!regex.test(input)) {
             this.validationErrors.push(`${legend} Can Only Contain Alpha Numeric and @!#$%^&*()_?{}\+- Characters`);
@@ -281,6 +281,20 @@ class Validation {
             return this.validationErrors;
         }
     }
+    // --------------------------------------------------------------------------
+    // Tested
+    // This might have a bug when used with rules with additional args[].
+    extended_chars(legend, name, input) {
+        
+        const regex = /[a-zA-Z0-9@!#$%^&*()_?{}\+-\w]/;
+
+        if (!regex.test(input)) {
+            this.validationErrors.push(`${legend} Can Only Contain Alpha Numeric and @!#$%^&*()_?{}\+- Characters`);
+            
+            return this.validationErrors;
+        }
+    }
+
     // --------------------------------------------------------------------------
     // Tested
     valid_url(legend, name, input){ 
@@ -319,10 +333,10 @@ class Validation {
     
     // --------------------------------------------------------------------------
     
-    matches(legend, name, input, arg) {
-
-        if (input !== arg) {
-            this.validationErrors.push(`${legend} Does Not Match ${arg}!`);
+    matches(legend, name, input, match) {
+        console.log(legend, name, input, match);
+        if (input !== match) {
+            this.validationErrors.push(`${legend} Does Not Match ${match}!`);
 
             return this.validationErrors;
         }

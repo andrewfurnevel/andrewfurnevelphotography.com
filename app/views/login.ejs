@@ -12,6 +12,7 @@
             <form action="/login" method="POST">
 
                 <legend>Login</legend>
+
                 <label for="username" id="">Username</label>
                 <input type="text" name="username" id="username" value="<%= data.username %>">
                 
@@ -23,10 +24,9 @@
             </form>
 
             <div><%= (data.errors) %></div>
-         </div>
-    <!-- </div> -->
+        </div>
+    </div>
+    <%- include('./partials/footer.ejs') %>
     
-        <%- include('./partials/footer.ejs') %>
-    
-    </body>
+</body>
 

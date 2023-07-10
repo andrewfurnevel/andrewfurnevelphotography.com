@@ -1,8 +1,7 @@
 'use strict';
 
 import Model from '../../system/Model.js';
-import Message from '../../system/Message.js';
-// import bcrypt from 'bcrypt';
+// import Message from '../../system/Message.js';
 import BcryptHelper from '../../system_helpers/BcryptHelper.js';
 
 class AuthenticationModel extends Model {
@@ -13,8 +12,8 @@ class AuthenticationModel extends Model {
 
     // Login  --------------------------------------------------------------------------
 
-    // login = async (username, password) => {
-    async login(username, password)  { 
+    login = async (username, password) => {
+        
         let authPassword = false;
 
         const hashedPassword = BcryptHelper.hashPassword(password);
@@ -45,47 +44,49 @@ class AuthenticationModel extends Model {
 
     // Check if User is Registered ------------------------------------------------------
 
-    async test(username) {      
-        console.log(`Username: ${username}`);
 
-    }
+    isRegistered = async (username) => {
 
-    async isRegistered(username) {
+        // console.log("Inside isRegistered");
 
-        console.log("Inside isRegistered");
-        console.log(username);
+        try {
+            const sql = `SELECT * FROM users WHERE user_name = $1`;
+            let result = await this.pool.query(sql, [ username ]);
 
-        // try {
-        //     const sql = `SELECT * FROM users WHERE user_name = $1`;
-        //     let result = await this.pool.query(sql, [username]);
+            if (result.rows[0]) { 
+                console.log(result.rows[0]);
+                
+                return true;
+                
+            } else {
+                
+                // console.log("This username is available");
+                return false;
 
-        //     // if (result.rows[0].username) { 
-        //     //     console.log("This user already exist");
-        //     //     return true;
-        //     // }
+            }
+            // Message.error = 'This Username is Already Registered';
+            // return result = { username };
 
-        //     // Message.error = 'This Username is Already Registered';
-        //     // return result = { username };
-
-        // } catch (error) {
-        //     console.log(error);
-        // }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     // Register New User ----------------------------------------------------------------
 
-    async registerUser(username, password) {
+    registerUser = async (username, password) => {
 
+        console.log(username, password);
         try {
             const sql = "INSERT INTO users (user_id, user_name, user_password, user_created, user_last_active, user_verified) VALUES ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 0";
         } catch {
-            console.log(error);
+            console.error(error);
         }
     }
 
    // Update User Password --------------------------------------------------------------
 
-    updatePassword() { 
+    updateUserPassword() { 
         try {
             const sql = "UPDATE users"
         } catch (error){

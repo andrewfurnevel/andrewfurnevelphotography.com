@@ -14,7 +14,7 @@
                 <legend>Register</legend>
 
                 <label for="username" id="">Username</label>
-                <input type="text" name="username" id="username">
+                <input type="text" name="username" id="username" value="<%= data.username %>">
                 
                 <label for="password">Password</label>
                 <input type="password" name="password" id="password">
@@ -26,13 +26,13 @@
                     
             </form>
 
-            <div class="messages-errors"><%= (data.errors) %></div>
+            <div><%= (data.errors) %></div>
 
          </div>
     <!-- </div> -->
     
         <%- include('./partials/footer.ejs') %>
     
-    </body>
+</body>
 
-    </html>
+</html>

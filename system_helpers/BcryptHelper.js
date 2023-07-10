@@ -7,11 +7,6 @@ class BcryptHelper {
     constructor() {
 
     }
-
-    // static test(password, hashedPass) {
-    //     console.log(`Password: ${password} Hashed Password: ${hashedPass}`);
-    //     // return;
-    // }
     
     static hashPassword(password) {
 
