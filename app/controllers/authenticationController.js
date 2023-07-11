@@ -120,7 +120,7 @@ class Authentication extends Controller {
                 data.errors = this.validationErrors;
                 res.render(`${absPath.views}/register`, { data });
                 
-                // result = await this.authenticationModel.registerUser(username, password);
+                result = await this.authenticationModel.registerUser(username, password);
                 
                 // Send new user to the login page.
                 // res.render(`${absPath.views}/login`, { data } );
