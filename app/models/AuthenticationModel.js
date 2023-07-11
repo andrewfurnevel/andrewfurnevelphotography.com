@@ -77,7 +77,7 @@ class AuthenticationModel extends Model {
     registerUser = async (username, password) => {
 
         // console.log(username, password);
-        // return;
+
         try {
             const hashedPassword = BcryptHelper.hashPassword(password);
 
@@ -97,11 +97,12 @@ class AuthenticationModel extends Model {
    // Update User Password --------------------------------------------------------------
 
     updateUserPassword() { 
+
         try {
             const sql = "UPDATE users"
         } catch (error){
             // res.status(500);
-            console.log(error);
+            console.error(error);
         }
 
     }

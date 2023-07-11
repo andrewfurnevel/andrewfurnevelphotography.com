@@ -203,6 +203,7 @@ class Validation {
     
     // --------------------------------------------------------------------------
     // Tested
+    
     alpha_numeric_dashes_underscores(legend, name, input) {
         
         const regex = /^[a-zA-Z0-9_-]+$/;
@@ -217,6 +218,7 @@ class Validation {
     // --------------------------------------------------------------------------
     // Tested
     // Whole numbers that can be positive or negative and include zero.
+
     integer(legend, name, input){
         
         const regex = /^[0-9]+$/;
@@ -230,6 +232,7 @@ class Validation {
     
     // --------------------------------------------------------------------------
     // Tested
+
     decimal(legend, name, input){
         
         const regex = /\d+\.?\d*/;
@@ -244,6 +247,7 @@ class Validation {
     // --------------------------------------------------------------------------
     // Tested
     // Can only be a positive whole integer starting from 1 
+
     natural_number(legend, name, input){
         
         const regex = /^[0-9]+$/;
@@ -270,20 +274,23 @@ class Validation {
     
     // --------------------------------------------------------------------------
     // Tested
-    // This might have a bug when used with rules with additional args[].
+    // Allows but does not require alpha-numeric and speical characters.
+
     special_chars(legend, name, input) {
         
-        const regex = /[a-zA-z0-9\w]+$/;
-        // const regex = /[a-zA-z0-9@!#$%^&*()_?{}\+-\w]/;
+        const regex = /[a-zA-z0-9@!#$%^&*()_?{}\+-\w]/;
 
         if (!regex.test(input)) {
             this.validationErrors.push(`${legend} Can Only Contain Alpha Numeric and @!#$%^&*()_?{}\+- Characters`);
+            
             return this.validationErrors;
         }
     }
     // --------------------------------------------------------------------------
     // Tested
+    // Must contain upper and lower case alpha, numeric and special characters.
     require_special_chars(legend, name, input) {
+        
         const alphanumericRegex = /(?=.*[a-z])(?=.*[A-Z])(?=.*[@!#$%^&*()_?{}\+\-])/;
         
         if (alphanumericRegex.test(input) == false) {
@@ -295,6 +302,7 @@ class Validation {
 
     // --------------------------------------------------------------------------
     // Tested
+
     valid_url(legend, name, input){ 
         
         const regex = /^(ftp|http|https):\/\/[^ "]+(\.[^ "]+)+$/;
@@ -308,7 +316,9 @@ class Validation {
     }
     
     // ------------------------------------------------------------------------ 
-    // Tested  
+    // Tested
+    // Tests validity of multiple emails at once.
+
     valid_emails(legend, name, input){
 
         input = input.replace(/\s/g, ''); // Remove spaces
@@ -330,7 +340,9 @@ class Validation {
     } 
     
     // --------------------------------------------------------------------------
-    
+    // Tested
+    // Matches two input fields.
+
     matches(legend, name, input, match) {
         console.log(legend, name, input, match);
         if (input !== match) {
