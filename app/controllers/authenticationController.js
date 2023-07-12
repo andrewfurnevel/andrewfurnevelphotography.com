@@ -117,16 +117,32 @@ class Authentication extends Controller {
 
                 data.username = username;
                 data.errors = this.validationErrors;
-                res.render(`${absPath.views}/register`, { data });
-                
-                result = await this.authenticationModel.registerUser(username, password);
-                // console.log(result); 
-                if (result) {
-                    let data = [];
-                    // res.redirect('http://localhost:443/login');
-                    // res.render(`${absPath/views}/login`);
-                    res.render(`${absPath.views}/login`, { data } );
+
+                if (data.errors.length != 0) {
+
+                    res.render(`${absPath.views}/register`, { data });
+
+                } else {
+
+                    result = await this.authenticationModel.registerUser(username, password);
+                    
                 }
+                
+                // console.log(result); 
+                // if (result) {
+                //     let data = [];
+                //     // res.redirect('http://localhost:443/login');
+                //     // res.render(`${absPath/views}/login`);
+                //     res.render(`${absPath.views}/login`, { data } );
+                // }
+
+                if (result) {
+                    // Redirect to the login page
+                    res.redirect('/login');
+                  } else {
+                    // Handle failed registration
+                    res.send('Registration failed. Please try again.');
+                  }
             }
 
         } catch (error) {
