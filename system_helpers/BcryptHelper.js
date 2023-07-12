@@ -12,8 +12,8 @@ class BcryptHelper {
 
         const salt = bcrypt.genSaltSync(10);
         const hashedPassword = bcrypt.hashSync(password, salt);
-        console.log(password);
-        console.log(hashedPassword);
+        // console.log(password);
+        // console.log(hashedPassword);
         
         return hashedPassword;
     }

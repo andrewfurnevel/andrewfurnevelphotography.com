@@ -31,7 +31,7 @@ class Validation {
     // Run validaion on the form input
     run() { 
 
-        console.log(this.rules);
+        // console.log(this.rules);
    
         // try {
         //     console.log(this.rules[3][2].length);
@@ -42,7 +42,7 @@ class Validation {
         //     console.log('Parameter Format Should Be: [label, name, req.body.name, [rules]]')
         // }
 
-        console.table(this.rules);
+        // console.table(this.rules);
 
         for ( let i = 0; i < this.rules.length; i++ ) {
 
@@ -350,7 +350,6 @@ class Validation {
 
             return this.validationErrors;
         }
-        console.log(`matches Method Called`);
     }
     
     // --------------------------------------------------------------------------

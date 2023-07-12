@@ -81,17 +81,15 @@ class AuthenticationModel extends Model {
         try {
             const hashedPassword = BcryptHelper.hashPassword(password);
 
-            const sql = "INSERT INTO users (user_id, user_name, user_password, user_created, user_last_active, user_verified) VALUES ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 0";
+            const sql = "INSERT INTO users (user_name, user_password, user_created, user_last_active, user_verified) VALUES ($1, $2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'false')";
 
-            // let result = await this.pool.query(sql, [ username, hashedPassword ]);
-
-            // if (result) {
-            //     console.log("Success!");
-            // }
-
-        } catch {
+            let result = await this.pool.query(sql, [username, hashedPassword]);
+            
+            return true;
+          
+          } catch (error) {
             console.error(error);
-        }
+          }
     }
 
    // Update User Password --------------------------------------------------------------

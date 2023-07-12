@@ -114,16 +114,19 @@ class Authentication extends Controller {
                 // Run the Input Validation
                 this.validationErrors = validation.run();
                 console.log (this.validationErrors);
-                // console.log (this.validationErrors);
 
                 data.username = username;
                 data.errors = this.validationErrors;
                 res.render(`${absPath.views}/register`, { data });
                 
                 result = await this.authenticationModel.registerUser(username, password);
-                
-                // Send new user to the login page.
-                // res.render(`${absPath.views}/login`, { data } );
+                // console.log(result); 
+                if (result) {
+                    let data = [];
+                    // res.redirect('http://localhost:443/login');
+                    // res.render(`${absPath/views}/login`);
+                    res.render(`${absPath.views}/login`, { data } );
+                }
             }
 
         } catch (error) {
