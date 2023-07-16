@@ -1,7 +1,5 @@
 'use strict';
 
-
-
 // Imports
 // import express from 'express';
 import absPath from '../../_config.js';
@@ -19,107 +17,106 @@ class Authentication extends Controller {
         this.UserModel = new UserModel;
         this.validation = new Validation;
 
-        this.data = [];
-        this.errors = [];
-        this.rules = [];
-        // console.log(`this.errors in constructor: ${this.errors}`);
-        
+        // this.data = [];
+        // this.errors = [];
+        // this.rules = [];
+
         // this.handleRegistration = this.handleRegistration.bind(this);
-        
+
     }
     
     // Login Methods -------------------------------------------------------------------
     
     login = (req, res) => {
         
-        data = this.data;
-        errors = this.errors;
-        
+        let data = [];
+        let errors = [];
+
         res.render(`${absPath.views}/login`, { data, errors } );    
     }    
     
     handleLogin = async (req, res) => {
-        
-        data = this.data;
-        errors = this.errors;
-        
+
         try {
+
+            let data = [];
+            let errors = [];
             const { username, password } = req.body;
             
             let result = await this.authenticationModel.login(username, password);
             
-            if (result === true ) {
-                data.username = username;
+            if (result) {
+                const data = { username };
                 
                 // Create Session and JWT
                 res.render(`${absPath.views}/userArea`, { data, errors } )
                 
             } else {
                 
-                data.username = username;
-                data.errors = 'Incorrect Username / Password Combination';
+                const data = { username };
+                // data.username = username;
+                errors.push("Incorrect Username / Password Combination");
                 res.render(`${absPath.views}/login`, { data, errors } );
             }
-            
+
         } catch(error) {
-            res.status(500).send('Status 500: An error occured');
+            res.status(500).send("Status 500: An error occured");
         }     
     } // End handleLogin Method
     
     
     logout = (req, res) => {
         res.render(`${absPath/views}/login`);
-        
+   
     } // End logout
-    
+
     
     // Registration Methods ------------------------------------------------------------
-    
+
     register = async (req, res) => {
-        
+
         let data = [];
-        let errors = this.errors;
-        console.log(`this.errors in register method; ${this.errors}`);
-        console.log("GET: register method");
-        
-        // console.log(`At opening of register method, just after initialization of data array: ${ data, errors }`);
-        
+        let errors = [];
+
         res.render(`${absPath.views}/register`, { data, errors });
     }
     
     handleRegistration = async (req, res) => {
-        let data = [];
-        let errors = [];
-        console.log(`this.errors in handleRegistration method; ${ this.errors }`);
-        console.log("POST: handleRegister method");
-
-        // console.log(`At opening of handleRegistration method, just after initialization of data array: ${ data, errors }`);
-               
+        // let data = [];
+        // let errors = [];
+        
             try {
+
             const { username, password, password_confirm } = req.body;
+            
             let result = await this.authenticationModel.isRegistered(username);
             
-            
-            if (result === true) {
-                data.username = username;
+            if (result) {
+                const data = { username };
                 errors.push("This username already exists. Please choose another.");
+
                 res.render(`${absPath.views}/register`, { data, errors });
 
             } else {
                 // this.validationErrors = [];
                 // Set the Rules for the Form Input Here
-                this.validation.setRule(['User Name', 'username', req.body.username, ['alpha_numeric','min_length[8]', 'max_length[20]' ]]);
+                this.validation.setRule(['User Name', 'username', req.body.username, ['required', 'alpha_numeric','min_length[8]', 'max_length[20]' ]]);
                 this.validation.setRule(['Passsword', 'password', req.body.password, ['min_length[8]', 'require_special_chars']]);
                 this.validation.setRule(['Confirm Password', 'password_confirm', req.body.password_confirm, [`matches[${password}]`]]);
                 
                 // Run the Input Validation
                 this.validationErrors = this.validation.run();
                 // console.log(this.validationErrors);
+                const data = { username };
 
-                data.username = username;
-                errors = this.validationErrors;
+                // The test below worked, which means that the problem is with the Validation class!!!
+                let testErrors = ['This is error test 1', ' This is error test 2' ];
+                let errors = testErrors;
+
+                // errors = this.validationErrors;
+
                 console.log(errors.length);
-                console.log(errors);
+                // console.log(errors);
                 
 
                 if (errors.length != 0) {
@@ -127,7 +124,9 @@ class Authentication extends Controller {
                     return;
 
                 } else {
-                    result = await this.authenticationModel.registerUser(username, password);
+
+                    console.log("This would be written to the database at this point");
+                    // result = await this.authenticationModel.registerUser(username, password);
 
                     if (result) {
                         // Redirect to the login page

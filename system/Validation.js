@@ -30,8 +30,8 @@ class Validation {
     
     // Run validaion on the form input
     run() { 
-
-        // console.log(this.rules);
+        console.log ("Inside run() method");
+        console.log(this.rules);
    
         // try {
         //     console.log(this.rules[3][2].length);
@@ -85,11 +85,15 @@ class Validation {
                             '${this.rules[i][2]}'
                         )`);
                 }  
-                // console.log('');            
-            } 
-        } 
-        return this.validationErrors;
-    }
+
+            } // End Inner for loop
+
+        } // End Outer for loop
+        console.log(this.validationErrors);
+        return;
+        // return this.validationErrors;
+
+    } // End run() method
 
     // Validation Methods -------------------------------------------------------
     // Tested
