@@ -90,7 +90,7 @@ class Validation {
     }
 
     // Validation Methods -------------------------------------------------------
-// Tested
+    // Tested
     required(legend, name, input) {
 
         if (input == undefined || input == "") {
@@ -336,7 +336,7 @@ class Validation {
         }    
             
         return this.validationErrors;
-        console.log('validEmails Method Called');
+        // console.log('validEmails Method Called');
     } 
     
     // --------------------------------------------------------------------------

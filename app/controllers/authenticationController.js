@@ -8,7 +8,7 @@ import absPath from '../../_config.js';
 import Controller from '../../system/Controller.js';
 import AuthenticationModel from '../models/AuthenticationModel.js';
 import Validation from '../../system/Validation.js';
-import Message from '../../system/Message.js';
+// import Message from '../../system/Message.js';
 import UserModel from "../models/UserModel.js";
 
 class Authentication extends Controller {
@@ -17,10 +17,12 @@ class Authentication extends Controller {
 
         this.authenticationModel = new AuthenticationModel;
         this.UserModel = new UserModel;
-        // this.validation = new Validation;
+        this.validation = new Validation;
+
         // this.data = [];
         this.rules = [];
-        this.messages = [];
+        // this.messages = [];
+        // this.errors = [];
 
         // this.handleRegistration = this.handleRegistration.bind(this);
 
@@ -29,26 +31,27 @@ class Authentication extends Controller {
     // Login Methods -------------------------------------------------------------------
     
     login = (req, res) => {
-
-        let data = [];
+        
+        let data = {
+            errors: []
+        };
 
         res.render(`${absPath.views}/login`, { data } );    
     }    
     
     handleLogin = async (req, res) => {
 
+        let data = {
+            errors: []
+        };
+
         try {
             const { username, password } = req.body;
             
             let result = await this.authenticationModel.login(username, password);
             
-
-            // console.log(result);
-            let data = [];
-
             if (result === true ) {
-
-                data = username;
+                data.username = username;
 
                 // Create Session and JWT
                 res.render(`${absPath.views}/userArea`, { data } )
@@ -57,14 +60,10 @@ class Authentication extends Controller {
 
                 data.username = username;
                 data.errors = 'Incorrect Username / Password Combination';
-
-                // console.log(data); // The failed username and password combination.
-
                 res.render(`${absPath.views}/login`, { data } );
             }
 
         } catch(error) {
-
             res.status(500).send('Status 500: An error occured');
         }     
     } // End handleLogin Method
@@ -76,118 +75,71 @@ class Authentication extends Controller {
     } // End logout
 
     
-    
     // Registration Methods ------------------------------------------------------------
 
     register = async (req, res) => {
-        let data = [];
+
+        let data = {errors: [] };
+        console.log(`At opening of register method, just after initialization of data array: ${data}`);
+        
         res.render(`${absPath.views}/register`, { data });
     }
     
-        handleRegistration = async (req, res) => {
-            
-        try {
-            
+    handleRegistration = async (req, res) => {
+        
+        let data = { errors: [] };
+        console.log(`At opening of handleRegistration method, just after initialization of data array: ${data}`);
+               
+            try {
             const { username, password, password_confirm } = req.body;
             let result = await this.authenticationModel.isRegistered(username);
             
-            // console.log(result);
-            let data = [];
             
             if (result === true) {
+                data = { errors: [] };
                 data.username = username;
                 data.errors = "This username already exists. Please choose another.";
-                
-                console.log(data.errors);
-                
                 res.render(`${absPath.views}/register`, { data });
+                let data = { errors: [] };
 
             } else {
-
-                const validation = new Validation();
-                
+                data = { errors: [] };
                 // Set the Rules for the Form Input Here
-                validation.setRule(['User Name', 'username', req.body.username, ['alpha_numeric','min_length[8]', 'max_length[20]' ]]);
-                validation.setRule(['Passsword', 'password', req.body.password, ['min_length[8]', 'require_special_chars']]);
-                validation.setRule(['Confirm Password', 'password_confirm', req.body.password_confirm, [`matches[${password}]`]]);
+                this.validation.setRule(['User Name', 'username', req.body.username, ['alpha_numeric','min_length[8]', 'max_length[20]' ]]);
+                this.validation.setRule(['Passsword', 'password', req.body.password, ['min_length[8]', 'require_special_chars']]);
+                this.validation.setRule(['Confirm Password', 'password_confirm', req.body.password_confirm, [`matches[${password}]`]]);
                 
                 // Run the Input Validation
-                this.validationErrors = validation.run();
-                console.log (this.validationErrors);
+                this.validationErrors = this.validation.run();
+                // console.log(this.validationErrors);
 
                 data.username = username;
-                data.errors = this.validationErrors;
+                data.errors.push(this.validationErrors);
+                console.log(data.errors.length);
+                console.log(data.errors);
+                
 
                 if (data.errors.length != 0) {
-
                     res.render(`${absPath.views}/register`, { data });
+                    return;
 
                 } else {
-
                     result = await this.authenticationModel.registerUser(username, password);
-                    
-                }
-                
-                // console.log(result); 
-                // if (result) {
-                //     let data = [];
-                //     // res.redirect('http://localhost:443/login');
-                //     // res.render(`${absPath/views}/login`);
-                //     res.render(`${absPath.views}/login`, { data } );
-                // }
 
-                if (result) {
-                    // Redirect to the login page
-                    res.redirect('/login');
-                  } else {
-                    // Handle failed registration
-                    res.send('Registration failed. Please try again.');
-                  }
+                    if (result) {
+                        // Redirect to the login page
+                        res.redirect('/login');
+                    } else {
+                        // Handle failed registration
+                        res.send('Registration failed. Please try again.');
+                    }
+                }
             }
 
         } catch (error) {
             console.error(error);
             res.status(500).send('Status 500: An error occured [authenticaitonController]');
         }
-        
-
-
-        
-        // try {
-        //     const { username, password, password_confirm} = req.body;
-        //     console.log(username);
-        //     // let result = await this.authenticationModel.isRegistered(username); 
-
-        //     let result = await this.authenticationModel.isRegistered(username);
-
-
-        //     if (result == true) {
-        //         console.log("This user already exists");
-        //     }
-        // } catch {
-        //     // console.log(error(error());
-        //     res.status(500).send('An error occured');
-        // }
-
-        // let data = await this.authenticationModel.isRegistered(req.body.username);
-        // // console.log(data);
-        
-        // if (data === req.body.username) {
-        //     console.log("lskjdhflkjahsldkjfhla"); 
-        //     data.errors = Message.errors;
-        //     coneole.log(data.errors);
-        //     res.render(`${absPath.views}register`, { data });
-            
-        //     // this.messages.push("This Username is already registered");
-        //     // console.log(this.messages); // Works!!!
-            
-        // } else {
-            
-        //     const validation  = new Validation();
-            
-
-            
-        // }
       
     } // End register method
     

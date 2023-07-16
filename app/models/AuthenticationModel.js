@@ -1,7 +1,6 @@
 'use strict';
 
 import Model from '../../system/Model.js';
-// import Message from '../../system/Message.js';
 import BcryptHelper from '../../system_helpers/BcryptHelper.js';
 
 class AuthenticationModel extends Model {
@@ -47,8 +46,6 @@ class AuthenticationModel extends Model {
 
     isRegistered = async (username) => {
 
-        // console.log("Inside isRegistered");
-
         try {
             const sql = `SELECT * FROM users WHERE user_name = $1`;
             let result = await this.pool.query(sql, [ username ]);
@@ -60,12 +57,10 @@ class AuthenticationModel extends Model {
                 
             } else {
                 
-                // console.log("This username is available");
                 return false;
 
             }
-            // Message.error = 'This Username is Already Registered';
-            // return result = { username };
+
 
         } catch (error) {
             console.log(error);
@@ -111,7 +106,7 @@ class AuthenticationModel extends Model {
         try {
 
         } catch (error){
-            console.log(error);
+            console.error(error);
         }
     }
 }
