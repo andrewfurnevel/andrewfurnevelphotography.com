@@ -6,7 +6,7 @@ class Validation {
     constructor(data) { 
 
         this.validationMethod;
-        this.validationErrors= [];
+        this.validationErrors = [];
 
         this.rules = [];
         this.imput;
@@ -43,6 +43,8 @@ class Validation {
         // }
 
         // console.table(this.rules);
+
+        // this.validatinErrors = [];
 
         for ( let i = 0; i < this.rules.length; i++ ) {
 
@@ -83,7 +85,7 @@ class Validation {
                             '${this.rules[i][2]}'
                         )`);
                 }  
-                console.log('');            
+                // console.log('');            
             } 
         } 
         return this.validationErrors;
@@ -344,7 +346,6 @@ class Validation {
     // Matches two input fields.
 
     matches(legend, name, input, match) {
-        console.log(legend, name, input, match);
         if (input !== match) {
             this.validationErrors.push(`${legend} Does Not Match ${match}!`);
 

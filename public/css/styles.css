@@ -166,7 +166,7 @@ input:nth-last-child(2) {
 }
 
 .errors ul li {
-    list-style: circle;
+    list-style: dot;
 }
 
 

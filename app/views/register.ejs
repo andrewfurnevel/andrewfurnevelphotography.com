@@ -26,7 +26,14 @@
                     
             </form>
 
-            <div class="errors"><%= (data.errors) %></div>
+            <div class="errors">
+                <ul>
+                    <% errors.forEach(error => { %>
+                        <li><%= error %></li>
+                    <% }); %>    
+                </ul>
+            
+            </div>
 
          </div>
     <!-- </div> -->
