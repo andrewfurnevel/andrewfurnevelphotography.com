@@ -30,8 +30,8 @@ class Validation {
     
     // Run validaion on the form input
     run() { 
-        console.log ("Inside run() method");
-        console.log(this.rules);
+
+        // console.log(this.rules);
    
         // try {
         //     console.log(this.rules[3][2].length);
@@ -89,11 +89,21 @@ class Validation {
             } // End Inner for loop
 
         } // End Outer for loop
-        console.log(this.validationErrors);
-        return;
-        // return this.validationErrors;
 
-    } // End run() method
+        this.clearRules();
+        // console.log(`this.rules array after calling the this.clearRules method: ${this.rules.length}`);
+
+        const errors = this.validationErrors;
+        this.validationErrors = [];
+
+        return errors;
+
+    } // End run()
+
+    clearRules() {
+        this.rules = [];
+      }
+
 
     // Validation Methods -------------------------------------------------------
     // Tested
@@ -101,7 +111,7 @@ class Validation {
 
         if (input == undefined || input == "") {
             this.validationErrors.push(`${legend} Required`);
-
+        
             return this.validationErrors;
         }
     }

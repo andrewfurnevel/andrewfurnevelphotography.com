@@ -17,10 +17,6 @@ class Authentication extends Controller {
         this.UserModel = new UserModel;
         this.validation = new Validation;
 
-        // this.data = [];
-        // this.errors = [];
-        // this.rules = [];
-
         // this.handleRegistration = this.handleRegistration.bind(this);
 
     }
@@ -82,64 +78,50 @@ class Authentication extends Controller {
     }
     
     handleRegistration = async (req, res) => {
-        // let data = [];
-        // let errors = [];
         
-            try {
-
+        try {
+                
+            let errors = []
             const { username, password, password_confirm } = req.body;
-            
+                
             let result = await this.authenticationModel.isRegistered(username);
             
             if (result) {
                 const data = { username };
                 errors.push("This username already exists. Please choose another.");
-
+                
                 res.render(`${absPath.views}/register`, { data, errors });
-
-            } else {
-                // this.validationErrors = [];
-                // Set the Rules for the Form Input Here
-                this.validation.setRule(['User Name', 'username', req.body.username, ['required', 'alpha_numeric','min_length[8]', 'max_length[20]' ]]);
-                this.validation.setRule(['Passsword', 'password', req.body.password, ['min_length[8]', 'require_special_chars']]);
-                this.validation.setRule(['Confirm Password', 'password_confirm', req.body.password_confirm, [`matches[${password}]`]]);
-                
-                // Run the Input Validation
-                this.validationErrors = this.validation.run();
-                // console.log(this.validationErrors);
-                const data = { username };
-
-                // The test below worked, which means that the problem is with the Validation class!!!
-                let testErrors = ['This is error test 1', ' This is error test 2' ];
-                let errors = testErrors;
-
-                // errors = this.validationErrors;
-
-                console.log(errors.length);
-                // console.log(errors);
-                
-
-                if (errors.length != 0) {
-                    res.render(`${absPath.views}/register`, { data, errors });
-                    return;
-
-                } else {
-
-                    console.log("This would be written to the database at this point");
-                    // result = await this.authenticationModel.registerUser(username, password);
-
-                    if (result) {
-                        // Redirect to the login page
-                        res.redirect('/login');
-                    } else {
-                        // Handle failed registration
-                        res.send('Registration failed. Please try again.');
-                    }
-                }
+                return;  
             }
 
-        } catch (error) {
-            console.error(error);
+            // Set the Rules for the Form Input Here
+            this.validation.setRule(['User Name', 'username', username, ['required', 'alpha_numeric','min_length[8]', 'max_length[20]' ]]);
+            this.validation.setRule(['Passsword', 'password', password, ['min_length[8]', 'require_special_chars']]);
+            this.validation.setRule(['Confirm Password', 'password_confirm', password_confirm, [`matches[${password}]`]]);
+            
+            errors = this.validation.run();
+            
+            if (errors.length > 0) {
+                const data = { username };
+                res.render(`${absPath.views}/register`, { data, errors });
+                // errors = [];
+                return;
+
+            } else {
+
+                result = await this.authenticationModel.registerUser(username, password);
+
+                if (result) {
+                    // Redirect to the login page
+                    res.redirect('/login');
+                } else {
+                    // Handle failed registration
+                    res.send('Registration failed. Please try again.');
+                }
+            }
+            
+        } catch (err) {
+            console.error(err);
             res.status(500).send('Status 500: An error occured [authenticaitonController]');
         }
       
