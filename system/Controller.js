@@ -7,7 +7,7 @@ import Message from './Message.js';
 class Controller {
 
     constructor() {
-
+        this.message = new Message();
     }
 
 

@@ -23,46 +23,47 @@ class Authentication extends Controller {
     
     // Login Methods -------------------------------------------------------------------
     
+  
     login = (req, res) => {
+        const data = {};
+        const errors = [];
         
-        let data = [];
-        let errors = [];
-
-        res.render(`${absPath.views}/login`, { data, errors } );    
-    }    
+        return res.render(`${absPath.views}/login`, { data, errors });
+      };  
     
     handleLogin = async (req, res) => {
 
         try {
-
-            let data = [];
+            let data = {};
             let errors = [];
             const { username, password } = req.body;
             
             let result = await this.authenticationModel.login(username, password);
             
             if (result) {
-                const data = { username };
+                data = { username };
                 
                 // Create Session and JWT
-                res.render(`${absPath.views}/userArea`, { data, errors } )
+                return res.render(`${absPath.views}/userArea`, { data, errors } )
                 
             } else {
                 
-                const data = { username };
-                // data.username = username;
+                data = { username };
                 errors.push("Incorrect Username / Password Combination");
+
                 res.render(`${absPath.views}/login`, { data, errors } );
             }
 
         } catch(error) {
+            
             res.status(500).send("Status 500: An error occured");
         }     
     } // End handleLogin Method
     
     
     logout = (req, res) => {
-        res.render(`${absPath/views}/login`);
+        
+        return res.render(`${absPath/views}/login`);
    
     } // End logout
 
@@ -74,24 +75,22 @@ class Authentication extends Controller {
         let data = [];
         let errors = [];
 
-        res.render(`${absPath.views}/register`, { data, errors });
+        return res.render(`${absPath.views}/register`, { data, errors });
     }
     
     handleRegistration = async (req, res) => {
         
         try {
-                
-            let errors = []
             const { username, password, password_confirm } = req.body;
+            let errors = []
                 
-            let result = await this.authenticationModel.isRegistered(username);
+            let isUserRegistered = await this.authenticationModel.isRegistered(username);
             
-            if (result) {
+            if (isUserRegistered) {
                 const data = { username };
-                errors.push("This username already exists. Please choose another.");
+                errors.push("This username already exists. Please choose another username.");
                 
-                res.render(`${absPath.views}/register`, { data, errors });
-                return;  
+                return res.render(`${absPath.views}/register`, { data, errors });
             }
 
             // Set the Rules for the Form Input Here
@@ -103,25 +102,23 @@ class Authentication extends Controller {
             
             if (errors.length > 0) {
                 const data = { username };
-                res.render(`${absPath.views}/register`, { data, errors });
-                // errors = [];
-                return;
+                return res.render(`${absPath.views}/register`, { data, errors });
 
             } else {
 
                 result = await this.authenticationModel.registerUser(username, password);
 
                 if (result) {
-                    // Redirect to the login page
-                    res.redirect('/login');
+                    return res.redirect('/login');
+
                 } else {
-                    // Handle failed registration
-                    res.send('Registration failed. Please try again.');
+
+                    return res.send('Registration failed. Please try again.');
                 }
             }
             
-        } catch (err) {
-            console.error(err);
+        } catch (error) {
+            console.error(error);
             res.status(500).send('Status 500: An error occured [authenticaitonController]');
         }
       

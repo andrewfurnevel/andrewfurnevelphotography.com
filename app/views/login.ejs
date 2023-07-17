@@ -4,7 +4,7 @@
 <body>
     <%- include('./partials/header.ejs') %>
     
-    <!-- <div class="main-content">  -->
+    <div class="main-content"> 
         
         <!-- <h2>Login</h2> -->
         <div class="login-container">
@@ -23,7 +23,15 @@
                     
             </form>
 
-            <div><%= (data.errors) %></div>
+            <div class="errors">
+                <ul>
+                    <% errors.forEach(error => { %>
+                        <li><%= error %></li>
+                        <br/>
+                    <% }); %>    
+                </ul>
+            </div>
+
         </div>
     </div>
     <%- include('./partials/footer.ejs') %>

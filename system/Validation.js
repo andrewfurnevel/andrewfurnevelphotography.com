@@ -277,7 +277,7 @@ class Validation {
     
     // --------------------------------------------------------------------------
     // Tested
-    natural_number_no_zeros(legend, name, input){
+    natural_number_no_zeros(legend, name, input) {
         
         const regex = /^[1-9]+$/;
         
@@ -305,12 +305,13 @@ class Validation {
     // --------------------------------------------------------------------------
     // Tested
     // Must contain upper and lower case alpha, numeric and special characters.
+
     require_special_chars(legend, name, input) {
         
         const alphanumericRegex = /(?=.*[a-z])(?=.*[A-Z])(?=.*[@!#$%^&*()_?{}\+\-])/;
         
         if (alphanumericRegex.test(input) == false) {
-            this.validationErrors.push(`${legend} Must Contain At Least One of the Following: Upper Case and Lower Case Characters, Numbers and the Following Special Characters @!#$%^&*()_?{}\+-`);
+            this.validationErrors.push(`${legend} Must Contain at Least One of the Following: Upper and Lower Case Characters, Number and the Following Special Characters @!#$%^&*()_?{}\+-`);
             
             return this.validationErrors;
         }
@@ -361,7 +362,7 @@ class Validation {
 
     matches(legend, name, input, match) {
         if (input !== match) {
-            this.validationErrors.push(`${legend} Does Not Match ${match}!`);
+            this.validationErrors.push(`${legend} Does Not Match!`);
 
             return this.validationErrors;
         }
