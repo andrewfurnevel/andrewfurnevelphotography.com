@@ -11,7 +11,6 @@ class Validation {
         this.rules = [];
         this.imput;
         this.currentRule;
-        
     }
 
     setRule(rules) {
@@ -28,21 +27,7 @@ class Validation {
         return regex.test(arg);
     } 
     
-    // Run validaion on the form input
     run() { 
-
-        // console.log(this.rules);
-   
-        // try {
-        //     console.log(this.rules[3][2].length);
-        // }
-
-        // catch {
-        //     console.log('Wrong Number Of Parameters!');
-        //     console.log('Parameter Format Should Be: [label, name, req.body.name, [rules]]')
-        // }
-
-        // console.table(this.rules);
 
         // this.validatinErrors = [];
 
@@ -91,7 +76,6 @@ class Validation {
         } // End Outer for loop
 
         this.clearRules();
-        // console.log(`this.rules array after calling the this.clearRules method: ${this.rules.length}`);
 
         const errors = this.validationErrors;
         this.validationErrors = [];

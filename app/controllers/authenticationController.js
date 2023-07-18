@@ -51,7 +51,7 @@ class Authentication extends Controller {
                 data = { username };
                 errors.push("Incorrect Username / Password Combination");
 
-                res.render(`${absPath.views}/login`, { data, errors } );
+                return res.render(`${absPath.views}/login`, { data, errors } );
             }
 
         } catch(error) {
@@ -139,66 +139,7 @@ class Authentication extends Controller {
     changePassword = async () => {
         
     }
-    
-    
-    // // console.log(data.rowCount);
-    
-    // if (data.rowCount != 0) {
-        
-        //     console.log("This user is already registered");
-        
-        
-        // // if (result.rowcount === 0) {
-            
-            // //         // Hash & Salt
-            // //         const hash = await bcrypt.has(req.body.password, 10)
-            // // console.log(req.body.username);
-            // // console.log(req.body.password);
-            // // console.log(req.body.password_confirm);
-            // // console.log(req.body);
-            // let msg = [];
-            
-        // if (req.body.password !== req.body.password_confirm) {
-            
-            //     // Create Validation Utility Class
-            //     msg.push('The passwords did not match!');
-            
-            //     console.log(msg);
-            //     res.render(`${absPath.adminViews}/register`, {msg})
-            
-            // } else {
-                
-                //     // Send to the Login Model to be written to the database.
-                //     console.log("Entered in Database");
-                //     res.render(`${absPath.adminViews}/admin`)
-                // }
-                
-                
-                // test = (req, res) => {
-                //     console.log(req.body.username);
-                //     console.log(req.body.password);
-                //     console.log(req.body);
-                    
-                //     let data = [];
-                    
-                //     if (error) {
-                        
-                //     }    
-                // }  
-                
-                // res.render(`${config.absPath.adminViews}/login`)
-                
-                // async getUsers(req, res) {
-            
-                //     let data = userModel.getUsers()
-                //     .then((data) => {
-                //         console.log(data.rowCount);
-                //         console.log(data.rows);
-                //         res.render(`${absPath.adminViews}/get-users`, {data});
-                
-                //         });
-                //     }
-                
-            } // End Class
+ 
+} // End Class
 
 export default Authentication;

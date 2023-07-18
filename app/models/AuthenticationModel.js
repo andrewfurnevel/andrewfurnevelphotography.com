@@ -18,10 +18,8 @@ class AuthenticationModel extends Model {
         const hashedPassword = BcryptHelper.hashPassword(password);
 
         try {   
-            
             const sql = `SELECT * FROM users WHERE user_name = $1`;
-            
-            let result = await this.pool.query (sql, [ username ]);
+            const result = await this.pool.query (sql, [ username ]);
             
             // Retrieve User & stored hashed password. Return false if no user found.
             if (!result.rows[0]) {
@@ -43,7 +41,6 @@ class AuthenticationModel extends Model {
 
     // Check if User is Registered ------------------------------------------------------
 
-
     isRegistered = async (username) => {
 
         try {
@@ -56,11 +53,8 @@ class AuthenticationModel extends Model {
                 return true;
                 
             } else {
-                
                 return false;
-
             }
-
 
         } catch (error) {
             console.log(error);
@@ -71,13 +65,10 @@ class AuthenticationModel extends Model {
 
     registerUser = async (username, password) => {
 
-        // console.log(username, password);
-
         try {
             const hashedPassword = BcryptHelper.hashPassword(password);
 
             const sql = "INSERT INTO users (user_name, user_password, user_created, user_last_active, user_verified) VALUES ($1, $2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'false')";
-
             let result = await this.pool.query(sql, [username, hashedPassword]);
             
             return true;
