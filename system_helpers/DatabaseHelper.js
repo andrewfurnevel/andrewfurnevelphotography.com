@@ -27,9 +27,23 @@ class DatabaseHelper {
         // console.log(currentDate.getMinutes());
         console.log(currentDate.getSeconds());
 
-        const seconds = currentDate.getSeconds < '10' ? `0${currentDate.getSeconds()}` : currentDate.getSeconds();
+        // const seconds = currentDate.getSeconds < '10' ? `0${currentDate.getSeconds()}` : currentDate.getSeconds();
         
-        console.log(`${currentDate.getHours()}-${currentDate.getMinutes()}-${seconds}-${timeZoneAbbreviation}`);
+        // console.log(`${currentDate.getHours()}-${currentDate.getMinutes()}-${seconds}-${timeZoneAbbreviation}`);
+
+//--------------------
+
+    // Get the current time components with leading zeros
+    const hours = currentDate.getHours().toString().padStart(2, "0");
+    const minutes = currentDate.getMinutes().toString().padStart(2, "0");
+    const seconds = currentDate.getSeconds().toString().padStart(2, "0");
+
+    // Format the output as a string
+    const formattedTime = `${hours}-${minutes}-${seconds}-${timeZoneAbbreviation}`;
+
+    // Display the result
+    console.log("Current Time with Leading Zeros:", formattedTime);
+
 
         // console.log(currentDate.toISOString())
         // console.log(timeZoneAbbreviation);
