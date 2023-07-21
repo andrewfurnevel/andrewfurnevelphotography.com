@@ -27,12 +27,12 @@ class DateTimeHelper {
     
     static getCurrentTime() {
         const dateTimeObj = this.getDateTimeObj();
-        return `${dateTimeObj.year}-${dateTimeObj.month}-${dateTimeObj.day}`;
+        return `${dateTimeObj.hour}-${dateTimeObj.minute}-${dateTimeObj.second}`;
     }
     
     static getCurrentDateTime() {
         const dateTimeObj = this.getDateTimeObj();
-        return `${dateTimeObj.year}-${dateTimeObj.month}-${dateTimeObj.day}`;
+        return `${dateTimeObj.year}-${dateTimeObj.month}-${dateTimeObj.day}_${dateTimeObj.hour}-${dateTimeObj.minute}-${dateTimeObj.second}`;
     }
     
     static getYear() {
@@ -54,7 +54,7 @@ class DateTimeHelper {
         const dateTimeObj = this.getDateTimeObj();
         return `${dateTimeObj.localTimeZone}`; 
     }
-    
+
 } // End Class
 
 export default DateTimeHelper;
