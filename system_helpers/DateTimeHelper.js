@@ -1,37 +1,61 @@
 'use strict';
 
 class DateTimeHelper {
-    constructor() {
+    constructor() {}
+    
+    static getDateTimeObj() {
 
-        this.currentDate = new Date();
+        const currentDate = new Date();
 
-        this.year = this.currentDate.getFullYear();
-        this.month = this.currentDate.getMonth() + 1;
-        this.day = this.currentDate.getDate();
-        this.hours = this.currentDate.getHours();
-        this.minutes = this.currentDate.getMinutes();
-        this.seconds = this.currentDate.getSeconds();
+        const dateTimeObj= {};
 
-        this.formattedDate = `${this.year}-${this.month}-${this.day}`;
-        this.formattedTime = `${this.hours}:${this.minutes}:${this.seconds}`;
+        dateTimeObj.year = currentDate.getFullYear();
+        dateTimeObj.month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
+        dateTimeObj.day = currentDate.getDate().toString().padStart(2, "0");
+        dateTimeObj.hour = currentDate.getHours().toString().padStart(2, "0");
+        dateTimeObj.minute = currentDate.getMinutes().toString().padStart(2, "0");
+        dateTimeObj.second = currentDate.getSeconds().toString().padStart(2, "0");
+        dateTimeObj.localTimeZone = currentDate.toLocaleString("en", { timeZoneName: "short" }).split(" ").pop();
+
+        return dateTimeObj;
     }
 
     static getCurrentDate() {
-        return `${year}-${month}-${day}`;
+        const dateTimeObj = this.getDateTimeObj();
+        return `${dateTimeObj.year}-${dateTimeObj.month}-${dateTimeObj.day}`;
     }
-
+    
     static getCurrentTime() {
-        return `${hours}:${minutes}:${seconds}`;
+        const dateTimeObj = this.getDateTimeObj();
+        return `${dateTimeObj.year}-${dateTimeObj.month}-${dateTimeObj.day}`;
     }
-
+    
     static getCurrentDateTime() {
-        return this.currentDate.toISOString();
+        const dateTimeObj = this.getDateTimeObj();
+        return `${dateTimeObj.year}-${dateTimeObj.month}-${dateTimeObj.day}`;
+    }
+    
+    static getYear() {
+        const dateTimeObj = this.getDateTimeObj();
+        return `${dateTimeObj.year}`; 
+    }
+    
+    static getMonth() {
+        const dateTimeObj = this.getDateTimeObj();
+        return `${dateTimeObj.month}`;     
     }
 
-    static getYear() {
-        return; 
+    static getDay() {
+        const dateTimeObj = this.getDateTimeObj();
+        return `${dateTimeObj.day}`;     
     }
-}
+    
+    static getLocalTimeZone() {
+        const dateTimeObj = this.getDateTimeObj();
+        return `${dateTimeObj.localTimeZone}`; 
+    }
+    
+} // End Class
 
 export default DateTimeHelper;
 
