@@ -2,7 +2,7 @@
 
 class DateTimeHelper {
     constructor() {}
-    
+
     static getDateTimeObj() {
 
         const currentDate = new Date();
@@ -24,17 +24,17 @@ class DateTimeHelper {
         const dateTimeObj = this.getDateTimeObj();
         return `${dateTimeObj.year}-${dateTimeObj.month}-${dateTimeObj.day}`;
     }
-    
+
     static getCurrentTime() {
         const dateTimeObj = this.getDateTimeObj();
         return `${dateTimeObj.hour}-${dateTimeObj.minute}-${dateTimeObj.second}`;
     }
-    
+
     static getCurrentDateTime() {
         const dateTimeObj = this.getDateTimeObj();
         return `${dateTimeObj.year}-${dateTimeObj.month}-${dateTimeObj.day}_${dateTimeObj.hour}-${dateTimeObj.minute}-${dateTimeObj.second}`;
     }
-    
+
     static getYear() {
         const dateTimeObj = this.getDateTimeObj();
         return `${dateTimeObj.year}`; 
@@ -43,7 +43,7 @@ class DateTimeHelper {
     static getMonth() {
         const dateTimeObj = this.getDateTimeObj();
         return `${dateTimeObj.month}`;     
-    }
+}
 
     static getDay() {
         const dateTimeObj = this.getDateTimeObj();
