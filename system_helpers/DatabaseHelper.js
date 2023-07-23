@@ -16,11 +16,11 @@ class DatabaseHelper {
         // const command = `pg_dumb -U ${user} -h ${host} -p ${port} -d ${database} -f ${backupLocation}_${formattedTime}`;
         // console.log(command);
 
-        console.log(DateTimeHelper.getCurrentDate());
-        console.log(DateTimeHelper.getCurrentTime());
-        console.log(DateTimeHelper.getCurrentDateTime());
-        
-        console.log(DateTimeHelper.getLocalTimeZone());
+        console.log(DateTimeHelper.getCurrentDateTime('YYYY-MM-DD_HH-mmww-ss_TZ'));
+        // console.log(DateTimeHelper.getCurrentTime());
+        // console.log(DateTimeHelper.getCurrentDateTime());
+
+        // console.log(DateTimeHelper.getLocalTimeZone());
     
     // static runTerminalCommand(command) {
     // exec(command, (error, stdout, stderr) => {
