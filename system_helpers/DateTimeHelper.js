@@ -38,22 +38,12 @@ class DateTimeHelper {
       
 
     static isValidDateTimeFormat(input) {
-        // Define the regular expression pattern for the format
-        const sanitizedInput = input.replace(/[_-]/g, ' ');
-        console.log(`This is inside theisValidDareTimeFormat method: ${sanitizedInput}`);
-
+        let sanitizedInput = input.replace(/[_-]/g, ' ');
         const formatPattern = /^(YYYY|MM|DD|HH|mm|ss|TZ)( (YYYY|MM|DD|HH|mm|ss|TZ))*$/;
 
-        if (!formatPattern.test(sanitizedInput)) {
-            console.log("The was a big fucking error!!!");
-            // throw new Error ("Big Error");
-        }
-        // Test the input against the pattern
-
-        console.log(formatPattern.test(sanitizedInput));
-      }
+        return (formatPattern.test(sanitizedInput)) ? sanitizedInput : "Error";
+    }
       
-
 
     /**
      * Gets the current date and time formatted according to the provided format string and specified time zone.
@@ -68,9 +58,10 @@ class DateTimeHelper {
      * // Output: '2023/07/21 21:30:45 GMT'
      */
     static getCurrentDateTime(format = 'YYYY MM DD HH mm ss TZ', timeZone = 'local') {
-        // console.log(`This is insdie the getCurrentDateTime method: ${format}`);
-        this.isValidDateTimeFormat(format);
-        // this.replaceUnderscoresAndDashesWithSpaces(format);
+        
+        if (!this.isValidDateTimeFormat(format)) {
+            console.log("Invalid Date / Time Format");
+        }
         
         const dateTimeObj = this.getDateTimeObj(format);
 
