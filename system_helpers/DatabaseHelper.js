@@ -13,14 +13,10 @@ class DatabaseHelper {
     static test(user, host, port, database, backupLocation) { 
         
         // Display the result
-        // const command = `pg_dumb -U ${user} -h ${host} -p ${port} -d ${database} -f ${backupLocation}_${formattedTime}`;
-        // console.log(command);
+        const command = `pg_dumb -U ${user} -h ${host} -p ${port} -d ${database} -f ${backupLocation}_${DateTimeHelper.getCurrentDateTime('YYYY-MM-DD_HH-mm-ss_TZ')}.sql`;
+        console.log(command);
 
-        console.log(DateTimeHelper.getCurrentDateTime('YYYY-MM-DD_HH-mmww-ss_TZ'));
-        // console.log(DateTimeHelper.getCurrentTime());
-        // console.log(DateTimeHelper.getCurrentDateTime());
-
-        // console.log(DateTimeHelper.getLocalTimeZone());
+        console.log(DateTimeHelper.getCurrentDateTime('YYYY-MM-DD_HH-mm-ss_TZ'));
     
     // static runTerminalCommand(command) {
     // exec(command, (error, stdout, stderr) => {

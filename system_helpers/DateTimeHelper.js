@@ -27,30 +27,21 @@ class DateTimeHelper {
         gmtTimeZone: "GMT" // This will always be GMT (UTC).
       };
     }
-  
-    // static replaceUnderscoresAndDashesWithSpaces(input) {
-    //     // Use the replace method with a regular expression to replace underscores and dashes with spaces
-
-    //     console.log(input);
-    //     console.log(input.replace(/[_-]/g, ' '));
-    //     // return input.replace(/[_-]/g, ' ');
-    // }
       
 
     static isValidDateTimeFormat(input) {
         let sanitizedInput = input.replace(/[_-]/g, ' ');
         const formatPattern = /^(YYYY|MM|DD|HH|mm|ss|TZ)( (YYYY|MM|DD|HH|mm|ss|TZ))*$/;
 
-        return (formatPattern.test(sanitizedInput)) ? sanitizedInput : "Error";
+        // console.log((formatPattern.test(sanitizedInput)) ?  sanitizedInput : false);
+        return (formatPattern.test(sanitizedInput)) ? sanitizedInput : false ;
     }
       
 
     /**
      * Gets the current date and time formatted according to the provided format string and specified time zone.
-     * @param {string} format - The format string specifying the desired date and time format.
-     *                         Defaults to 'YYYY-MM-DD_HH-mm-ss'.
-     * @param {string} timeZone - The time zone for formatting ('local' for local time zone, 'gmt' for GMT (UTC) time zone).
-     *                           Defaults to 'local'.
+     * @param {string} format - The format string specifying the desired date and time format. Defaults to 'YYYY-MM-DD_HH-mm-ss'.
+     * @param {string} timeZone - The time zone for formatting ('local' for local time zone, 'gmt' for GMT (UTC) time zone). Defaults to 'local'.
      * @returns {string} - The formatted date and time string.
      * @example
      * // Example usage:
@@ -60,20 +51,20 @@ class DateTimeHelper {
     static getCurrentDateTime(format = 'YYYY MM DD HH mm ss TZ', timeZone = 'local') {
         
         if (!this.isValidDateTimeFormat(format)) {
-            console.log("Invalid Date / Time Format");
+            return "Invalid Date / Time Format. Must be YYYY MM DD HH mm ss";
         }
         
         const dateTimeObj = this.getDateTimeObj(format);
 
-    const formatMap = {
-        'YYYY': dateTimeObj.year,
-        'MM': dateTimeObj.month,
-        'DD': dateTimeObj.day,
-        'HH': dateTimeObj.hour,
-        'mm': dateTimeObj.minute,
-        'ss': dateTimeObj.second,
-        'TZ': timeZone === 'GMT' ? dateTimeObj.gmtTimeZone : dateTimeObj.localTimeZone
-    };
+        const formatMap = {
+            'YYYY': dateTimeObj.year,
+            'MM': dateTimeObj.month,
+            'DD': dateTimeObj.day,
+            'HH': dateTimeObj.hour,
+            'mm': dateTimeObj.minute,
+            'ss': dateTimeObj.second,
+            'TZ': timeZone === 'GMT' ? dateTimeObj.gmtTimeZone : dateTimeObj.localTimeZone
+        };
       return format.replace(/YYYY|MM|DD|HH|mm|ss|TZ/g, match => formatMap[match]);
     }
   }
