@@ -44,6 +44,8 @@ class Authentication extends Controller {
                 data = { username };
                 
                 // Create Session and JWT
+
+                
                 return res.render(`${absPath.views}/userArea`, { data, errors } )
                 
             } else {

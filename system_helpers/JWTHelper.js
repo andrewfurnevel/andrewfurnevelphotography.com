@@ -8,6 +8,7 @@ class JWTHelper {
 
     jwtSign = (res, req) => {
 
+        return 
     }
 
     verifyToken = (res, req) => {
@@ -18,7 +19,7 @@ class JWTHelper {
 
     }
 
-    
+
 }
 
 export default JWTHelper;
