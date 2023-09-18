@@ -12,6 +12,8 @@ import Portfolio from '../app/controllers/portfolioController.js';
 import Authentication from '../app/controllers/authenticationController.js';
 import Registration from '../app/controllers/registerController.js';
 
+import userArea from '../app/controllers/userAreaController.js'
+
 const router  = express.Router();
 
 const homeController = new Home();
@@ -20,6 +22,8 @@ const contactController = new Contact();
 const portfolioController = new Portfolio();
 const authenticationController = new Authentication();
 const registerController = new Registration();
+
+const userAreaController = new userArea();
 
 // router.use((req, res, next) => {
 //     console.log('New Request Made:');
@@ -49,7 +53,6 @@ router.get('/work', portfolioController.index);
 router.get('/contact', contactController.index);
 
 
-
 // Authentication / Registration Routes
 
 // Login Page
@@ -66,6 +69,9 @@ router.get('/register', authenticationController.register);
 
 // Register Page: Handle Registration Form
 router.post('/register', authenticationController.handleRegistration);
+
+// User Area
+router.get('/userarea', userAreaController.index);
 
 // } 
 

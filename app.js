@@ -5,9 +5,11 @@
 
 'use strict';
 
-// Import modules
+// Import base modules
 import dotenv from 'dotenv';
 import express from 'express';
+
+// Import Custom Routes
 import publicRoutes from './routes/publicRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 
@@ -17,7 +19,7 @@ dotenv.config();
 // Register View Engine
 app.set('view engine', 'ejs');
 
-// Port Config
+// Port Configuration
 app.listen(process.env.PORT, err => {
     if (err) {
         console.log("There was a problem", err);
@@ -39,7 +41,8 @@ app.use("/", publicRoutes);
 
 // 404 Page Not Found
 app.use((req, res) => {
-    res.status(404).render('./views/404', {title: 'Page Not Found'});
+    // res.status(404).render('./views/404', {title: 'Page Not Found'});
+    res.status(404).redirect('./views/404');
 });
 
 

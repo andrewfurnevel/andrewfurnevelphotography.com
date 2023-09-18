@@ -2,12 +2,16 @@
 
 // Imports
 // import express from 'express';
+import jwt from 'jsonwebtoken';
+
 import absPath from '../../_config.js';
+
 import Controller from '../../system/Controller.js';
 import AuthenticationModel from '../models/AuthenticationModel.js';
 import Validation from '../../system/Validation.js';
 // import Message from '../../system/Message.js';
 import UserModel from "../models/UserModel.js";
+
 
 class Authentication extends Controller {
     constructor() { 
@@ -41,12 +45,17 @@ class Authentication extends Controller {
             let result = await this.authenticationModel.login(username, password);
             
             if (result) {
+                // Login was successful
+
                 data = { username };
                 
                 // Create Session and JWT
+                const accessToken = jwt.sign()
 
-                
-                return res.render(`${absPath.views}/userArea`, { data, errors } )
+                // The Redirect is now working
+                res.redirect(`/userarea`);
+                // return res.render(`${absPath.views}/userArea`, { data, errors } );
+
                 
             } else {
                 
