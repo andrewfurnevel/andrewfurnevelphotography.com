@@ -1,5 +1,5 @@
 'use strict';
-
+import jwt from 'jsonwebtoken';
 class JWTHelper {
 
     constructor() {
@@ -7,7 +7,7 @@ class JWTHelper {
     }
 
     jwtSign = (res, req) => {
-
+        const accesstoken = jwt.sign();
         return 
     }
 
