@@ -8,6 +8,7 @@
 // Import base modules
 import dotenv from 'dotenv';
 import express from 'express';
+import cookieParser from 'cookie-parser';
 
 // Import Custom Routes
 import publicRoutes from './routes/publicRoutes.js';
@@ -30,6 +31,8 @@ app.listen(process.env.PORT, err => {
 
 // Static Files
 app.use(express.static('public'));
+
+app.use(cookieParser());
 
 // Handle Post Requests
 app.use(express.json());

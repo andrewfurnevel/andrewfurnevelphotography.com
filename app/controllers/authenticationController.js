@@ -3,6 +3,8 @@
 // Imports
 // import express from 'express';
 import jwt from 'jsonwebtoken';
+import cookieParser from 'cookie-parser';
+
 
 import absPath from '../../_config.js';
 
@@ -22,11 +24,9 @@ class Authentication extends Controller {
         this.validation = new Validation;
 
         // this.handleRegistration = this.handleRegistration.bind(this);
-
     }
     
     // Login Methods -------------------------------------------------------------------
-    
   
     login = (req, res) => {
         const data = {};
@@ -50,12 +50,24 @@ class Authentication extends Controller {
                 data = { username };
                 
                 // Create Session and JWT
-                const accessToken = jwt.sign()
+                const payload = {"username" : username };
 
-                // The Redirect is now working
+                const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30s' });
+
+                const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d'});
+
+                res.cookie('access-token', accessToken, {
+                    httpOnly: true,
+                });
+                
+                // Store Refresh Token in JWT Table in database.
+
+                // console.log(accessToken);
+                // console.log(refreshToken);
+
+                // res.json({message: "You are now logged in"});
+
                 res.redirect(`/userarea`);
-                // return res.render(`${absPath.views}/userArea`, { data, errors } );
-
                 
             } else {
                 

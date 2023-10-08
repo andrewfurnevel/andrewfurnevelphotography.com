@@ -17,6 +17,8 @@ class AuthenticationModel extends Model {
 
         const hashedPassword = BcryptHelper.hashPassword(password);
 
+        // console.log(await this.pool);
+
         try {   
             const sql = `SELECT * FROM users WHERE user_name = $1`;
             const result = await this.pool.query (sql, [ username ]);
@@ -98,14 +100,37 @@ class AuthenticationModel extends Model {
     }
 
     // Verify User ----------------------------------------------------------------------
-
+    
     verifyUser() {
         try {
-
-        } catch (error){
+            
+        } catch (error) {
             console.error(error);
         }
     }
+
+    // Verify User ----------------------------------------------------------------------
+
+    setRefeshToken() {
+
+        try {
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    getRefreshToken() {
+
+        try {
+            const sql = "INSERT INTO jwt "
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+
+
 }
 
 export default AuthenticationModel;
