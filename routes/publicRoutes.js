@@ -12,6 +12,8 @@ import Portfolio from '../app/controllers/portfolioController.js';
 import Authentication from '../app/controllers/authenticationController.js';
 import Registration from '../app/controllers/registerController.js';
 
+import JWTHelper from '../system_helpers/JWTHelper.js';
+
 import userArea from '../app/controllers/userAreaController.js'
 
 const router  = express.Router();
@@ -71,7 +73,7 @@ router.get('/register', authenticationController.register);
 router.post('/register', authenticationController.handleRegistration);
 
 // User Area
-router.get('/userarea', userAreaController.index);
+router.get('/userarea', JWTHelper.verifyToken, userAreaController.index);
 
 // } 
 

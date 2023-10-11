@@ -1,18 +1,16 @@
 'use strict';
 
 // Imports
-// import express from 'express';
 import jwt from 'jsonwebtoken';
-import cookieParser from 'cookie-parser';
-
-
 import absPath from '../../_config.js';
 
 import Controller from '../../system/Controller.js';
 import AuthenticationModel from '../models/AuthenticationModel.js';
 import Validation from '../../system/Validation.js';
 // import Message from '../../system/Message.js';
-import UserModel from "../models/UserModel.js";
+import UserModel from '../models/UserModel.js';
+
+import JWTHelper from '../../system_helpers/JWTHelper.js';
 
 
 class Authentication extends Controller {
@@ -52,6 +50,10 @@ class Authentication extends Controller {
                 // Create Session and JWT
                 const payload = {"username" : username };
 
+                // Issue Access & Refresh Tokens
+
+                JWTHelper.issueJWTs(payload); //This works
+
                 const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30s' });
 
                 const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d'});
@@ -59,13 +61,8 @@ class Authentication extends Controller {
                 res.cookie('access-token', accessToken, {
                     httpOnly: true,
                 });
-                
+
                 // Store Refresh Token in JWT Table in database.
-
-                // console.log(accessToken);
-                // console.log(refreshToken);
-
-                // res.json({message: "You are now logged in"});
 
                 res.redirect(`/userarea`);
                 

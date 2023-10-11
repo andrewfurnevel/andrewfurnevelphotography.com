@@ -6,6 +6,7 @@
 import express from 'express'; 
 import Admin from '../admin/controllers/adminController.js';
 import Authentication from '../admin/controllers/authenticationController.js';
+import JWTHelper from '../system_helpers/JWTHelper.js';
 
 const router  = express.Router();
 const adminController = new Admin();

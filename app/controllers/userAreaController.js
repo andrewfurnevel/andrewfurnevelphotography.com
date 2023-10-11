@@ -11,8 +11,10 @@ class UserArea {
 
         res.render(`${absPath.views}/userArea.ejs`);
 
-        console.log("Access Token");
-        console.log(req.cookies['access-token']);
+        // console.log("Access Token");
+        // console.log(req.cookies['access-token']);
+
+
 
         // console.log("Refresh Token");
         // console.log(req.cookies['refresh-token']);

@@ -123,9 +123,18 @@ class AuthenticationModel extends Model {
     getRefreshToken() {
 
         try {
-            const sql = "INSERT INTO jwt "
+            const sql = "INSERT INTO jwt (user_id, refresh_token);"
         } catch (error) {
             console.error(error);
+        }
+    }
+
+    deleteRefreshToken() {
+
+        try {
+
+        } catch (error) {
+            console.log(error);
         }
     }
 
