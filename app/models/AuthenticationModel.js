@@ -60,7 +60,6 @@ class AuthenticationModel extends Model {
 
             }
 
-
         } catch (error) {
             console.log(error);
         }
@@ -111,9 +110,11 @@ class AuthenticationModel extends Model {
 
     // Verify User ----------------------------------------------------------------------
 
-    setRefeshToken() {
+    setRefeshToken(refreshToken) {
+        console.log(`setRefreshTokenMethod ${refreshToken}`); // Works!!!
 
         try {
+            const sql = "INSERT INTO jwt (user_id, refresh_token);"
 
         } catch (error) {
             console.error(error);
@@ -123,7 +124,6 @@ class AuthenticationModel extends Model {
     getRefreshToken() {
 
         try {
-            const sql = "INSERT INTO jwt (user_id, refresh_token);"
         } catch (error) {
             console.error(error);
         }

@@ -52,10 +52,11 @@ class Authentication extends Controller {
 
                 // Issue Access & Refresh Tokens
                 const accessToken = JWTHelper.issueAccessToken(payload, process.env.ACCESS_TOKEN_SECRET,'30s');
+
                 const refreshToken = JWTHelper.issueRefreshToken(payload, process.env.REFRESH_TOKEN_SECRET, '1d');
 
-                console.log(accessToken);
-                console.log(refreshToken);
+                // console.log(accessToken);
+                // console.log(refreshToken);
 
                 // Should probably rename the accessToken to something more ambiguous later.
                 res.cookie('access-token', accessToken, {
@@ -64,6 +65,7 @@ class Authentication extends Controller {
             
 
                 // Store Refresh Token in JWT Table in database.
+                this.authenticationModel.setRefeshToken(refreshToken);
 
                 res.redirect(`/userarea`);
                 
