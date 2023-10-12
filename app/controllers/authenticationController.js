@@ -1,7 +1,7 @@
 'use strict';
 
 // Imports
-import jwt from 'jsonwebtoken';
+// import jwt from 'jsonwebtoken';
 import absPath from '../../_config.js';
 
 import Controller from '../../system/Controller.js';
@@ -51,16 +51,17 @@ class Authentication extends Controller {
                 const payload = {"username" : username };
 
                 // Issue Access & Refresh Tokens
+                const accessToken = JWTHelper.issueAccessToken(payload, process.env.ACCESS_TOKEN_SECRET,'30s');
+                const refreshToken = JWTHelper.issueRefreshToken(payload, process.env.REFRESH_TOKEN_SECRET, '1d');
 
-                JWTHelper.issueJWTs(payload); //This works
+                console.log(accessToken);
+                console.log(refreshToken);
 
-                const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30s' });
-
-                const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d'});
-
+                // Should probably rename the accessToken to something more ambiguous later.
                 res.cookie('access-token', accessToken, {
                     httpOnly: true,
                 });
+            
 
                 // Store Refresh Token in JWT Table in database.
 

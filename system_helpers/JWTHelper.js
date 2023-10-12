@@ -1,18 +1,16 @@
 'use strict';
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
 class JWTHelper {
 
     constructor() {
     }
 
-    static issueJWTs(payload) {
-        console.log(`issueJWTs Method, ${payload.username}`);
+    static issueAccessToken = (payload, secret, duration) => {
+        return jwt.sign(payload, secret, {expiresIn: duration});
     }
-
-    static jwtSign = (req, res) => {
-        const accesstoken = jwt.sign();
-        return 
+    
+    static issueRefreshToken = (payload, secret, duration) => {
+        return jwt.sign(payload, secret, {expiresIn: duration});
     }
 
     static verifyToken = (req, res, next) => {
@@ -45,11 +43,11 @@ class JWTHelper {
 
     }
 
-    invalidateAccessToken() {
+    invalidateAccessToken = () => {
 
     }
 
-    invalidateReshToken() {
+    invalidateReshToken = () => {
 
     }
 
