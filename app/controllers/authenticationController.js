@@ -42,8 +42,10 @@ class Authentication extends Controller {
             
             let result = await this.authenticationModel.login(username, password);
             
-            if (result) {
+            if (result !== false) {
                 // Login was successful
+
+                console.log(result);
 
                 data = { username };
                 

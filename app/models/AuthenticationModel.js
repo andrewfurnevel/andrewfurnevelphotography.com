@@ -13,30 +13,23 @@ class AuthenticationModel extends Model {
 
     login = async (username, password) => {
         
-        let authPassword = false;
-
-        const hashedPassword = BcryptHelper.hashPassword(password);
-
-        // console.log(await this.pool);
-
-        try {   
+        try { 
+            // No user with that username was found  
             const sql = `SELECT * FROM users WHERE user_name = $1`;
             const result = await this.pool.query (sql, [ username ]);
             
-            // Retrieve User & stored hashed password. Return false if no user found.
-            if (!result.rows[0]) {
-                return false; // No user with that name was found.
+            // No username found or password mismatch: return false
+            if (!result.rows[0] || !(await BcryptHelper.comparePasswords(password, result.rows[0].user_password))) {
+                return false;
             }
-
-            let hashedPass = result.rows[0].user_password;
-
-            const authenticatePassword = await BcryptHelper.comparePasswords(password, hashedPass);
-            return authenticatePassword;
             
+            return result.rows[0];
+
         } catch (error) {
 
             console.log(error(error));
             res.status(500).send('An error occured');
+
             return false;
         }
     }
