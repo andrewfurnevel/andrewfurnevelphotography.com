@@ -8,6 +8,7 @@ class UserArea {
     }
     
     async index(req, res) {
+        console.log();
 
         res.render(`${absPath.views}/userArea.ejs`);
 

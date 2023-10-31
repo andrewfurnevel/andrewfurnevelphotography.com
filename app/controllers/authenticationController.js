@@ -44,30 +44,16 @@ class Authentication extends Controller {
             
             if (result !== false) {
                 // Login was successful
-
-                console.log(result);
-
-                data = { username };
+                // console.log("Method: handleLogin - Login was Successful");
                 
+                // data = { username };
+                // console.log(username);
                 // Create Session and JWT
                 const payload = {"username" : username };
-
+                // console.log(payload);
+                
                 // Issue Access & Refresh Tokens
-                const accessToken = JWTHelper.issueAccessToken(payload, process.env.ACCESS_TOKEN_SECRET,'30s');
-
-                const refreshToken = JWTHelper.issueRefreshToken(payload, process.env.REFRESH_TOKEN_SECRET, '1d');
-
-                // console.log(accessToken);
-                // console.log(refreshToken);
-
-                // Should probably rename the accessToken to something more ambiguous later.
-                res.cookie('access-token', accessToken, {
-                    httpOnly: true,
-                });
-            
-
-                // Store Refresh Token in JWT Table in database.
-                this.authenticationModel.setRefeshToken(refreshToken);
+                JWTHelper.issueTokens(res, payload);
 
                 res.redirect(`/userarea`);
                 
@@ -164,6 +150,16 @@ class Authentication extends Controller {
     changePassword = async () => {
         
     }
+
+    // Password Methods
+    // ------------------------------------------------------------
+
+    // Test to maybe transfer control from a middleware file to a controller.
+
+    static handleJWT = (req, res, next) => {
+
+    }
+
  
 } // End Class
 
