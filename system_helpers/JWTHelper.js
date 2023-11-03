@@ -5,15 +5,15 @@ class JWTHelper {
     constructor() {
     }
 
-    static issueTokens = (res, payload) => {
+    // static issueTokens = (res, payload) => {
 
-        console.log("Issuing tokens");
-        // console.log(payload);
-        this.issueAccessToken(res, payload);
-        this.issueRefreshToken(res, payload);
+    //     console.log("Issuing tokens");
+    //     // console.log(payload);
+    //     this.issueAccessToken(res, payload);
+    //     this.issueRefreshToken(res, payload);
         
-        return;
-    } 
+    //     return;
+    // } 
 
     static issueAccessToken(res, payload) {
 
@@ -25,22 +25,25 @@ class JWTHelper {
             {expiresIn: '30s'}  
         );
 
+        console.log(`Access Token ${signedAccessToken}`);
+        
         res.cookie('access-token', signedAccessToken, {
             httpOnly: true,
         });
-
+        
         return;
     }
     
     static issueRefreshToken = (res, payload) => {
-
+        
         console.log("Method: issueRefreshToken");
-
+        
         const signedRefreshToken = jwt.sign(
             payload,
             process.env.REFRESH_TOKEN_SECRET,
             {expiresIn: '1d'}
-        );
+            );
+            console.log(`Refresh Token ${signedRefreshToken}`);
 
         res.cookie('refresh-token', signedRefreshToken, {
             httpOnly: true,
@@ -80,7 +83,7 @@ class JWTHelper {
                         next();
                     }
                 })
-                // If token expired, verifay refreshToken;
+                // If token expired, verify refreshToken;
                 // Create 403 Access Prohibited Page.
                 // res.redirect('/login');
 
@@ -97,13 +100,18 @@ class JWTHelper {
         // If there is a valid refresh token, issue another access token.
     }
 
-    static issueNewAccessToken() {
+    static deleteTokens() {
 
     }
 
     // Store Refresh Token in JWT Table in database.
     // this.authenticationModel.setRefeshToken(refreshToken);
 
+    static deleteTokens = (req, res) => {
+        res.clearCookie('access-token');
+        res.clearCookie('refresh-token');
+    }
+    
     saveRefreshToken = () => {
 
     }

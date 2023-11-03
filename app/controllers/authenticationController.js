@@ -44,16 +44,16 @@ class Authentication extends Controller {
             
             if (result !== false) {
                 // Login was successful
-                // console.log("Method: handleLogin - Login was Successful");
                 
                 // data = { username };
-                // console.log(username);
                 // Create Session and JWT
                 const payload = {"username" : username };
-                // console.log(payload);
                 
                 // Issue Access & Refresh Tokens
-                JWTHelper.issueTokens(res, payload);
+                JWTHelper.issueAccessToken(res, payload);
+                JWTHelper.issueRefreshToken(res, payload);
+                // JWTHelper.deleteCookies(res, payload);
+                // JWTHelper.issueTokens(res, payload);
 
                 res.redirect(`/userarea`);
                 
@@ -73,10 +73,17 @@ class Authentication extends Controller {
     
     
     logout = (req, res) => {
-        
-        return res.render(`${absPath/views}/login`);
+
+        return res.render(`${absPath/views}/loggedOut`);
    
     } // End logout
+
+
+    handleLogout = (req, res) => {
+        JWTHelper.deleteTokens(req, res);
+
+        res.redirect('/login') // Change this redirect to a logged out page.
+;    }
 
     
     // Registration Methods ------------------------------------------------------------

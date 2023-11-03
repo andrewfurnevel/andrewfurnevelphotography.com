@@ -63,8 +63,8 @@ router.get('/login', authenticationController.login);
 // Login Page: Handle Login Form
 router.post('/login', authenticationController.handleLogin);
 
-// Logout
-router.get('/loggedOut', authenticationController.logout);
+// Logout - Create Logged Out View
+// router.get('/loggedOut', authenticationController.logout);
 
 // Register Page
 router.get('/register', authenticationController.register);
@@ -74,6 +74,10 @@ router.post('/register', authenticationController.handleRegistration);
 
 // User Area
 router.get('/userarea', JWTHelper.verifyToken, userAreaController.index);
+
+
+// Logout
+router.get('/logout', authenticationController.handleLogout);
 
 // } 
 
