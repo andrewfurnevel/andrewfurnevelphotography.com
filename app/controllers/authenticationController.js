@@ -53,7 +53,6 @@ class Authentication extends Controller {
                 JWTHelper.issueAccessToken(res, payload);
                 JWTHelper.issueRefreshToken(res, payload);
                 // JWTHelper.deleteCookies(res, payload);
-                // JWTHelper.issueTokens(res, payload);
 
                 res.redirect(`/userarea`);
                 

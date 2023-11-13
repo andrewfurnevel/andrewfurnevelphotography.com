@@ -45,7 +45,9 @@ app.use("/", publicRoutes);
 // 404 Page Not Found
 app.use((req, res) => {
     // res.status(404).render('./views/404', {title: 'Page Not Found'});
-    res.status(404).redirect('./views/404');
+    // res.status(404).redirect('./views/404'); // Need to create 404 controller
+    
+    res.json('404 Page Not Found');
 });
 
 
