@@ -14,7 +14,7 @@ class JWTHelper {
     constructor() {
     }
 
-// Issue access and REfresh Tokens -----------------------------------
+// Issue access and Refresh Tokens -----------------------------------
 
     static issueAccessToken(res, payload) {
 
@@ -26,7 +26,7 @@ class JWTHelper {
             {expiresIn: '30s'}  
         );
 
-        console.log(`Access Token ${signedAccessToken}`);
+        // console.log(`Access Token ${signedAccessToken}`);
         
         res.cookie('access-token', signedAccessToken, {
             httpOnly: true,
@@ -44,7 +44,8 @@ class JWTHelper {
             process.env.REFRESH_TOKEN_SECRET,
             {expiresIn: '1d'}
             );
-            console.log(`Refresh Token ${signedRefreshToken}`);
+
+            // console.log(`Refresh Token ${signedRefreshToken}`);
 
         res.cookie('refresh-token', signedRefreshToken, {
             httpOnly: true,
@@ -55,33 +56,51 @@ class JWTHelper {
     }
 
 //--------------------------------------------------------------------
+    // Working - Routes accept multiple chained middleware methods.
+    static verifyRole(req, res, next) {
+        console.log("Test Worked!!!");
+        
+        const accessToken = req.cookies['access-token'];
+        jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+  
+            console.log("Decoded in verifyRole Method");
+            console.log(decoded.role);
+
+            if (decoded.role != "A1") {
+                console.log("Access Denied");
+            }
+
+        });
+
+        return next();
+    }
 
     // This will handle the different stages of checking and refreshing access tokens.
 
     static restrictedAccess(req, res, next) {
-        // console.log("Method: restrictedAccess");
+        console.log("Method: restrictedAccess");
         const accessToken = req.cookies['access-token'];
 
         // If there is no access token, redirect to the lgin page.
-        if (accessToken == undefined) {
+        if (!accessToken) {
             console.log("No Access Token was found. Re-directing to login page");
-            res.redirect('/login');
+            return res.redirect('/login');
         }
         
-    
         const verifiedAccessToken = JWTHelper.verifyAccessToken(accessToken);
         
         if(verifiedAccessToken) {
-            next(); // Access Token verified. Allow access to restricted content.
-        } else {
-        
-            // console.log(verifiedAccessToken);
-            const refreshToken = req.cookies['refresh-token'];
+            // Access Token verified. Allow access to restricted content.
+            return next(); 
 
-            // If no 
-            if (refreshToken == undefined) {
+        } else {
+            
+            const refreshToken = req.cookies['refresh-token'];
+            // console.log(verifiedAccessToken);
+
+            if (!refreshToken) {
                 // console.log("No Refresh Token was found. Re-directing to login page.");
-                res.redirect('/login');
+                return res.redirect('/login');
             }
             
             const verifiedRefreshToken = JWTHelper.verifyRefreshToken(refreshToken);
@@ -92,19 +111,20 @@ class JWTHelper {
                 // console.log(verifiedRefreshToken);
                 // console.log(verifiedRefreshToken.username);
 
-                const payload = {"username" : verifiedRefreshToken.username };
+                const payload = { "username" : verifiedRefreshToken.username, "role" : "A1" };
 
                 JWTHelper.issueAccessToken(res, payload);
                 // console.log(req.url)
-                res.redirect(req.url);
+                return res.redirect(req.url);
 
             } else {
 
                 console.log("Refresh Token Verification Failed. Redirecting to login page");
-                res.redirect('/login');
+                return res.redirect('/login');
             }
         }
-    }
+    }  // End restrictedAccess Method
+
 
     // -----------------------------------------------------------------------
     
@@ -114,14 +134,22 @@ class JWTHelper {
 
         jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
             // console.log("Inside jwt.verify - Access Token");
-            // console.log(err);
+            console.log(err);
 
             if (err) { 
                 verifyAccessToken = false;
                 console.log("accessToken err was thrown!");
             }
-            
-            verifyAccessToken = decoded;    
+
+            // Test
+            console.log("verifyAccessToken"); // Temp Test
+            // console.log(decoded.username); // Temp test
+            // console.log(decoded.role); // Temp test
+            // console.log(decoded); // Temp test
+            // End Test
+
+            verifyAccessToken = decoded; 
+
         });
 
         return verifyAccessToken;
@@ -135,15 +163,11 @@ class JWTHelper {
     // Verify Refresh Token ---------------------------------------------------
 
     static verifyRefreshToken(refreshToken) {
+        // If there is a valid refresh token, issue a new access token.
+        console.log('Method: verifyRefreshToken');
          
         // let verifyRefreshToken = false;
         let decodedRefreshToken = false;
-        console.log('Method: verifyRefreshToken');
-        // return true;
-        // If there is a valid refresh token, issue another access token.
-
-        // Get the refresh-token cookie
-        // const refreshToken = req.cookies['refresh-token']; 
 
         if(!refreshToken) {
             console.log("Refresh Token is Missing");
@@ -153,12 +177,12 @@ class JWTHelper {
         
         jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
             
-
             if(err) {
                 console.log("refreshToken err was thrown!");
                 // res.redirect('/login');
 
             } else {
+
                 const payload = decoded.username;
                 decodedRefreshToken = decoded;
                 // console.log("Decoded Refresh Token below");
@@ -168,30 +192,17 @@ class JWTHelper {
         
         return decodedRefreshToken;   
     } 
-    
-
-    
-    static deleteTokens() {
-        
-    }
 
     // Store Refresh Token in JWT Table in database.
     // this.authenticationModel.setRefeshToken(refreshToken);
 
     static deleteTokens = (req, res) => {
+        console.log("Delete Token Cookies fro Client Browser");
         res.clearCookie('access-token');
         res.clearCookie('refresh-token');
     }
     
-    saveRefreshToken = () => {
-
-    }
-
-    invalidateAccessToken = () => {
-
-    }
-
-    invalidateReshToken = () => {
+    addRefreshTokenToBlacklist = () => {
 
     }
 

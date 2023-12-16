@@ -37,7 +37,6 @@ const userAreaController = new userArea();
     
 // PUBLIC ROUTES ------------------------------------------------------
 
-
 // Site Page Routes
 
 // Home '/', index, home - Default
@@ -73,7 +72,7 @@ router.get('/register', authenticationController.register);
 router.post('/register', authenticationController.handleRegistration);
 
 // User Area
-router.get('/userarea', JWTHelper.restrictedAccess, userAreaController.index);
+router.get('/userarea', JWTHelper.restrictedAccess, JWTHelper.verifyRole, userAreaController.index);
 
 
 // Logout

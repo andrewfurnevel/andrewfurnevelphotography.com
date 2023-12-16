@@ -47,7 +47,7 @@ class Authentication extends Controller {
                 
                 // data = { username };
                 // Create Session and JWT
-                const payload = {"username" : username };
+                const payload = {"username" : username, "role" : "A1" };
                 
                 // Issue Access & Refresh Tokens
                 JWTHelper.issueAccessToken(res, payload);
@@ -65,7 +65,6 @@ class Authentication extends Controller {
             }
 
         } catch(error) {
-            
             res.status(500).send("Status 500: An error occured");
         }     
     } // End handleLogin Method
