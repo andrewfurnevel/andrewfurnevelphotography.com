@@ -72,7 +72,7 @@ router.get('/register', authenticationController.register);
 router.post('/register', authenticationController.handleRegistration);
 
 // User Area
-router.get('/userarea', JWTHelper.restrictedAccess, JWTHelper.verifyRole, userAreaController.index);
+router.get('/userarea', JWTHelper.restrictedAccess, JWTHelper.verifyRole("A1"), userAreaController.index);
 
 
 // Logout

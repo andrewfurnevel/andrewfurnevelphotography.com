@@ -57,22 +57,32 @@ class JWTHelper {
 
 //--------------------------------------------------------------------
     // Working - Routes accept multiple chained middleware methods.
-    static verifyRole(req, res, next) {
-        console.log("Test Worked!!!");
-        
-        const accessToken = req.cookies['access-token'];
-        jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
-  
-            console.log("Decoded in verifyRole Method");
-            console.log(decoded.role);
+    static verifyRole(role) {
 
-            if (decoded.role != "A1") {
-                console.log("Access Denied");
-            }
+        // The middleware is receiving the argument but the access-token expiring is not working.
 
-        });
+        return (req, res, next) => {
+            console.log("The role is: " + role);
+            
+            const accessToken = req.cookies['access-token'];
+            
+            jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+                
+                console.log("Decoded in verifyRole Method");
+                console.log(decoded.role);
+                
+                if (decoded.role != role) {
+                    console.log("Access Denied");
+                    return res.redirect('/login');
+                }
 
-        return next();
+                return next();
+            });
+
+
+            return;
+        }
+
     }
 
     // This will handle the different stages of checking and refreshing access tokens.
