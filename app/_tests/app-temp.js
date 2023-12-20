@@ -7,7 +7,7 @@
 // Import modules
 // const config = require(`${process.env.APP_ROOT}/_config.js`);
 // const config = require(`./_config.js`);
-import absPath from './_config.js';
+import absPath from '../../_config.js';
 // console.log(absPath);
 
 // const express = require('express');

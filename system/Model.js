@@ -3,10 +3,8 @@
 'use strict';
 
 // Imports
-// const config = require(`${process.env.APP_ROOT}/_config.js`);
-
-// const DB = require(`${process.env.APP_ROOT}/system/DB.js`);
 import DB from './DB.js';
+// import bcrypt from 'bcrypt';
 
 
 class Model {
@@ -15,13 +13,32 @@ class Model {
           
         this.db = new DB();
         this.pool = this.db.pool;
-        
-        // console.log(this.db);
-        // console.log(this.db.pool);
-        
-        // Client does not work in the model
-        // this.client = this.db.client();
+
     }
+
+    test() {
+        console.log("Hello from Parent Class");
+        const test = "Hello";
+    }
+
+    // hashPassword(password) {
+    //     const salt = bcrypt.genSaltSync(10);
+    //     const hashedPassword = bcrypt.hashSync(password, salt);
+    //     console.log(hashedPassword);
+    //     return hashedPassword;
+    // }
+
+    // compareHashedPassword(password, storedHashedPassword) {
+    //     const passwordsMatch = bcrypt.compareSync(password, storedHashedPassword);
+
+    //     if (passwordsMatch) {
+    //     //   res.send('Login successful!');
+    //       console.log('Login successful!');
+    //     } else {
+    //     //   res.send('Invalid credentials.');
+    //       console.log('Invalid credentials.');
+    //     }
+    // }
 
 } // End Class
 

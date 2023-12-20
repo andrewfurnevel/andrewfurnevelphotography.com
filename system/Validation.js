@@ -1,47 +1,35 @@
 'use strict';
 
+import Message from './Message.js';
+
 class Validation {
     constructor(data) { 
 
         this.validationMethod;
-        this.validationErrors= [];
+        this.validationErrors = [];
 
         this.rules = [];
         this.imput;
         this.currentRule;
     }
 
-
-
-    // Change this to setRule
     setRule(rules) {
         this.rules.push(rules)
-        // console.table(rules);
     }
 
     showRules() {
         // console.table(this.rules);
     }
 
-    // Need to incorporate thid into the run() method.
+    // Need to incorporate this into the run() method.
     checkForArgs(arg) {
         var regex = /\[/g;
         return regex.test(arg);
     } 
     
-    // Run validaion on the entry
     run() { 
-   
-        // try {
-        //     console.log(this.rules[3][2].length);
-        // }
 
-        // catch {
-        //     console.log('Wrong Number Of Parameters!');
-        //     console.log('Parameter Format Should Be: [label, name, req.body.name, [rules]]')
-        // }
-
-        console.table(this.rules);
+        // this.validatinErrors = [];
 
         for ( let i = 0; i < this.rules.length; i++ ) {
 
@@ -70,7 +58,7 @@ class Validation {
                             '${ruleWithArg[1]}'
                         )`);
                     
-                    console.log('');            
+                    // console.log('');            
                 // Rule has no additional arguments   
                 }  else {
                     
@@ -82,33 +70,286 @@ class Validation {
                             '${this.rules[i][2]}'
                         )`);
                 }  
-                console.log('');            
-            } 
-        } 
-        return this.validationErrors;
-    }
+
+            } // End Inner for loop
+
+        } // End Outer for loop
+
+        this.clearRules();
+
+        const errors = this.validationErrors;
+        this.validationErrors = [];
+
+        return errors;
+
+    } // End run()
+
+    clearRules() {
+        this.rules = [];
+      }
+
 
     // Validation Methods -------------------------------------------------------
-
+    // Tested
     required(legend, name, input) {
 
         if (input == undefined || input == "") {
             this.validationErrors.push(`${legend} Required`);
-
+        
             return this.validationErrors;
         }
     }
 
     // --------------------------------------------------------------------------
     
-    matches(legend, name, input, arg) {
+    // Tested
+    min_length(legend, name, input, minLength) {
+        
+        if (input.length < minLength) {
+            this.validationErrors.push(`${legend} Must be at Least ${minLength} Characters`); 
+            
+            return this.validationErrors;      
+        }
+    }
+    
+    // --------------------------------------------------------------------------
+    // Tested
+    max_length(legend, name, input, maxLength) {
+        
+        if (input.length > maxLength) {
+            this.validationErrors.push(`${legend} Cannot be more than ${maxLength} Characters`); 
+            
+            return this.validationErrors;
+        }
+    }
+    
+    // --------------------------------------------------------------------------
+    // Tested   
+    valid_email(legend, name, input){
+        
+        const regex = /[a-zA-Z0-9_+.-]+@[a-zA-z0-9-]+\.[a-zA-Z0-9-.]+/;
+        
+        if (!regex.test(input)) {
+            this.validationErrors.push(`${legend} is Not a Valid Email Address!`); 
+            
+            return this.validationErrors;
+        }
+    }
+    
+    // --------------------------------------------------------------------------
+    // Tested  
+    alpha(legend, name, input){
+        
+        const regex = /^[a-z]+$/i;
+        
+        if (!regex.test(input)) {
+            this.validationErrors.push(`${legend} Can Only Contain Alpha Characters`);
+            
+            return this.validationErrors;
+        }
+    }
+    
+    // --------------------------------------------------------------------------
+    // Tested   
+    numeric(legend, name, input){
+        
+        const regex =/^[0-9]+$/;
+        
+        if (!regex.test(input)) {
+            this.validationErrors.push(`${legend} Can Only Contain Numeric Characters`);
+            
+            return this.validationErrors;
+        }
+    }
+    
+    // --------------------------------------------------------------------------
+    // Tested   
+    alpha_numeric(legend, name, input){
+        
+        const regex = /^[a-zA-Z0-9]+$/;
+        
+        if (!regex.test(input)) {
+            this.validationErrors.push(`${legend} Can Only Contain Alpha Numeric Characters`);
+            
+            return this.validationErrors;
+        }   
+    }
+    
+    // --------------------------------------------------------------------------
+    // Tested   
+    alpha_numeric_spaces(legend, name, input) {
+        
+        const regex = /^[a-zA-Z0-9\s]+$/;
+        
+        if (!regex.test(input)) {
+            this.validationErrors.push(`${legend}: Only Alpha Numberic Characters and Spaces are Allowed`);
+            
+            return this.validationErrors;
+        }
+    }
+    
+    // --------------------------------------------------------------------------
+    // Tested
+    alpha_numeric_dashes(legend, name, input){
+        
+        const regex = /^[a-zA-Z0-9-]+$/;
+        
+        if (!regex.test(input)) {
+            this.validationErrors.push(`${legend}: Only Alpha Numeric Characters and Dashes are Allowed`);
+            
+            return this.validationErrors;
+        }
+    }
+    
+    // --------------------------------------------------------------------------
+    // Tested
+    
+    alpha_numeric_dashes_underscores(legend, name, input) {
+        
+        const regex = /^[a-zA-Z0-9_-]+$/;
+        
+        if (!regex.test(input)) {
+            this.validationErrors.push(`${legend}: Only Alpha Numeric Characters, Underscores and Dashes are Allowed`);
+            
+            return this.validationErrors;
+        }
+    }
+    
+    // --------------------------------------------------------------------------
+    // Tested
+    // Whole numbers that can be positive or negative and include zero.
 
-        if (input !== arg) {
-            this.validationErrors.push(`${legend} Does Not Match ${arg}!`);
+    integer(legend, name, input){
+        
+        const regex = /^[0-9]+$/;
+        
+        if (!regex.test(input)) {
+            this.validationErrors.push(`${legend} Must Be A Positive Integer`);
+            
+            return this.validationErrors;
+        }
+    }
+    
+    // --------------------------------------------------------------------------
+    // Tested
+
+    decimal(legend, name, input){
+        
+        const regex = /\d+\.?\d*/;
+        
+        if (!regex.test(input)) {
+            this.validationErrors.push(`${legend} Must Be A Decimal Number`);
+            
+            return this.validationErrors;
+        }
+    }
+    
+    // --------------------------------------------------------------------------
+    // Tested
+    // Can only be a positive whole integer starting from 1 
+
+    natural_number(legend, name, input){
+        
+        const regex = /^[0-9]+$/;
+        
+        if (!regex.test(input)) {
+            this.validationErrors.push(`${legend} Must Be A Natural Number`);
+            
+            return this.validationErrors;
+        }
+    }
+    
+    // --------------------------------------------------------------------------
+    // Tested
+    natural_number_no_zeros(legend, name, input) {
+        
+        const regex = /^[1-9]+$/;
+        
+        if (!regex.test(input)) {
+            this.validationErrors.push(`${legend} Must Be A Natural Number With No Zeros`);
+            
+            return this.validationErrors;
+        }
+    }
+    
+    // --------------------------------------------------------------------------
+    // Tested
+    // Allows but does not require alpha-numeric and speical characters.
+
+    special_chars(legend, name, input) {
+        
+        const regex = /[a-zA-z0-9@!#$%^&*()_?{}\+-\w]/;
+
+        if (!regex.test(input)) {
+            this.validationErrors.push(`${legend} Can Only Contain Alpha Numeric and @!#$%^&*()_?{}\+- Characters`);
+            
+            return this.validationErrors;
+        }
+    }
+    // --------------------------------------------------------------------------
+    // Tested
+    // Must contain upper and lower case alpha, numeric and special characters.
+
+    require_special_chars(legend, name, input) {
+        
+        const alphanumericRegex = /(?=.*[a-z])(?=.*[A-Z])(?=.*[@!#$%^&*()_?{}\+\-])/;
+        
+        if (alphanumericRegex.test(input) == false) {
+            this.validationErrors.push(`${legend} Must Contain at Least One of the Following: Upper and Lower Case Characters, Number and the Following Special Characters @!#$%^&*()_?{}\+-`);
+            
+            return this.validationErrors;
+        }
+    }
+
+    // --------------------------------------------------------------------------
+    // Tested
+
+    valid_url(legend, name, input){ 
+        
+        const regex = /^(ftp|http|https):\/\/[^ "]+(\.[^ "]+)+$/;
+        
+        if (!regex.test(input)) {
+            this.validationErrors.push(`${legend} Is Not A Valid URL`);
+            
+            return this.validationErrors;
+        }
+        console.log('validURL Method Called');
+    }
+    
+    // ------------------------------------------------------------------------ 
+    // Tested
+    // Tests validity of multiple emails at once.
+
+    valid_emails(legend, name, input){
+
+        input = input.replace(/\s/g, ''); // Remove spaces
+        const inputArr = input.split(',');
+
+        // const regex = /[a-zA-Z0-9_+.-]+@{a-zA-z0-9-]+\.[a-zA-Z0-9-.]+/;
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        let email ='';
+        
+        for(let i = 0; i < inputArr.length; i++) {
+    
+            if (!regex.test(inputArr[i])) {
+            this.validationErrors.push(`${inputArr[i]} is not a valid email address!`); 
+            }
+        }    
+            
+        return this.validationErrors;
+        // console.log('validEmails Method Called');
+    } 
+    
+    // --------------------------------------------------------------------------
+    // Tested
+    // Matches two input fields.
+
+    matches(legend, name, input, match) {
+        if (input !== match) {
+            this.validationErrors.push(`${legend} Does Not Match!`);
 
             return this.validationErrors;
         }
-        console.log(`matches Method Called`);
     }
     
     // --------------------------------------------------------------------------
@@ -123,211 +364,6 @@ class Validation {
         console.log('regexMatch Method Called');
     }
     
-    // --------------------------------------------------------------------------
-
-    minLength(legend, name, input, minLength) {
-
-        if (input.length < minLength) {
-            this.validationErrors.push(`${legend} Must be at Least ${minLength} Characters`); 
-
-            return this.validationErrors;      
-        }
-    }
-
-    // --------------------------------------------------------------------------
-
-    maxLength(legend, name, input, maxLength) {
-
-        if (input.length > maxLength) {
-            this.validationErrors.push(`${legend} Must be at Least ${maxLength} Characters`); 
-
-            return this.validationErrors;
-            }
-        }
-   
-    // --------------------------------------------------------------------------
-    
-    alpha(legend, name, input){
-        
-        const regex = /^[a-z]+$/i;
-        
-        if (!regex.test(input)) {
-            this.validationErrors.push(`${legend} Can Only Contain Alpha Characters`);
-            
-            return this.validationErrors;
-        }
-    }
-    
-    // --------------------------------------------------------------------------
-    
-    numeric(legend, name, input){
-        
-        const regex =/^[0-9]+$/;
-        
-        if (!regex.test(input)) {
-            this.validationErrors.push(`${legend} Can Only Contain Numeric Characters`);
-            
-            return this.validationErrors;
-        }
-    }
-    
-    // --------------------------------------------------------------------------
-
-    alpha_numeric(legend, name, input){
-        
-        const regex = /^[a-z0-9]+$/i;
-
-        if (!regex.test(input)) {
-            this.validationErrors.push(`${legend} Can Only Contain Alpha Numeric Characters`);
-
-            return this.validationErrors;
-        }   
-    }
-
-    // --------------------------------------------------------------------------
-
-    alpha_numeric_spaces(legend, name, input) {
-
-        const regex = /^[a-z0-9\s]+$/i;
-
-        if (!regex.test(input)) {
-            this.validationErrors.push(`${legend}: Only Alph Numberic Characters and Spaces are Allowed`);
-
-            return this.validationErrors;
-        }
-    }
-    
-    // --------------------------------------------------------------------------
-    
-    alpha_numeric_dashes(legend, name, input){
-        
-        const regex = /^[a-zA-Z0-9-]+$/i;
-        
-        if (!regex.test(input)) {
-            this.validationErrors.push(`${legend}: Only Alpha Numeric Characters and Dashes are Allowed`);
-            
-            return this.validationErrors;
-        }
-    }
-    
-    // --------------------------------------------------------------------------
-    
-    alpha_numeric_dashes_underscores(legend, name, input) {
-        
-        const regex = /^[a-zA-Z0-9_-]+$/i;
-        
-        if (!regex.test(input)) {
-            this.validationErrors.push(`${legend}: Only Alpha Numeric Characters, Underscores and Dashes are Allowed`);
-            
-            return this.validationErrors;
-        }
-    }
-    
-    // --------------------------------------------------------------------------
-    
-    integer(legend, name, input){
-        
-        const regex = /^[0-9]+$/;
-        
-        if (!regex.test(input)) {
-            this.validationErrors.push(`${legend} Must Be An Integer`);
-            
-            return this.validationErrors;
-        }
-    }
-    
-    // --------------------------------------------------------------------------
-    
-    decimal(legend, name, input){
-        
-        const regex = /\d+\.?\d*/;
-        
-        if (!regex.test(input)) {
-            this.validationErrors.push(`${legend} Must Be A Decimal Number`);
-            
-            return this.validationErrors;
-        }
-    }
-    
-    // --------------------------------------------------------------------------
-    
-    is_natural(legend, name, input){
-        
-        const regex = /^[0-9]+$/;
-        
-        if (!regex.test(input)) {
-            this.validationErrors.push(`${legend} Must Be A Natural Number`);
-            
-            return this.validationErrors;
-        }
-    }
-    
-    // --------------------------------------------------------------------------
-   
-    is_natural_no_zero(legend, name, input){
-        
-        const regex = /^[1-9]+$/;
-        
-        if (!regex.test(input)) {
-            this.validationErrors.push(`${legend} Must Be A Natural Number With No Zeros`);
-            
-            return this.validationErrors;
-        }
-    }
-    
-    // --------------------------------------------------------------------------
-    
-    valid_email(legend, name, input){
-
-        const regex = /[a-zA-Z0-9_+.-]+@[a-zA-z0-9-]+\.[a-zA-Z0-9-.]+/;
-
-        if (!regex.test(input)) {
-            this.validationErrors.push(`${legend} is Not a Valid Email Address!`); 
-
-            return this.validationErrors;
-        }
-    }
-
-    // ------------------------------------------------------------------------ 
-    // Still to do!!!    
-    valid_emails(inputArr){
-        // Need to reate loop to loop through emails and validation each one.
-        const regex = /[a-zA-Z0-9_+.-]+@{a-zA-z0-9-]+\.[a-zA-Z0-9-.]+/;
-        
-        if (!regex.test(input)) {
-            this.validationErrors.push(`${legend} is Not a Valid Email Address!`); 
-            
-            return this.validationErrors;
-        }
-        console.log('validEmails Method Called');
-    } 
-
-    // --------------------------------------------------------------------------
-
-    special_chars(legend, name, input) {
-
-        const regex = /[@!#$%^&*()_?{}\+-\w]/;
-
-        if (!regex.test(input)) {
-            this.validationErrors.push(`${legend} Can Only Contain Alpha Numeric and @!#$%^&*()_?{}\+- Characters`);
-
-            return this.validationErrors;
-        }
-    }
-
-    // --------------------------------------------------------------------------
-    // Wrong Regex
-    valid_url(legend, name, input){ 
-        
-        const regex = /((http|https):\/\/)(www.)? /;
-        
-        if (!regex.test(input)) {
-            this.validationErrors.push(`${legend} Is Not A Valid URL`);
-            
-            return this.validationErrors;
-        }
-        console.log('validURL Method Called');
-    }
     
     // --------------------------------------------------------------------------
     // Still To Do
@@ -339,19 +375,6 @@ class Validation {
             return this.validationErrors;
         }
         console.log('unique Method Called');   
-    }
-
-    // --------------------------------------------------------------------------
-    // Still To Do
-    unique(legend, name, input) { 
-
-        // Need to add a ccallback to check input against database entries.
-        if (!input) {
-            this.validationErrors.push(`${legend} Has Already Been Taken. Please Choose Another ${legend}`);
-
-            return this.validationErrors;
-        }
-        console.log('unique Method Called');
     }
 
     // --------------------------------------------------------------------------

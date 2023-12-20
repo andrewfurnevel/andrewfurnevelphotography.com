@@ -1,11 +1,9 @@
 'use strict';
 
-class API{
+class EmailHelper {
+
     constructor() {
 
     }
-
-    fetch() {
-
-    }
 }
+

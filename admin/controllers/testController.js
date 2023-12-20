@@ -1,8 +1,14 @@
 'use Strict';
 
-const config = require(`${process.env.APP_ROOT}/_config.js`);
-const TestModel = require(`${config.absPath.adminModels}/TestModel.js`);
-const { Validation } = require(`${config.absPath.system}/Validation.js`);
+// const config = require(`${process.env.APP_ROOT}/_config.js`);
+// const TestModel = require(`${config.absPath.adminModels}/TestModel.js`);
+// const { Validation } = require(`${config.absPath.system}/Validation.js`);
+
+// import express from 'express';
+// import bcrypt from 'bcrypt';
+import config from '../../_config.js';
+// import TestModel from '../models/TestModel.js';
+import Validation from '../../system/Validation.js';
 
 class Test { 
 
@@ -25,10 +31,10 @@ class Test {
         // validation.setRule(['IP Address', 'ip_address', req.body.ip_address, ['required', 'valid_ip']]);
 
         // This starts the validation process and returns an errors array if any are found.
-        this.validationErrors = validation.run();
+        // this.validationErrors = validation.run();
 
         // Returned Errors. Send this to view to shows errors to user.
-        console.log (this.validationErrors);
+        // console.log (this.validationErrors);
 
         // console.log(req.body);
         // Send the input request object to the Validation Class for processing
@@ -42,12 +48,13 @@ class Test {
         // .then((data) => {
         //         console.log(data.rows);
         // });
-
+        console.log("Just before res.render");
         res.render(`${config.absPath.adminViews}/test-form`, this.validationErrors);
+        console.log("Just after res.render");
     }
 
 }
 
-module.exports = { Test };
+export default Test;
 
 

@@ -3,44 +3,40 @@
 
 'use strict';
 
-
 import express from 'express'; 
-const router  = express.Router();
-
 import Admin from '../admin/controllers/adminController.js';
 import Authentication from '../admin/controllers/authenticationController.js';
+import JWTHelper from '../system_helpers/JWTHelper.js';
 
+const router  = express.Router();
 const adminController = new Admin();
 const authenticationController = new Authentication();
 
 // Testing Purposes
 // const { Test } = require('../admin/controllers/testController');
-// const testController = new Test();
+import Test from '../admin/controllers/testController.js';
+const testController = new Test();
 // End Testing
 
 // ADMIN ROUTES ------------------------------------------------------
 
+router.get('/register', adminController.register);
 router.post('/register', authenticationController.register);
 // router.post('/login', authenticationController.checkLogin);
 // router.post('/logout', authenticationController.logout);
 
-// router.post('/test', testController.test);
+router.post('/test', testController.test);
 
 
 // Register Page
-router.get('/register', adminController.register);
 
-
-// router.get('/test', testController.test);
-
-
+router.get('/test', testController.test);
 
 // Login Pagerouter.get('/login', adminController.login);
 router.get('/login', adminController.login);
 
 // Logout PageNeeded
 // router.get('/logout', admimController.logout);
-
 
 // Get User By Id (:id)
 router.get('/get-user/:id', adminController.getUserById);

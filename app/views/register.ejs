@@ -4,17 +4,17 @@
 <body>
     <%- include('./partials/header.ejs') %>
     
-    <!-- <div class="main-content">  -->
+    <div class="main-content"> 
         
         <!-- <h2>Login</h2> -->
         <div class="login-container">
 
-            <form action="" method="POST">
+            <form action="/register" method="POST">
 
                 <legend>Register</legend>
 
                 <label for="username" id="">Username</label>
-                <input type="text" name="username" id="username">
+                <input type="text" name="username" id="username" value="<%= data.username %>">
                 
                 <label for="password">Password</label>
                 <input type="password" name="password" id="password">
@@ -26,13 +26,20 @@
                     
             </form>
 
-            <div class="messages-errors"><%= msg[0] %></div>
+            <div class="errors">
+                <ul>
+                    <% errors.forEach(error => { %>
+                        <li><%= error %></li>
+                        <br/>
+                    <% }); %>    
+                </ul>
+            </div>
 
          </div>
-    <!-- </div> -->
+    </div>
     
         <%- include('./partials/footer.ejs') %>
     
-    </body>
+</body>
 
-    </html>
+</html>

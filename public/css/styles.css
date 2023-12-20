@@ -20,6 +20,8 @@ a {
     /*  Colors */
     --primary-color: #555;
     --primary-hover-color: #777;
+    --errors: #ff0000;
+
 
     /* Formatting */
     --global-padding: 1.0rem;
@@ -114,6 +116,8 @@ form {
     flex-direction: column;
 }
 
+
+
 legend {
     margin-bottom: 20px;
 }
@@ -155,4 +159,14 @@ input:nth-last-child(2) {
     margin: 0 auto;
     padding: 2rem 0.5rem 0 0.5rem;    
 }
+
+.errors {
+    font-size: .8rem;
+    color:#ff0000;
+}
+
+.errors ul li {
+    list-style: dot;
+}
+
 

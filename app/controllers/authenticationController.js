@@ -1,85 +1,171 @@
 'use strict';
 
 // Imports
-const express = require('express');
-// const bcrypt = require('bcrypt');
-const config = require(`${process.env.APP_ROOT}/_config.js`);
-const UserModel = require(`${config.absPath.models}/UserModel.js`);
-const { Validation } = require(`${config.absPath.system}/Validation.js`);
+// import jwt from 'jsonwebtoken';
+import absPath from '../../_config.js';
 
-class Authentication {
+import Controller from '../../system/Controller.js';
+import AuthenticationModel from '../models/AuthenticationModel.js';
+import Validation from '../../system/Validation.js';
+// import Message from '../../system/Message.js';
+import UserModel from '../models/UserModel.js';
+
+import JWTHelper from '../../system_helpers/JWTHelper.js';
+
+
+class Authentication extends Controller {
     constructor() { 
-        
+        super();
+
+        this.authenticationModel = new AuthenticationModel;
+        this.UserModel = new UserModel;
+        this.validation = new Validation;
+
+        // this.handleRegistration = this.handleRegistration.bind(this);
     }
     
-    async login(req, res) {
-
-        res.render(`${config.absPath.views}/login`);
-
-    }    
-
-    async logout(req, res) {
-
-    }
-
-    async register(req, res) {
-
-        let msg =[];
-        res.render(`${config.absPath.adminViews}/register`, {msg});
-    }
+    // Login Methods -------------------------------------------------------------------
+  
+    login = (req, res) => {
+        const data = {};
+        const errors = [];
+        
+        return res.render(`${absPath.views}/login`, { data, errors });
+      };  
     
+    handleLogin = async (req, res) => {
 
-
-
-    async register(req, res) {
-        const validation = new Validation();
-
-        const valRules = {"username" : "isEmpty, isMinLength=8"};
-        
-        validation.run(req.body, valRules);
-        // if (result.rowcount === 0) {
-        
-        //         // Hash & Salt
-        //         const hash = await bcrypt.has(req.body.password, 10)
-        // console.log(req.body.username);
-        // console.log(req.body.password);
-        // console.log(req.body.password_confirm);
-        // console.log(req.body);
-        let msg = [];
-
-        if (req.body.password !== req.body.password_confirm) {
-
-            // Create Validation Utility Class
-            msg.push('The passwords did not match!');
-
-            console.log(msg);
-            res.render(`${config.absPath.adminViews}/register`, {msg})
-
-        } else {
+        try {
+            let data = {};
+            let errors = [];
+            const { username, password } = req.body;
             
-            // Send to the Login Model to be written to the database.
-            console.log("Entered in Database");
-            res.render(`${config.absPath.adminViews}/admin`)
-        }
-    }
+            let result = await this.authenticationModel.login(username, password);
             
+            if (result !== false) {
+                // Login was successful
+                
+                // data = { username };
+                // Create Session and JWT
+                const payload = {"username" : username, "role" : "A1" };
+                
+                // Issue Access & Refresh Tokens
+                JWTHelper.issueAccessToken(res, payload);
+                JWTHelper.issueRefreshToken(res, payload);
+                // JWTHelper.deleteCookies(res, payload);
 
-    async checkLogin(req, res) {
-        console.log(req.body.username);
-        console.log(req.body.password);
-        console.log(req.body);
+                res.redirect(`/userarea`);
+                
+            } else {
+                
+                data = { username };
+                errors.push("Incorrect Username / Password Combination");
+
+                return res.render(`${absPath.views}/login`, { data, errors } );
+            }
+
+        } catch(error) {
+            res.status(500).send("Status 500: An error occured");
+        }     
+    } // End handleLogin Method
+    
+    
+    logout = (req, res) => {
+
+        return res.render(`${absPath/views}/loggedOut`);
+   
+    } // End logout
+
+
+    handleLogout = (req, res) => {
+        JWTHelper.deleteTokens(req, res);
+
+        res.redirect('/login') // Change this redirect to a logged out page.
+;    }
+
+    
+    // Registration Methods ------------------------------------------------------------
+
+    register = async (req, res) => {
 
         let data = [];
+        let errors = [];
 
-        if (error) {
+        return res.render(`${absPath.views}/register`, { data, errors });
+    }
+    
+    handleRegistration = async (req, res) => {
+        
+        try {
+            const { username, password, password_confirm } = req.body;
+            let errors = []
+                
+            let isUserRegistered = await this.authenticationModel.isRegistered(username);
+            
+            if (isUserRegistered) {
+                const data = { username };
+                errors.push("This username already exists. Please choose another username.");
+                
+                return res.render(`${absPath.views}/register`, { data, errors });
+            }
 
+            // Set the Rules for the Form Input Here
+            this.validation.setRule(['User Name', 'username', username, ['required', 'alpha_numeric','min_length[8]', 'max_length[20]' ]]);
+            this.validation.setRule(['Passsword', 'password', password, ['min_length[8]', 'require_special_chars']]);
+            this.validation.setRule(['Confirm Password', 'password_confirm', password_confirm, [`matches[${password}]`]]);
+            
+            errors = this.validation.run();
+            
+            if (errors.length > 0) {
+                const data = { username };
+                return res.render(`${absPath.views}/register`, { data, errors });
+
+            } else {
+
+                result = await this.authenticationModel.registerUser(username, password);
+
+                if (result) {
+                    return res.redirect('/login');
+
+                } else {
+
+                    return res.send('Registration failed. Please try again.');
+                }
+            }
+            
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Status 500: An error occured [authenticaitonController]');
         }
+      
+    } // End register method
+    
+    verifyAccount = async () => {
 
-    }  
-
-    // res.render(`${config.absPath.adminViews}/login`)
+    }
 
 
+
+    // Password Methods ---------------------------------------------------------------
+
+    resetPassword = async () => {
+        
+    }
+    
+    changePassword = async () => {
+        
+    }
+
+    // Password Methods
+    // ------------------------------------------------------------
+
+    // Test to maybe transfer control from a middleware file to a controller.
+
+    static handleJWT = (req, res, next) => {
+
+    }
+
+ 
 } // End Class
 
-module.exports = { Authentication }
+export default Authentication;

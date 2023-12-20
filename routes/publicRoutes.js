@@ -9,7 +9,12 @@ import Home from '../app/controllers/homeController.js';
 import About from '../app/controllers/aboutController.js';
 import Contact from '../app/controllers/contactController.js';
 import Portfolio from '../app/controllers/portfolioController.js';
-// import Authentication from '../app/controllers/authrnticationController.js';
+import Authentication from '../app/controllers/authenticationController.js';
+import Registration from '../app/controllers/registerController.js';
+
+import JWTHelper from '../system_helpers/JWTHelper.js';
+
+import userArea from '../app/controllers/userAreaController.js'
 
 const router  = express.Router();
 
@@ -17,7 +22,10 @@ const homeController = new Home();
 const aboutController = new About();
 const contactController = new Contact();
 const portfolioController = new Portfolio();
-// const authenticationController = new Authentication();
+const authenticationController = new Authentication();
+const registerController = new Registration();
+
+const userAreaController = new userArea();
 
 // router.use((req, res, next) => {
 //     console.log('New Request Made:');
@@ -28,6 +36,8 @@ const portfolioController = new Portfolio();
 // });
     
 // PUBLIC ROUTES ------------------------------------------------------
+
+// Site Page Routes
 
 // Home '/', index, home - Default
 router.get('/', homeController.index);
@@ -43,16 +53,31 @@ router.get('/work', portfolioController.index);
 // Contact Page
 router.get('/contact', contactController.index);
 
-// Login Page
-// router.get('/login', authenticationController.login);
 
-// Logout
-// router.get('/loggedOut', authenticationController.loggedOut);
+// Authentication / Registration Routes
+
+// Login Page
+router.get('/login', authenticationController.login);
+
+// Login Page: Handle Login Form
+router.post('/login', authenticationController.handleLogin);
+
+// Logout - Create Logged Out View
+// router.get('/loggedOut', authenticationController.logout);
 
 // Register Page
-// router.get('/register', authenticationController.register);
+router.get('/register', authenticationController.register);
+
+// Register Page: Handle Registration Form
+router.post('/register', authenticationController.handleRegistration);
+
+// User Area
+router.get('/userarea', JWTHelper.restrictedAccess, JWTHelper.verifyRole(), userAreaController.index);
 
 
-// }
+// Logout
+router.get('/logout', authenticationController.handleLogout);
+
+// } 
 
 export default router;
