@@ -18,7 +18,7 @@ class JWTHelper {
 
     static issueAccessToken(res, payload) {
 
-        console.log("Method: issueAccessToken");
+        // console.log("Method: issueAccessToken");
 
         const signedAccessToken = jwt.sign(
             payload,
@@ -37,7 +37,7 @@ class JWTHelper {
     
     static issueRefreshToken = (res, payload) => {
         
-        console.log("Method: issueRefreshToken");
+        // console.log("Method: issueRefreshToken");
         
         const signedRefreshToken = jwt.sign(
             payload,
@@ -57,38 +57,45 @@ class JWTHelper {
 
 //--------------------------------------------------------------------
     // Working - Routes accept multiple chained middleware methods.
-    static verifyRole(role) {
+    static verifyRole(role = false) {
 
         // The middleware is receiving the argument but the access-token expiring is not working.
+        let verifyRole;
 
         return (req, res, next) => {
             console.log("The role is: " + role);
-            
+            // return next();
             const accessToken = req.cookies['access-token'];
             
-            jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+            // jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
                 
-                console.log("Decoded in verifyRole Method");
-                console.log(decoded.role);
+            //     console.log("Decoded in verifyRole Method");
+            //     console.log(decoded.role);
                 
-                if (decoded.role != role) {
-                    console.log("Access Denied");
-                    return res.redirect('/login');
-                }
+            //     if (decoded.role != role) {
+            //         verifyRole = false;
+            //         console.log("Access Denied");
+            //         // return;
+            //     }
 
-                return next();
-            });
+            //     verifyRole;
 
+            // });
+            
+            // console.log("verifyRole: " + verifyRole);
 
-            return;
+            // if (!verifyRole) {
+            //     return res.redirect('/login');
+            // }
+
+            if (role === false || "A1") { return next(); }
         }
-
     }
 
     // This will handle the different stages of checking and refreshing access tokens.
 
     static restrictedAccess(req, res, next) {
-        console.log("Method: restrictedAccess");
+        // console.log("Method: restrictedAccess");
         const accessToken = req.cookies['access-token'];
 
         // If there is no access token, redirect to the lgin page.
@@ -116,7 +123,7 @@ class JWTHelper {
             const verifiedRefreshToken = JWTHelper.verifyRefreshToken(refreshToken);
             
             if (verifiedRefreshToken) {
-                console.log("Method: restrictedAccess");
+                // console.log("Method: restrictedAccess");
                 // console.log("Refresh Token Verified. Issue new Access Token");
                 // console.log(verifiedRefreshToken);
                 // console.log(verifiedRefreshToken.username);
@@ -139,20 +146,20 @@ class JWTHelper {
     // -----------------------------------------------------------------------
     
     static verifyAccessToken(accessToken) {
-        console.log("Method: verifyAccessToken");
+        // console.log("Method: verifyAccessToken");
         let verifyAccessToken = false;
 
         jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
             // console.log("Inside jwt.verify - Access Token");
-            console.log(err);
-
+                        
             if (err) { 
+                console.log("Error: " + err);
                 verifyAccessToken = false;
                 console.log("accessToken err was thrown!");
             }
 
             // Test
-            console.log("verifyAccessToken"); // Temp Test
+            // console.log("verifyAccessToken"); // Temp Test
             // console.log(decoded.username); // Temp test
             // console.log(decoded.role); // Temp test
             // console.log(decoded); // Temp test
@@ -174,7 +181,7 @@ class JWTHelper {
 
     static verifyRefreshToken(refreshToken) {
         // If there is a valid refresh token, issue a new access token.
-        console.log('Method: verifyRefreshToken');
+        // console.log('Method: verifyRefreshToken');
          
         // let verifyRefreshToken = false;
         let decodedRefreshToken = false;
