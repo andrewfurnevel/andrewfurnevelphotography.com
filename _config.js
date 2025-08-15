@@ -8,7 +8,7 @@ dotenv.config();
 
 const APP_URL = process.env.HOST;
 
-// console.log(APP_URL); // Works !!!
+console.log(APP_URL); // Works !!!
 
 const ENVIRONMENT = process.env.ENVIRONMENT;
 const HOST = process.env.HOST;

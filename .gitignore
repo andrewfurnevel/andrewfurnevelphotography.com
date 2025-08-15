@@ -6,4 +6,6 @@ node_modules
 stderr.log
 tmp/
 temp.js
+.jpg
+.psd
 

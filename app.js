@@ -2,6 +2,8 @@
 // This is the entry point of the application
 // "/" user requests are routed to publicRoutes 
 // "/admin" requests are routed to adminRoutes
+console.log("I'm in app.js");
+
 
 'use strict';
 

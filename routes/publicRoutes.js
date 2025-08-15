@@ -13,6 +13,7 @@ import Authentication from '../app/controllers/authenticationController.js';
 import Registration from '../app/controllers/registerController.js';
 
 import JWTHelper from '../system_helpers/JWTHelper.js';
+import Roles from '../system/Roles.js';
 
 import userArea from '../app/controllers/userAreaController.js'
 
@@ -72,7 +73,7 @@ router.get('/register', authenticationController.register);
 router.post('/register', authenticationController.handleRegistration);
 
 // User Area
-router.get('/userarea', JWTHelper.restrictedAccess, JWTHelper.verifyRole(), userAreaController.index);
+router.get('/userarea', JWTHelper.restrictedAccess, Roles.verifyRole("A1"), userAreaController.index);
 
 
 // Logout

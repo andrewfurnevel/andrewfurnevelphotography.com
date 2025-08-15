@@ -1,5 +1,7 @@
 'use strict';
 import jwt from 'jsonwebtoken';
+import Cookie from '../system/Cookie.js';
+
 class JWTHelper {
 
     // Issue Access Token
@@ -65,7 +67,14 @@ class JWTHelper {
         return (req, res, next) => {
             console.log("The role is: " + role);
             // return next();
+
+            console.log(Cookie.getCookie())
+
             const accessToken = req.cookies['access-token'];
+
+            Cookie.setCookie(accessToken);
+
+            console.log("From verifyRole Class" + accessToken);
             
             // jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
                 

@@ -3,7 +3,31 @@
 
 <body>
     <%- include('./partials/header.ejs') %>
+
     <h1>Contact Page</h1>
+    
+    <div class="contact-form-container">
+
+        <div class="contact-form">
+            
+            <form action="">
+                <label for="email">Email</label>
+                <input id="email" type="text">
+        
+                <label for="subject">Subject</label>
+                <input id="subject" type="text">
+        
+                <label for="body">Message</label>
+                <input id="body" type="text">
+        
+                <button>Send</button>
+            </form>
+    
+        </div>
+
+    </div>
+
+
 
     <%- include('./partials/footer.ejs') %>
 
